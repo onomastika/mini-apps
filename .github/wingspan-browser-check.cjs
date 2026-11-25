@@ -1,5 +1,5 @@
 const {chromium}=require('playwright'), assert=require('node:assert/strict'), fs=require('node:fs');
-(async()=>{fs.mkdirSync('evidence',{recursive:true});const browser=await chromium.launch({headless:true});let errors=[];
+(async()=>{fs.mkdirSync('evidence',{recursive:true});const browser=await chromium.launch({headless:true,channel:'chrome'});let errors=[];
 for(const width of [390,320,1280]){
 const ctx=await browser.newContext({viewport:{width,height:844},deviceScaleFactor:1,isMobile:width<500,hasTouch:width<500});
 const p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400&&!r.url().includes('favicon'))errors.push(r.status()+' '+r.url())});

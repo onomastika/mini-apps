@@ -1,4 +1,4 @@
-name: Wingspan visual smoke
+name: Wingspan final release verification
 on:
   push:
     branches: [wingspan-art-check-20261125]
@@ -7,19 +7,36 @@ permissions:
 jobs:
   browser:
     runs-on: ubuntu-24.04
-    timeout-minutes: 8
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --no-save playwright@1.55.0 && npx playwright install chromium --with-deps
+      - run: npm install --no-save playwright@1.55.0
       - run: |
           python3 -m http.server 8765 --directory public >/tmp/wingspan-server.log 2>&1 &
           node .github/wingspan-browser-check.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: wingspan-visual-evidence
+          name: wingspan-final-evidence
           path: evidence/
           retention-days: 3
+      - name: Verify exact deployed release
+        run: |
+          set -eu
+          origin=https://mini-apps.rossthiof.workers.dev/wingspan
+          for attempt in 1 2 3 4 5; do
+            matched=yes
+            for file in index.html field-guide.css cards.json art/ref-coot.webp art/feeder.svg; do
+              url="$origin/$file"
+              if [ "$file" = index.html ]; then url="$origin/"; fi
+              if ! curl -LfsS --connect-timeout 8 --max-time 12 "$url" -o /tmp/live-wingspan; then matched=no; break; fi
+              if ! cmp -s /tmp/live-wingspan "public/wingspan/$file"; then matched=no; echo "Still stale: $file"; break; fi
+            done
+            if [ "$matched" = yes ]; then echo "LIVE EXACT RELEASE CONFIRMED: 9d6603cf1712e922389bd22978b3ac4c291c0c85"; exit 0; fi
+            sleep 8
+          done
+          echo "Production bytes could not be confirmed"
+          exit 1
