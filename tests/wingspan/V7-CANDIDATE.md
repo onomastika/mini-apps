@@ -97,3 +97,86 @@ Base 7daf3f381fcf86cea5ba38d004f88d48a8295a3b. V6 had 296 executable powers. All
 - Virginia Rail — sequence — 
 - Whiskered Treeswift — sequence — 
 - White-Throated Swift — sequence — 
+
+## Second cycle
+
+Added 78 more guided cards, including discounted/column/tray placement, conditional movement, exact egg transfer, filtered tray selection and actual dice outcomes. Fixed no-payment continuation. Remaining manual: 232.
+
+- Alpine Swift — habitatAction
+- Anna's Hummingbird — feederPick
+- Australian Reed Warbler — place
+- Australian Shelduck — traySync
+- Black-Capped Chickadee — place
+- Black-Headed Gull — observe
+- Blackpoll Warbler — place
+- Brahminy Kite — diceRisk
+- Brant — trayPick
+- Brown Creeper — place
+- Budgerigar — trayPick
+- Canada Warbler — choose
+- Cockatiel — trayPick
+- Common Eider — atomic
+- Common Kingfisher — observe
+- Common Little Bittern — trayPick
+- Correndera Pipit — place
+- Corsican Nuthatch — bonus
+- Eleonora's Falcon — diceCheck
+- Eurasian Golden Oriole — feederPick
+- Eurasian Jay — observe
+- Eurasian Kestrel — diceCheck
+- Eurasian Skylark — bonus
+- Eurasian Tree Sparrow — feederPick
+- Eurasian Wigeon — traySync
+- Eurasian Wren — feederPick
+- European Golden Plover — atomic
+- European Turtle Dove — bonus
+- Ferruginous Pygmy-Owl — atomic
+- Firewood-Gatherer — choose
+- Forest Owlet — diceRisk
+- Garden Warbler — place
+- Golden-Headed Cisticola — place
+- Gould's Finch — place
+- Great Kiskadee — moveHabitat
+- Great Potoo — feederPick
+- Greater Snow Goose — repeat
+- Green Bee-Eater — trayPick
+- Grey Warbler — place
+- Grey-Headed Mannikin — place
+- House Wren — place
+- Indian Courser — traySync
+- Indian Paradise Flycatcher — atomic
+- Laughing Gull — feederPick
+- Lesser Frigatebird — atomic
+- Lineated Woodpecker — moveHabitat
+- Little Owl — observe
+- Little Tinamou — atomic
+- Musk Duck — traySync
+- New Zealand Falcon — atomic
+- North Island Kōkako — feederPick
+- Northern Gannet — diceCheck
+- Northern Saw-Whet Owl — diceCheck
+- Pacific Sea-Eagle — atomic
+- Piping Plover — diceCheck
+- Purple Heron — diceRisk
+- Qupanuaq — handMany
+- Red-Backed Shrike — observe
+- Red-Crested Cardinal — place
+- Red-Crowned Parakeet — atomic
+- Royal Spoonbill — traySync
+- Ruby-Throated Hummingbird — feederPick
+- Rufous Owl — trayPick
+- Sacred Kingfisher — feederPick
+- Sarus Crane — atomic
+- Small Minivet — place
+- Snowy Albatross — trayPick
+- Squacco Heron — trayPick
+- Tawny Owl — atomic
+- Tropical Kingbird — moveHabitat
+- Trumpeter Finch — place
+- Ultramarine Grosbeak — place
+- Weka — feederPick
+- White-Crested Laughingthrush — atomic
+- White-Throated Kingfisher — diceRisk
+- Willie-Wagtail — traySync
+- Yellow Bittern — trayPick
+- Zebra Dove — atomic
