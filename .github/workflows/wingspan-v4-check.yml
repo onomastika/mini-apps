@@ -1,0 +1,29 @@
+name: Wingspan v4 acceptance
+on:
+  push:
+    branches: [wingspan-v4-check-20261126]
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/wingspan/strategy-v4.cjs
+      - run: npm install --no-save playwright-core@1.55.0
+      - run: |
+          CHROME_PATH="$(command -v google-chrome || command -v chromium)"
+          test -n "$CHROME_PATH"
+          export CHROME_PATH
+          python3 -m http.server 8765 --directory public >/tmp/server.log 2>&1 &
+          timeout 100s node .github/wingspan-v4-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wingspan-v4-evidence
+          path: evidence/
+          retention-days: 3
