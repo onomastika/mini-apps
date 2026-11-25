@@ -1,0 +1,14 @@
+const {chromium}=require('playwright-core'),assert=require('node:assert/strict'),fs=require('node:fs');
+(async()=>{fs.mkdirSync('evidence',{recursive:true});const b=await chromium.launch({executablePath:process.env.CHROME_PATH,headless:true,args:['--no-sandbox']});try{
+for(const width of [320,390,1280]){let p=await b.newPage({viewport:{width,height:844},isMobile:width<500,hasTouch:width<500});p.setDefaultTimeout(8000);let errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('dialog',d=>d.accept());await p.goto('http://127.0.0.1:8765/wingspan/',{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>DB?.version===5);
+assert.equal(await p.evaluate(()=>DB.birds.filter(x=>['guided','deterministic'].includes(x.mechanic.mode)).length),209);
+await p.evaluate(()=>{S.stockKnown=true;S.roundKnown=true;S.r=2;S.t=0;S.first=0;S.stock.seed=1;S.stock.worm=1;S.stock.eggs=1;renderAll()});
+await p.locator('#forecastPanel summary').click();await p.waitForFunction(()=>document.querySelectorAll('#forecast li').length===11,{},{timeout:8000});assert.equal(await p.locator('#forecast li').count(),11);assert.match(await p.locator('#forecast').innerText(),/неопределённости/);
+await p.screenshot({path:'evidence/home-'+width+'.png',fullPage:true});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+await p.evaluate(()=>{S.birds=[{...DB.birds.find(x=>x.name==='Cerulean Warbler'),id:'bonus-test',loc:'forest'}];S.stock={worm:0,seed:0,fish:0,rodent:0,fruit:0,nectar:0,eggs:0};S.selectedGoals=[];S.wizard={kind:'play',index:0,queue:[{type:'power',id:'bonus-test'}],before:actionSnapshot()};save();renderAction();document.getElementById('actionDialog').showModal()});
+await p.locator('#actionBody select').selectOption('Anatomist');await p.getByRole('button',{name:'Сохранить бонусы'}).click();assert.equal(await p.evaluate(()=>S.selectedGoals.includes('Anatomist')),true);
+await p.reload({waitUntil:'domcontentloaded'});await p.waitForFunction(()=>DB?.version===5);await p.getByRole('button',{name:'Продолжить →'}).click();await p.getByRole('button',{name:'Отменить действие'}).click();assert.equal(await p.evaluate(()=>S.selectedGoals.length),0);
+await p.locator('.nav [data-tab="catalog"]').click();await p.locator('#dbQuery').fill('Cerulean Warbler');await p.waitForFunction(()=>document.querySelectorAll('#dbList .dbrow').length===1);assert.match(await p.locator('.fit-rating').innerText(),/Guided power/);
+await p.locator('[data-view="cards"]').click();assert.equal(await p.locator('.atlas-card').count(),1);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.deepEqual(errors,[]);await p.close()}
+console.log('V5 browser checks PASS at 320/390/1280');
+}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});
