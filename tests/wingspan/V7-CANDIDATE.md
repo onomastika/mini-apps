@@ -180,3 +180,59 @@ Added 78 more guided cards, including discounted/column/tray placement, conditio
 - Willie-Wagtail — traySync
 - Yellow Bittern — trayPick
 - Zebra Dove — atomic
+
+## Third cycle
+
+Added 51 guided rules including round-action tracking, variable food exchange, observed deck filters, distributed egg/cache/tuck effects. Added four round goal metrics and optional two-player green/blue round-score calculator. Manual remaining: 181.
+
+- American Wigeon — targets
+- Black-Naped Oriole — roundCheck
+- Blood Pheasant — absentFood
+- Brown Falcon — deckTest
+- Brown Shrike — atomic
+- Common Chaffinch — targets
+- Common Chiffchaff — targets
+- Common Moorhen — atomic
+- Common Teal — draw
+- Eurasian Nutcracker — targets
+- European Serin — foodMany
+- Fernbird — deckTest
+- Giant Fish Owl — bonus
+- Goldcrest — atomic
+- Grassland Sparrow — foodMany
+- Gray Wagtail — roundCheck
+- Great Argus — atomic
+- Grey Butcherbird — deckTest
+- Keel-Billed Toucan — targets
+- Kelp Gull — foodMany
+- King Eider — if
+- Korimako — foodMany
+- Large-Billed Crow — atomic
+- Lazuli Bunting — targets
+- Magenta Petrel — bonusDiscard
+- Magpie-Lark — atomic
+- Moltoni's Warbler — roundCheck
+- Mute Swan — targets
+- Peaceful Dove — foodMany
+- Pileated Woodpecker — targets
+- Red-Billed Scythebill — absentFood
+- Rifleman — absentFood
+- Rook — atomic
+- Rufous Night-Heron — deckTest
+- Rufous-Collared Sparrow — atomic
+- Short-Toed Treecreeper — atomic
+- South Island Takahē — bonus
+- Southern Rough-Winged Swallow — atomic
+- Southern Screamer — choose
+- Stitchbird — atomic
+- Vampire Ground-Finch — atomic
+- Varied Thrush — atomic
+- Wedge-Tailed Eagle — deckTest
+- Welcome Swallow — targets
+- Western Meadowlark — targets
+- Western Rockhopper Penguin — atomic
+- White Wagtail — roundCheck
+- White-Throated Magpie-Jay — targets
+- White-Tipped Dove — targets
+- Whooper Swan — targets
+- Yellowhammer — roundCheck
