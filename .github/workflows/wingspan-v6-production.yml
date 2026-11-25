@@ -1,0 +1,26 @@
+name: Wingspan V6 production verification
+on:
+  push:
+    branches: [wingspan-v6-production-20261126]
+permissions:
+  contents: read
+jobs:
+  production:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify published HTML and catalog against accepted files
+        run: |
+          for attempt in $(seq 1 18); do
+            curl -fsSL --max-time 10 -H 'Cache-Control: no-cache' "https://mini-apps.rossthiof.workers.dev/wingspan/cards.json?verify=v6-${GITHUB_RUN_ID}-$attempt" -o /tmp/live-wingspan.json || true
+            curl -fsSL --max-time 10 -H 'Cache-Control: no-cache' "https://mini-apps.rossthiof.workers.dev/wingspan/?verify=v6-${GITHUB_RUN_ID}-$attempt" -o /tmp/live-wingspan.html || true
+            if cmp -s /tmp/live-wingspan.json public/wingspan/cards.json && cmp -s /tmp/live-wingspan.html public/wingspan/index.html; then
+              echo 'PRODUCTION V6 MATCH: HTML + catalog'
+              sha256sum /tmp/live-wingspan.json /tmp/live-wingspan.html
+              exit 0
+            fi
+            sleep 5
+          done
+          echo 'Production not yet identical to accepted V6'
+          exit 1
