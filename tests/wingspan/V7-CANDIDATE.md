@@ -236,3 +236,201 @@ Added 51 guided rules including round-action tracking, variable food exchange, o
 - White-Tipped Dove — targets
 - Whooper Swan — targets
 - Yellowhammer — roundCheck
+
+## Fourth cycle
+
+Preflight prevents paid extra placement without a legal follow-up. Forecast includes projected egg bonus eligibility, distinct-habitat startup affordability, new sequence combinations, stochastic cache. Functional suites: 14 V7 + 7 V6 + 14 V5 groups. Independent controlled replay: 30-card fixture, 26 own turns, fixed seeds, independent payment, named draws, powers and scoring; no competitive round goals/full opponent or complete expansions. Results:
+
+```json
+[
+  {
+    "version": 5,
+    "cases": [
+      {
+        "seed": 17,
+        "score": 59,
+        "categories": {
+          "birds": 23,
+          "eggs": 18,
+          "tucked": 9,
+          "cached": 3,
+          "bonus": 6
+        },
+        "turns": 26,
+        "actions": {
+          "play": 6,
+          "draw": 4,
+          "food": 12,
+          "egg": 4
+        },
+        "fallbacks": 0
+      },
+      {
+        "seed": 71,
+        "score": 59,
+        "categories": {
+          "birds": 36,
+          "eggs": 2,
+          "tucked": 9,
+          "cached": 0,
+          "bonus": 12
+        },
+        "turns": 26,
+        "actions": {
+          "play": 9,
+          "food": 2,
+          "draw": 12,
+          "egg": 3
+        },
+        "fallbacks": 0
+      },
+      {
+        "seed": 2026,
+        "score": 53,
+        "categories": {
+          "birds": 20,
+          "eggs": 15,
+          "tucked": 12,
+          "cached": 0,
+          "bonus": 6
+        },
+        "turns": 26,
+        "actions": {
+          "play": 5,
+          "egg": 7,
+          "draw": 10,
+          "food": 4
+        },
+        "fallbacks": 0
+      }
+    ],
+    "mean": 57
+  },
+  {
+    "version": 6,
+    "cases": [
+      {
+        "seed": 17,
+        "score": 57,
+        "categories": {
+          "birds": 23,
+          "eggs": 18,
+          "tucked": 10,
+          "cached": 0,
+          "bonus": 6
+        },
+        "turns": 26,
+        "actions": {
+          "play": 6,
+          "food": 15,
+          "draw": 3,
+          "egg": 2
+        },
+        "fallbacks": 0
+      },
+      {
+        "seed": 71,
+        "score": 62,
+        "categories": {
+          "birds": 22,
+          "eggs": 18,
+          "tucked": 16,
+          "cached": 0,
+          "bonus": 6
+        },
+        "turns": 26,
+        "actions": {
+          "play": 6,
+          "food": 8,
+          "egg": 5,
+          "draw": 7
+        },
+        "fallbacks": 0
+      },
+      {
+        "seed": 2026,
+        "score": 59,
+        "categories": {
+          "birds": 19,
+          "eggs": 17,
+          "tucked": 17,
+          "cached": 0,
+          "bonus": 6
+        },
+        "turns": 26,
+        "actions": {
+          "play": 5,
+          "egg": 6,
+          "food": 11,
+          "draw": 4
+        },
+        "fallbacks": 0
+      }
+    ],
+    "mean": 59.333333333333336
+  },
+  {
+    "version": 7,
+    "cases": [
+      {
+        "seed": 17,
+        "score": 60,
+        "categories": {
+          "birds": 20,
+          "eggs": 18,
+          "tucked": 18,
+          "cached": 0,
+          "bonus": 4
+        },
+        "turns": 26,
+        "actions": {
+          "play": 5,
+          "food": 17,
+          "draw": 2,
+          "egg": 2
+        },
+        "fallbacks": 0
+      },
+      {
+        "seed": 71,
+        "score": 63,
+        "categories": {
+          "birds": 24,
+          "eggs": 10,
+          "tucked": 19,
+          "cached": 0,
+          "bonus": 10
+        },
+        "turns": 26,
+        "actions": {
+          "play": 7,
+          "food": 7,
+          "egg": 5,
+          "draw": 7
+        },
+        "fallbacks": 0
+      },
+      {
+        "seed": 2026,
+        "score": 54,
+        "categories": {
+          "birds": 21,
+          "eggs": 15,
+          "tucked": 12,
+          "cached": 0,
+          "bonus": 6
+        },
+        "turns": 26,
+        "actions": {
+          "play": 6,
+          "egg": 7,
+          "food": 4,
+          "draw": 9
+        },
+        "fallbacks": 0
+      }
+    ],
+    "mean": 59
+  }
+]
+```
