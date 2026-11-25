@@ -42,7 +42,7 @@ function benchmark(versions,mock,seeds=[17,71,2026]){
   let full=v.db,db={...full,birds:full.birds.filter(b=>effects.has(b.name))};if(db.birds.length!==names.length)throw Error('benchmark fixture missing cards');
   let ui=mock(v.html,db).ui,random=rng(seed),deck=shuffle(names,random).map(n=>db.birds.find(b=>b.name===n)),foodRolls=Array.from({length:26},()=>Array.from({length:50},()=>faces[Math.floor(random()*6)])),oppRolls=Array.from({length:26},()=>random()<.4);
   let stock=Object.fromEntries(K.map(k=>[k,0])),birds=[],tray=[],discard=[],round=0,turn=0,playedKinds=[],actions=[],fallbacks=0,roll=[],rollIndex=0;stock.eggs=0;stock.nectar=0;
-  const make=(b,loc)=>({...b,id:'c'+b.id,loc,eggsOn:0,tuckedOn:0,cachedOn:0}),row=h=>birds.filter(b=>b.loc===h),board=()=>birds.filter(b=>H.includes(b.loc)),hand=()=>birds.filter(b=>b.loc==='hand'),eggTotal=()=>board().reduce((s,b)=>s+b.eggsOn,0),free=b=>b.capacity-b.eggsOn,food=n=>{stock[n]++},capacity=()=>board().reduce((s,b)=>s+free(b),0);
+  const make=(b,loc)=>({...b,id:'c'+b.id,loc,eggsOn:0,tuckedOn:0,cachedOn:0}),row=h=>birds.filter(b=>b.loc===h).sort((a,b)=>(a.slotOrder??0)-(b.slotOrder??0)),board=()=>birds.filter(b=>H.includes(b.loc)),hand=()=>birds.filter(b=>b.loc==='hand'),eggTotal=()=>board().reduce((s,b)=>s+b.eggsOn,0),free=b=>b.capacity-b.eggsOn,food=n=>{stock[n]++},capacity=()=>board().reduce((s,b)=>s+free(b),0);
   function pull(n){for(let i=0;i<n&&deck.length;i++)birds.push(make(deck.shift(),'hand'))}
   function fill(){while(tray.length<3&&deck.length)tray.push(deck.shift())}
   function putEgg(target,n=1){let m=Math.min(n,free(target));target.eggsOn+=m;stock.eggs+=m}
@@ -91,7 +91,7 @@ function benchmark(versions,mock,seeds=[17,71,2026]){
     if(kind==='play')play(choice);
     else if(kind==='egg'){eggs([2,2,3,3,4,4][row('grass').length]);for(let b of row('grass').slice().reverse())power(b,'brown')}
     else if(kind==='food'){gainFood([1,1,2,2,3,3][row('forest').length],advice.food||p?.steps[0]?.food);for(let b of row('forest').slice().reverse())power(b,'brown')}
-    else {kind='draw';let n=[1,1,2,2,3,3][row('water').length],wanted=p?.steps[0]?.card;let target=tray.find(b=>b.name===wanted);if(target){birds.push(make(target,'hand'));tray=tray.filter(b=>b!==target);n--}pull(n);for(let b of row('water').slice().reverse())power(b,'brown')}
+    else {kind='draw';let n=[1,1,2,2,3,3][row('water').length],wanted=advice.card||p?.steps[0]?.card;let target=tray.find(b=>b.name===wanted);if(target){birds.push(make(target,'hand'));tray=tray.filter(b=>b!==target);n--}pull(n);for(let b of row('water').slice().reverse())power(b,'brown')}
     if(oppRolls[turn]){ /* fixed opponent event; benchmark cards have no pink power */ }
     fill();playedKinds.push(kind);actions.push(kind);
     if(stock.eggs!==eggTotal()||board().some(b=>b.eggsOn<0||b.eggsOn>b.capacity)||Object.values(stock).some(n=>n<0)||H.some(h=>row(h).length>5))throw Error('independent replay invariant');
@@ -105,4 +105,4 @@ function benchmark(versions,mock,seeds=[17,71,2026]){
  return versions.map(v=>{let cases=seeds.map(s=>replay(v,s));return {version:v.version,cases,mean:cases.reduce((s,c)=>s+c.score,0)/cases.length}})
 }
 const versions=['ebb4a6f10b27bbc82b62bd1f650cebb63c3c4b7f','7daf3f381fcf86cea5ba38d004f88d48a8295a3b',null].map((ref,i)=>({version:i+5,html:ref?execFileSync('git',['show',ref+':public/wingspan/index.html'],{encoding:'utf8'}):fs.readFileSync('public/wingspan/index.html','utf8'),db:JSON.parse(ref?execFileSync('git',['show',ref+':public/wingspan/cards.json'],{encoding:'utf8'}):fs.readFileSync('public/wingspan/cards.json','utf8'))}));
-const v=versions[2];const reg=v6Checks(v.html,v.db,versions[0].html,versions[0].db,modernMock,verify);console.log(JSON.stringify({v5:reg.baseline,v6:reg.passed,v7:v7Checks(v.html,v.db,modernMock),benchmark:benchmark(versions,mock)},null,2));
+const v=versions[2];const reg=v6Checks(v.html,v.db,versions[0].html,versions[0].db,modernMock,verify);console.log(JSON.stringify({v5:reg.baseline,v6:reg.passed,v7:v7Checks(v.html,v.db,modernMock),benchmark:benchmark(versions,mock,[17,71,2026,19,43,113,7,29,101,311,809,1729])},null,2));

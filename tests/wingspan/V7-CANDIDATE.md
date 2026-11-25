@@ -434,3 +434,13 @@ Preflight prevents paid extra placement without a legal follow-up. Forecast incl
   }
 ]
 ```
+
+## Cycle 5 — strategic search and independent replay correction
+
+The replay board now activates in placement order rather than acquisition order. The planner uses a 24-state beam and does not distinguish round-action histories when no relevant round-check power is available in board/hand. Recommendations propagate the selected tray card; single-source egg payments are prefilled. Twelve fixed seeds: 17, 71, 2026, 19, 43, 113, 7, 29, 101, 311, 809, 1729.
+
+- V5: mean 54.00; scores 59, 59, 53, 63, 41, 69, 43, 41, 63, 53, 50, 54; fallback actions 0.
+- V6: mean 61.58; scores 59, 59, 59, 65, 60, 68, 53, 63, 63, 67, 65, 58; fallback actions 0.
+- V7: mean 63.92; scores 62, 58, 63, 74, 63, 75, 50, 53, 64, 70, 63, 72; fallback actions 0.
+
+Controlled one-player fixture, not a full competitive win-rate test. First six seeds informed tuning; last six are additional validation. All 35 regression groups passed locally.
