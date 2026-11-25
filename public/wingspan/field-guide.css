@@ -66,3 +66,53 @@ dialog{background:linear-gradient(#fcf5e6ef,#f7ead0ef),url('./art/paper.svg');bo
 @media(max-width:365px){main{padding-left:9px;padding-right:9px}.atlas-header{margin-left:-9px;margin-right:-9px}.atlas-header::before{left:-55px}.atlas-header::after{right:-110px}.atlas-title h1{font-size:39px}.atlas-subtitle{font-size:11px}.header-tools{right:7px}.field-hab{grid-template-columns:26% minmax(62px,1fr) auto 12px;gap:5px}.field-thumbs img{width:29px;height:34px}.field-hab-label b{font-size:16px}.nav button span{font-size:11px}.qres small{font-size:10px}.qres{padding:4px}#quickStock{grid-template-columns:repeat(2,minmax(0,1fr))}.bird-thumb{width:39px;height:40px}.handrow button{padding:8px 6px}}
 @media(min-width:540px){main{padding:14px 22px 105px}.atlas-header{height:172px;margin:0 -22px 10px}.atlas-header::before{left:-2px;width:240px;height:165px;background-size:220px auto,245px auto}.atlas-header::after{right:-45px;width:350px;height:170px}.atlas-subtitle{font-size:16px}.field-hab{grid-template-columns:31% 1fr auto 25px;min-height:90px}.field-land{height:90px}.field-thumbs img{width:53px;height:54px}.field-hab-label b{font-size:23px}.qres{grid-template-columns:44px 1fr 44px}.qres small{grid-column:1/-1;flex-direction:row;justify-content:center;gap:5px}.qres b{grid-column:2;grid-row:2}.qres button:first-of-type{grid-row:2;grid-column:1}.qres button:last-of-type{grid-row:2;grid-column:3}.nav{max-width:740px;margin:auto}.advice-hero{min-height:144px}.advice-bird{right:12px;max-width:265px}.nav button span{font-size:15px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Refined after checking real Chromium screenshots. Art-only crops from the approved concept, not a static UI. */
+.atlas-header{justify-content:center;grid-template-columns:minmax(0,1fr);justify-items:center;height:140px}
+.atlas-title{width:max-content;max-width:76%;padding-top:12px;background:radial-gradient(ellipse,#f5eddaee 35%,#f5edda00 80%)}
+.atlas-header::before{left:-18px;bottom:0;width:174px;height:135px;background:url('./art/ref-header-bird.webp') left bottom/contain no-repeat;mask-image:linear-gradient(90deg,#000 54%,transparent 100%);opacity:1}
+.atlas-header::after{right:-18px;bottom:0;width:174px;height:135px;background:url('./art/ref-header-lake.webp') right bottom/contain no-repeat;mask-image:linear-gradient(270deg,#000 60%,transparent 100%);opacity:.92}
+.atlas-title h1{font-size:clamp(42px,11vw,62px)}
+.atlas-subtitle{font-size:14px}
+.header-tools{top:3px;right:10px}
+.header-tools .icon-help,.header-tools .home-link{background:#fbf3dfed}
+#advice .advice-hero{min-height:113px;margin:7px -5px 0;padding:0 5px 6px;border-radius:10px}
+.advice-content{position:relative;z-index:1;min-width:0}
+.advice-hero:has(.advice-bird) .advice-content{max-width:68%}
+.advice-hero:has(.advice-bird) h2,.advice-hero:has(.advice-bird) .advice-lead{max-width:none}
+.advice-hero:before{opacity:.47;background-image:linear-gradient(90deg,#fbf4e5 12%,#fbf4e5ee 50%,#fbf4e500),url('./art/ref-header-lake.webp');background-size:cover}
+#advice[data-land=forest] .advice-hero:before{background-image:linear-gradient(90deg,#fbf4e5 12%,#fbf4e5ee 50%,#fbf4e500),url('./art/ref-forest.webp')}
+#advice[data-land=grass] .advice-hero:before{background-image:linear-gradient(90deg,#fbf4e5 12%,#fbf4e5ee 50%,#fbf4e500),url('./art/ref-grass.webp')}
+.advice-hero.painted-coot:before{opacity:.12}
+.advice-hero.painted-coot .advice-bird{right:-8px;bottom:-2px;width:48%;max-width:270px;mask-image:linear-gradient(90deg,transparent 0%,#000 22%);border-radius:12px;filter:none;z-index:0}
+.advice-hero.painted-coot .advice-content{max-width:65%;text-shadow:0 0 5px #fbf3df}
+.advice-cost{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px;font-size:14px;color:#594721;border:1px solid #d2bd8e;border-radius:11px;background:#fbf0d7ee;padding:6px 9px;line-height:1.25;max-width:100%}
+.advice-location{font-size:13px;color:#37503a;margin:8px 0 2px}
+#advice h2{margin:9px 0 9px;font-size:clamp(23px,5.8vw,34px)}
+#advice .note{margin:8px 0;padding:9px}
+#advice .quiet-details{margin-top:9px;padding-bottom:0}
+.resource-panel{padding-bottom:10px}
+#quickStock{grid-template-columns:repeat(auto-fit,minmax(43px,1fr));gap:3px;align-items:stretch}
+.res-tile{min-width:0;min-height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 1px 5px;gap:2px;background:#f8edd6;border:1px solid #e0cda4;border-radius:9px;color:#344a30}
+.res-tile img{width:32px;height:30px;object-fit:contain}
+.res-tile b{font:700 21px/1 var(--serif);font-variant-numeric:tabular-nums}
+.res-tile small{font-size:9px;line-height:1.1;color:#62583e;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.res-tile.selected{border:2px solid #6e824f;padding:3px 0 4px;background:#ece9d0;box-shadow:inset 0 0 0 1px #fff8e2}
+#quickResourceEditor:not([hidden]){display:grid;grid-template-columns:minmax(0,1fr) 44px 35px 44px;gap:5px;align-items:center;margin:8px 0 0;padding:6px 8px;border-radius:10px;background:#f1e4c8;border:1px solid #d2be93}
+#quickResourceEditor button{min-height:44px;padding:0;background:#fcf5e1;border:1px solid #cdbd94;color:#3c563a;font-size:22px}
+#quickResourceEditor output{font:700 23px var(--serif);text-align:center}
+.res-edit-name{font:700 17px var(--serif)}
+.resource-hint{font-size:11px;margin:7px 0 1px}
+.resource-panel .setup{min-height:44px;margin:0}
+.resource-panel .quiet-details{margin-top:0;padding:2px 0 0}
+.field-land{object-fit:cover;mask-image:linear-gradient(90deg,#000 73%,transparent)}
+.field-hab{min-height:66px}
+.field-land{height:66px}
+.field-hab.forest{background:#e6e8d0}.field-hab.grass{background:#f4e8c6}.field-hab.water{background:#e1e7db}
+.hab.forest{background-image:linear-gradient(90deg,#e9ecd9fa,#e9ecd9a8),url('./art/ref-forest.webp')}
+.hab.grass{background-image:linear-gradient(90deg,#f2e8c8fa,#f2e8c8a8),url('./art/ref-grass.webp')}
+.hab.water{background-image:linear-gradient(90deg,#e1e8ddfa,#e1e8dda8),url('./art/ref-water.webp')}
+.field-goal .goal-emblem{font-family:var(--serif);font-size:24px}
+.field-goal .goal-emblem:has(img){padding:0}
+@media(max-width:365px){.atlas-title h1{font-size:42px}.atlas-subtitle{font-size:11px}.atlas-header::before{left:-30px;width:150px}.atlas-header::after{right:-35px;width:160px}.header-tools{right:7px;gap:3px}.res-tile small{font-size:8px}.res-tile img{width:27px;height:26px}.res-tile{min-height:62px}.advice-cost{font-size:13px}}
+@media(min-width:540px){.atlas-header{height:170px}.atlas-header::before{width:240px;height:169px;left:0}.atlas-header::after{width:260px;height:169px;right:0}.atlas-subtitle{font-size:17px}.res-tile{min-height:86px}.res-tile img{width:39px;height:38px}.res-tile small{font-size:12px}.field-land,.field-hab{height:88px}.advice-hero.painted-coot .advice-bird{width:43%;max-width:270px}}
