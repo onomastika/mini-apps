@@ -1,0 +1,99 @@
+# Wingspan V7 candidate
+
+Base 7daf3f381fcf86cea5ba38d004f88d48a8295a3b. V6 had 296 executable powers. All 405 remaining joined by ID and name to the pinned source; 359 normalized templates. First cycle adds 95 exact-pattern guided rules with composable serializable sequences, atomic choices, conditions and bounded repeat. No classification counted. Existing V5 functional groups passed in mock; new specific and browser tests pending.
+
+- Abbott's Booby — sequence — 
+- Amazonian Parrotlet — sequence — 
+- Bali Starling — sequence — 
+- Barred Antshrike — sequence — Перебросил кормушку: появился invertebrate
+- Black-Necked Grebe — sequence — Выложил птицу с печатной стоимостью 3
+- Black-Tailed Godwit — sequence — 
+- Black-and-Yellow Broadbill — sequence — Запасал корм на птице
+- Blue-Footed Booby — sequence — egg
+- Brambling — sequence — 
+- Brazilian Teal — sequence — 
+- Brolga — sequence — 
+- Chiloé Wigeon — sequence — 
+- Common Cuckoo — sequence — egg
+- Common Murre — sequence — 
+- Common Pheasant — sequence — 
+- Common Tern — sequence — 
+- Crested Lark — sequence — 
+- Crested Tit — sequence — 
+- Crimson Chat — sequence — 
+- Crimson-Bellied Tragopan — sequence — 
+- Eastern Rosella — sequence — 
+- European Goldfinch — sequence — tuck
+- European Shag — sequence — 
+- Evening Grosbeak — sequence — 
+- Galah — sequence — 
+- Graceful Prinia — sequence — 
+- Great-Tailed Grackle — sequence — 
+- Green Heron — sequence — 
+- Himalayan Monal — sequence — 
+- Hoatzin — sequence — Выложил птицу без коричневой способности
+- Horned Lark — sequence — play:grass
+- Horsfield's Bronze-Cuckoo — sequence — egg
+- Horsfield's Bushlark — sequence — 
+- Ibisbill — sequence — 
+- Inca Tern — sequence — 
+- Indian Peafowl — sequence — 
+- Italian Sparrow — sequence — 
+- Kererū — sequence — 
+- Kākāpō — sequence — 
+- Little Bustard — sequence — 
+- Little Ringed Plover — sequence — 
+- Loggerhead Shrike — sequence — Получил rodent действием Gain food
+- Magnificent Frigatebird — sequence — Взял карты действием Draw cards
+- Major Mitchell's Cockatoo — sequence — 
+- Manx Shearwater — sequence — 
+- Many-Colored Fruit-Dove — sequence — 
+- Mediterranean Shearwater — sequence — 
+- Merlin — sequence — Подложил карту за птицу со способностью стаи
+- Neotropic Cormorant — sequence — egg
+- New Zealand Rock Wren — sequence — 
+- Noisy Miner — sequence — 
+- North Island Brown Kiwi — sequence — 
+- Ovenbird — sequence — Выложил птицу со звёздным гнездом
+- Pacific Black Duck — sequence — 
+- Paradise Shelduck — sequence — 
+- Paradise Tanager — sequence — Перебросил кормушку: появился fruit
+- Pesquet's Parrot — sequence — 
+- Pheasant Coucal — sequence — egg
+- Pinktail — sequence — 
+- Plain Chachalaca — sequence — Перебросил кормушку: появился seed
+- Plains-Wanderer — sequence — 
+- Purple Finch — sequence — 
+- Pygmy Nuthatch — sequence — 
+- Red Avadavat — sequence — 
+- Red Junglefowl — sequence — 
+- Red Knot — sequence — 
+- Red Wattlebird — sequence — 
+- Red-Breasted Meadowlark — sequence — 
+- Red-Capped Robin — sequence — 
+- Red-Footed Falcon — sequence — 
+- Red-Necked Avocet — sequence — 
+- Red-Vented Bulbul — sequence — 
+- Ruddy Ground Dove — sequence — Перебросил кормушку
+- Ruff — sequence — 
+- Rufous-Banded Honeyeater — sequence — 
+- Sand Martin — sequence — 
+- Sandwich Tern — sequence — 
+- Satyr Tragopan — sequence — 
+- Savi's Warbler — sequence — 
+- Sharp-Tailed Grouse — sequence — play:grass
+- Silvereye — sharedGain — 
+- Smew — sequence — 
+- Snow Bunting — sequence — tuck
+- Snowy Owl — sequence — 
+- South Island Robin — sequence — 
+- Steppe Eagle — sequence — 
+- Sulphur-Crested Cockatoo — sequence — 
+- Sungrebe — sequence — 
+- Thekla's Lark — sequence — 
+- Tropical Royal Flycatcher — sequence — 
+- Tundra Swan — sequence — Взял карты действием Draw cards
+- Twite — sequence — 
+- Virginia Rail — sequence — 
+- Whiskered Treeswift — sequence — 
+- White-Throated Swift — sequence — 
