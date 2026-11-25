@@ -95,3 +95,7 @@ Added 37 rules: {"deckObserve":7,"resetFeeder":18,"nestBonusChoice":2,"drawSelec
 - White-Bellied Sea-Eagle — resetFeeder
 - White-Browed Tit-Spinetail — nestBonusChoice
 - Willow Tit — resetFeeder
+
+## Third cycle
+
+Ruddy Shelduck added. Corrected recommendation routing for new mechanics, one-click confirmed matching feeder gain, prefilled single-target eggs, finite-population variance for observed deck outcomes. Coverage: 296/707, 405 manual, 6 no power. Seven dedicated V6 tests plus 14 V5 regression checks passed in DOM mock. Baseline replay comparison is model output, not actual win-rate evidence. Browser acceptance pending.
