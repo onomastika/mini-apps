@@ -13,6 +13,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Inspect current public deployment
+        continue-on-error: true
+        run: |
+          curl -fsSL --max-time 15 'https://mini-apps.rossthiof.workers.dev/wingspan/cards.json' -o /tmp/live-wingspan.json
+          node -e "let d=require('/tmp/live-wingspan.json'); console.log('PUBLIC_CATALOG_VERSION='+d.version+'; BIRDS='+d.birds.length)"
       - run: node tests/wingspan/strategy-v5.cjs
       - run: npm install --no-save playwright-core@1.55.0
       - run: |
