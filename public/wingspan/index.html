@@ -875,7 +875,9 @@ function valuePreview(b,mode=valueMode(b)){
   let candidates=plans([b]),best=candidates[0];placement=best||null;
   if(!best)reason='В текущем горизонте не найдено доступного размещения.';
   else{
-   let alternative=plans(held().filter(x=>x.id!==b.id))[0];
+   // All single-card alternatives share the same immutable rating context.
+   // Filtering the stable sorted plans is equivalent to sorting the filtered hand.
+   let alternative=(ctx.handPlans??=plans(held())).find(x=>x.b.id!==b.id);
    let opportunity=Math.max(1.5,alternative?Math.min(5,Math.max(0,alternative.score)*.28):1.5);
    let prep=best.prep+(mode==='acquire'?1:0);
    let potential=best.utility/(1+prep*.4)-opportunity;
