@@ -29,6 +29,8 @@ jobs:
           node tests/wingspan/strategic-rating-cache-equivalence.cjs
       - run: node tests/wingspan/strategic-rating-opportunity.cjs 350400 1 base 2 baseline /tmp/opportunity.json
       - run: node tests/wingspan/strategic-rating-tournament.cjs 342400 1 base
+      - run: node tests/wingspan/strategic-rating-intervention.cjs 354400 1 base 2 /tmp/intervention.json
+      - run: node -e "const a=require('node:assert/strict'),p=require('/tmp/intervention.json'); a(p.length>0); a(p.every(x=>x.cards.length>1&&x.cards.every(c=>c.scores.length===2&&c.scores.every(Number.isFinite))));"
       - run: npm install --no-save playwright-core@1.55.0
       - name: Check mobile layout and scroll
         run: |
@@ -43,20 +45,20 @@ jobs:
           retention-days: 7
 
   production-base:
-    # On audit-only PRs verify the already merged safety fix against live bytes.
-    if: github.head_ref == 'wingspan/strategic-rating-audit-v2'
+    # On this audit-only PR verify already merged cache revision against live bytes.
+    if: github.head_ref == 'wingspan/strategic-rating-intervention'
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 101541f507030841fca8438ba9e3f043f5d9fbc4
-      - name: Verify production bytes of merged safety revision
+          ref: 1dfe06a7c3351b7bc60166b2c64946ce16d2ad0d
+      - name: Verify production bytes of merged cache revision
         run: |
           set -euo pipefail
           root=https://mini-apps.rossthiof.workers.dev/wingspan
           for file in index.html cards.json visual-studio.css visual-studio.js; do
-            curl -fsSL --retry 2 --max-time 15 "$root/$file?revision=101541f507030841fca8438ba9e3f043f5d9fbc4" -o "/tmp/live-$file"
+            curl -fsSL --retry 2 --max-time 15 "$root/$file?revision=1dfe06a7c3351b7bc60166b2c64946ce16d2ad0d" -o "/tmp/live-$file"
             cmp "public/wingspan/$file" "/tmp/live-$file"
             sha256sum "/tmp/live-$file"
           done
