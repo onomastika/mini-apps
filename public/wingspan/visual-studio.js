@@ -63,7 +63,7 @@ function enhanceSlots(row,kind){
  const info=slots.querySelector(':scope > small');if(info)info.remove();
  for(let i=birds.length;i<5;i++){
    const price=[0,1,1,2,2][i];
-   const btn=makeButton('＋',()=>openSlot(kind),'slot cf-empty');
+   const btn=makeButton('+',()=>openSlot(kind),'slot cf-empty');
    const small=document.createElement('small');small.textContent=price+' 🥚';btn.append(small);
    btn.setAttribute('aria-label','Добавить птицу: '+H[kind]+', место '+(i+1)+', '+price+' яиц');btn.disabled=!!S.wizard;slots.append(btn);
  }
@@ -95,20 +95,25 @@ const res=sanctuary.querySelector('.resource-panel');res.classList.add('cf-resou
 const score=makeButton('',()=>setTab('score'),'cf-score');
 score.id='cfScore';score.setAttribute('aria-label','Открыть подробный подсчёт очков');
 const strip=document.createElement('div');strip.className='cf-topline';by('turnSummary').before(strip);strip.append(by('turnSummary'),score);
-strip.after(res);
+by('advice').after(res);
 const resourceLink=makeButton('Ресурсы и обновление состояния',()=>{setTab('guide');res.scrollIntoView({block:'nearest'});},'outline-btn wide cf-resource-link');
-sanctuary.querySelector('.section-heading').after(resourceLink);
+const boardPanel=by('board').closest('.panel');boardPanel.classList.add('cf-board-panel');sanctuary.querySelector('.section-heading').after(boardPanel);boardPanel.after(resourceLink);boardPanel.querySelector('h3').textContent='Игровой планшет';
 const quick=by('quickStock');
 const updateScore=()=>{let n=totals()[0];score.replaceChildren();let v=document.createElement('b');v.textContent=n;let l=document.createElement('small');l.textContent='Очки ›';score.append(v,l);};
 watch('total0',updateScore);watch('advice',updateScore);updateScore();
 const shortcuts=guide.querySelector('.turn-shortcuts');
 shortcuts.querySelector('[data-tab="birds"]').textContent='Заповедник';
 by('quickSearch').textContent='Найти птицу';
-const trayDetails=by('tray').closest('details');sanctuary.append(trayDetails);
+const trayDetails=by('tray').closest('details');sanctuary.append(trayDetails);const handPanel=by('hand').closest('.panel');resourceLink.after(handPanel);handPanel.classList.add('cf-hand-panel');
 const forecastPanel=by('forecastPanel'), summaryForecast=forecastPanel.querySelector('summary');
 const forecastHint=document.createElement('small');forecastHint.className='cf-forecast-hint';summaryForecast.append(forecastHint);
-function updateForecastHint(){const p=by('forecast').querySelector('p');const m=p?.textContent.match(/условное изменение известных очков:\s*([+−-]?\d+(?:[.,]\d+)?)/);const stale=!forecastPanel.open;forecastHint.textContent=!stale&&m?' · '+m[1]+' условных очк.':' · открыть расчёт'}
-watch('forecast',updateForecastHint);forecastPanel.addEventListener('toggle',updateForecastHint);updateForecastHint();
+function updateForecastHint(){
+ const p=S.roundKnown&&S.phase==='play'&&!S.setupMode&&!S.wizard?forecastMemo.value:null;
+ const value=p&&p.turns===personalTurns()?p.points:null;
+ const text=Number.isFinite(value)?' · '+(value>=0?'+':'')+value+' условных очк.':' · открыть расчёт';
+ if(forecastHint.textContent!==text)forecastHint.textContent=text;
+}
+watch('forecast',updateForecastHint);watch('advice',updateForecastHint);forecastPanel.addEventListener('toggle',updateForecastHint);updateForecastHint();
 const goals=document.createElement('section');goals.className='panel cf-goals';goals.innerHTML='<div class="row between"><h3>Цели раундов</h3></div><div id="cfGoals"></div>';
 goals.querySelector('.row').append(makeButton('Изменить',()=>{setTab('game');let target=by('roundGoalChoices');target.closest('details').open=true;target.scrollIntoView({block:'start'});},'plain'));
 const bonusPanel=by('quickGoals').closest('.panel');bonusPanel.after(goals);
@@ -134,6 +139,8 @@ function labelCatalog(){
 }
 labelCatalog();watch('dbSet',()=>{const x=by('dbSet').options[0];if(x&&x.textContent!=='Все наборы')x.textContent='Все наборы'});
 // Batch hand additions are a single explicit snapshot, with one render and one checkpoint.
+const originalUndoBird=by('undoBird').onclick;
+by('undoBird').onclick=function(){const last=S.birdHistory?.at(-1);if(last?.cfTray)S.tray=last.cfTray.slice();originalUndoBird.call(this)};
 const batchDialog=document.createElement('dialog');batchDialog.id='cfBatchDialog';document.body.append(batchDialog);
 const batchButton=makeButton('＋ Несколько птиц',openBatch,'outline-btn wide');atlas.querySelector('.section-heading').after(batchButton);function updateBatchButton(){batchButton.disabled=!DB||!!S.wizard||trayPick!==null||dbKind!=='birds'}watch('dbList',updateBatchButton);updateBatchButton();
 function openBatch(){
@@ -145,7 +152,7 @@ function openBatch(){
  const apply=makeButton('Добавить выбранные',()=>{
    if(S.wizard||!picked.size)return;const birds=[...picked.values()];
    if(!birds.every(available)){for(const [id,b] of picked)if(!available(b))picked.delete(id);render();return}
-   v8Checkpoint();S.lastGuided=null;
+   v8Checkpoint();S.birdHistory.at(-1).cfTray=trayIds().slice();S.lastGuided=null;
    const stamp=Date.now();
    birds.forEach((b,i)=>S.birds.push({...b,id:'db-'+b.id+'-'+stamp+'-'+i,catalogId:b.id,loc:'hand',power:englishPower(b)}));
    S.tray=trayIds().map(id=>picked.has(String(id))?null:id);
@@ -183,6 +190,23 @@ function captureResource(e){
 }
 by('quickResourceEditor').addEventListener('click',captureResource,true);by('quickResourceEditor').addEventListener('change',captureResource,true);
 const verifyUndo=()=>{undo.hidden=!undoState||stateKey()!==undoState.after};watch('advice',verifyUndo);watch('quickStock',verifyUndo);
+// Keep the complete rationale accessible while making the useful first sentence the default.
+function refineAdvice(){
+ const el=by('advice'),note=el.querySelector('.note'),detail=by('adviceSteps');
+ if(!note||!detail||note.dataset.cfCompact)return;
+ note.dataset.cfCompact='true';
+ const text=note.textContent.trim();
+ const split=text.match(/^(.*?[.!?])(?=\s|$)/u);
+ if(text.length>135&&split&&split[1].length<text.length){
+   const full=document.createElement('p');full.className='cf-full-rationale';full.textContent=text;detail.insertBefore(full,detail.querySelector('ol'));
+   note.textContent=split[1];
+ }
+ const action=el.querySelector(':scope > button.wide');
+ if(action&&action.textContent.includes('Изменить текущее состояние')){
+   action.textContent='Обновить состояние';action.onclick=()=>{setTab('guide');const batch=quick.querySelector(':scope > .outline-btn');if(!v10Batch)batch?.click();res.scrollIntoView({block:'nearest',behavior:'instant'})};
+ }
+}
+watch('advice',refineAdvice);refineAdvice();
 function refineResources(){const b=quick.querySelector(':scope > .outline-btn');if(b&&b.textContent==='Изменить весь запас'){b.textContent='Обновить состояние';b.classList.add('cf-update')}}
 watch('quickStock',refineResources);refineResources();
 function tabChrome(){const current=document.querySelector('.tab:not([hidden])')?.id;header.classList.toggle('cf-compact',current!=='rules');document.body.dataset.cfTab=current||'guide';}
