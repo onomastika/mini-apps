@@ -179,7 +179,7 @@ function captureResource(e){
  const isInput=e.type==='change'&&target.matches('input[type=number]');
  if(!isApply&&!isCounter&&!isInput)return;
  const before=JSON.stringify(S), key=stateKey();
- queueMicrotask(()=>{const after=stateKey();if(after!==key){undoState={before,after};undo.hidden=false}});
+ setTimeout(()=>{const after=stateKey();if(after!==key){undoState={before,after};undo.hidden=false}},0);
 }
 by('quickResourceEditor').addEventListener('click',captureResource,true);by('quickResourceEditor').addEventListener('change',captureResource,true);
 const verifyUndo=()=>{undo.hidden=!undoState||stateKey()!==undoState.after};watch('advice',verifyUndo);watch('quickStock',verifyUndo);
