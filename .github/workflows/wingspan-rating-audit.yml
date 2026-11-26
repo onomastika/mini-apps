@@ -1,0 +1,35 @@
+name: Wingspan rating audit acceptance
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'public/wingspan/**'
+      - 'tests/wingspan/**'
+      - '.github/workflows/wingspan-rating-audit.yml'
+permissions:
+  contents: read
+jobs:
+  safety:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/wingspan/strategic-value.cjs
+      - run: node --check tests/wingspan/strategic-rating-audit.cjs
+      - run: node tests/wingspan/strategic-rating-audit.cjs 312400 1 base /tmp/audit.json 2
+      - run: node tests/wingspan/strategic-rating-audit.cjs 313400 1 oceania /tmp/audit-oceania.json 2
+      - run: npm install --no-save playwright-core@1.55.0
+      - name: Check mobile layout and scroll
+        run: |
+          export CHROME_PATH="$(command -v google-chrome || command -v chromium)"
+          python3 -m http.server 8765 --directory public >/tmp/value-server.log 2>&1 &
+          timeout 180s node tests/wingspan/browser-strategic-value.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wingspan-rating-audit-browser
+          path: evidence/
+          retention-days: 7

@@ -13,3 +13,9 @@ s=setup(0,0,[['Northern Flicker','hand'],['Ruddy Duck','hand']],{});assert(ui.st
 s=setup(2,0,[['Ruddy Duck','water'],['American Coot','hand']],{seed:2});assert(ui.strategicValue(s.birds[1],'keep',true).rating>=9);
 
 s=setup(3,8,[['American Coot','water'],['Northern Flicker','forest'],['Cerulean Warbler','hand']],{worm:3,seed:3,eggs:1});let no=ui.strategicValue(s.birds[2],'keep',true).rating;s.selectedGoals=['Bird Counter'];assert.notEqual(ui.strategicValue(s.birds[2],'keep',true).rating,no);
+
+// Regression: low projected value is not evidence of a safe irreversible discard.
+s=setup(3,8,[['Sandhill Crane','hand'],['Ruddy Duck','hand']],{});
+for(const b of s.birds){for(const deep of [false,true]){let x=ui.strategicValue(b,'keep',deep);if(x.rating<3){assert.equal(x.label,'Низкая оценка');assert(x.preliminary);assert.match(x.reason,/сброс/);}}}
+assert.equal(ui.strategicValue(s.birds[0],'keep',true).rating,0);
+console.log('Uncertified discard advice safety regression PASS');

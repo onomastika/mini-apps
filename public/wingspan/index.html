@@ -859,7 +859,7 @@ var valueMemo;
 function valueStateKey(){return JSON.stringify([DB?.version,S.r,S.t,S.first,S.phase,S.setupMode,!!S.wizard,S.roundKnown,S.stockKnown,S.ledgerKnown,S.stock,S.birds,S.feeder,S.tray,S.selectedGoals,S.roundGoals,S.enabledSets,S.oceania,S.v7RoundLog,S.v8Opponent,S.v8DiscardTop])}
 function valueContext(){let key=valueStateKey();if(valueMemo?.key!==key)valueMemo={key,preview:new Map(),deep:new Map(),base:new Map()};return valueMemo}
 function valueMode(b){return H[b.loc]?'board':b.loc==='hand'?'keep':b.loc==='discard'?'discard':'acquire'}
-function valueLabel(n,mode){if(mode==='board')return n>=7?'Значимый вклад':n>=5?'Полезный вклад':'Небольшой вклад';if(mode==='acquire')return n>=9?'Приоритетная покупка':n>=7?'Стоит взять':n>=5?'Ситуативная находка':n>=3?'Низкий приоритет':'Можно пропустить';return n>=9?'Ключевая птица':n>=7?'Желательно сохранить':n>=5?'Ситуативно полезна':n>=3?'Легко заменить':'Можно сбросить'}
+function valueLabel(n,mode){if(mode==='board')return n>=7?'Значимый вклад':n>=5?'Полезный вклад':'Небольшой вклад';if(mode==='acquire')return n>=9?'Приоритетная покупка':n>=7?'Стоит взять':n>=5?'Ситуативная находка':n>=3?'Низкий приоритет':'Можно пропустить';return n>=9?'Ключевая птица':n>=7?'Желательно сохранить':n>=5?'Ситуативно полезна':n>=3?'Легко заменить':'Низкая оценка'}
 function valueRating(delta){return Math.round(100*(1-Math.exp(-Math.max(0,delta)/4)))/10}
 function valuePreview(b,mode=valueMode(b)){
  let ctx=valueContext(),id=mode+':'+b.id;if(ctx.preview.has(id))return ctx.preview.get(id);
@@ -883,6 +883,7 @@ function valuePreview(b,mode=valueMode(b)){
    reason=prep+1>turns?'Не хватает ходов на получение и размещение.':best.reason+(best.prep?' после подготовки ресурсов.':'.');
   }
  }
+ if(mode==='keep'&&n<3&&!unavailable)reason+=' Низкая оценка не подтверждает безопасный сброс.';
  let r={rating:n,label:unavailable?'Недоступна':valueLabel(n,mode),reason,preliminary:true,mode,unavailable,placement};ctx.preview.set(id,r);return r
 }
 function strategicValue(b,mode=valueMode(b),deep=false){
@@ -907,7 +908,11 @@ function strategicValue(b,mode=valueMode(b),deep=false){
  let delta=withBird.value-withoutBird.value,n=valueRating(delta),uncertain=!S.ledgerKnown||!DB||!S.feeder||!S.roundGoals?.slice(S.r).every(Boolean)||mechanic(b).mode==='manual'||delta<-.25;
  let used=withBird.last.includes(b.name),when=withBird.steps.findIndex(step=>step.kind==='play'&&(step.id===b.id||step.id==='forecast-'+b.id)),gain=Math.max(0,delta).toFixed(1).replace('.',',');
  let reason=mode==='board'?'Прогнозируемый вклад: '+gain+' условных очк.':delta<=.25?'Без этой карты советник находит сопоставимый итог.':used?(when>0?'После '+when+' подгот. ход. ':when===0?'При размещении сейчас ':'В найденной комбинации ')+'птица повышает прогноз на '+gain+' очк.':'Дополнительный вариант стратегии: +'+gain+' условных очк.';
- let r={...quick,rating:n,label:valueLabel(n,mode),reason,delta,withValue:withBird.value,withoutValue:withoutBird.value,preliminary:uncertain,used,turns:withBird.turns};ctx.deep.set(id,r);return r
+ // A bounded search cannot certify an irreversible discard, even when its delta is zero.
+ let discardUncertain=mode==='keep'&&n<3,disagreement=mode==='keep'&&Math.abs(n-quick.rating)>=3;
+ if(discardUncertain)reason+=' Возможна упущенная комбинация или цель раунда; безопасный сброс не подтверждён.';
+ if(disagreement)reason+=' Быстрая и углублённая оценки расходятся.';
+ let r={...quick,rating:n,label:valueLabel(n,mode),reason,delta,withValue:withBird.value,withoutValue:withoutBird.value,preliminary:uncertain||discardUncertain||disagreement,used,turns:withBird.turns};ctx.deep.set(id,r);return r
 }
 
 </script><script src="./visual-studio.js" defer></script></body></html>
