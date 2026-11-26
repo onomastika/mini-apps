@@ -1,0 +1,20 @@
+'use strict';
+const {chromium}=require('playwright-core'),assert=require('node:assert/strict'),fs=require('node:fs');
+(async()=>{fs.mkdirSync('evidence',{recursive:true});const b=await chromium.launch({executablePath:process.env.CHROME_PATH,headless:true,args:['--no-sandbox']});
+try{for(const width of [320,375,390,768]){
+ const p=await b.newPage({viewport:{width,height:680},isMobile:width<500,hasTouch:width<500});const errors=[];p.on('pageerror',e=>errors.push(e.message));p.setDefaultTimeout(15000);
+ await p.goto('http://127.0.0.1:8765/wingspan/');await p.waitForFunction(()=>DB?.version>=12&&typeof actionAlternatives==='function');
+ await p.evaluate(()=>{S=fresh(false);Object.assign(S,{setupMode:false,roundKnown:true,stockKnown:true,ledgerKnown:true,r:3,t:6,first:1,phase:'play',selectedGoals:[],roundGoals:[2000,2001,2008,2020],stock:{worm:0,seed:0,fruit:0,fish:0,rodent:0,nectar:0,eggs:0},birds:[['Ruddy Duck','water'],['Northern Flicker','grass']].map(([name,loc],i)=>({...DB.birds.find(b=>b.name===name),id:'alt'+i,loc,eggsOn:0,tuckedOn:0,cachedOn:0})),feeder:['worm','seed']});renderAll();setTab('guide')});
+ assert.match(await p.locator('#advice h2').innerText(),/Отложи яйца/);
+ const alt=p.locator('#alternativeDetails');assert.equal(await alt.evaluate(e=>e.open),true);
+ await p.locator('[data-alt-kind="food"]').waitFor({state:'visible'});await p.locator('[data-alt-kind="draw"]').waitFor({state:'visible'});
+ assert.match(await p.locator('[data-alt-kind="food"]').innerText(),/Добудь корм/);assert.match(await p.locator('[data-alt-kind="draw"]').innerText(),/Возьми карты/);
+ const state=await p.evaluate(()=>JSON.stringify(S));await p.locator('#compareActions').click();
+ await p.waitForFunction(()=>document.getElementById('compareActions')?.textContent==='Сравнение рассчитано');
+ for(const kind of ['food','draw'])assert.match(await p.locator('[data-alt-kind="'+kind+'"]').innerText(),/Условный прогноз:.*Разница модельной оценки/);
+ assert.equal(await p.evaluate(()=>JSON.stringify(S)),state);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+ await p.screenshot({path:'evidence/advisor-alternatives-'+width+'.png',fullPage:true});
+ await p.evaluate(()=>{S.stock.seed++;renderAdvice()});assert.equal(await p.locator('#compareActions').innerText(),'Сравнить прогнозы ходов');
+ await p.evaluate(()=>{S.phase='done';renderAdvice()});assert.equal(await p.locator('[data-alt-kind]').count(),0);
+ assert.deepEqual(errors,[]);await p.close();
+ }}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});
