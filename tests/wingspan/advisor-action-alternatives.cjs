@@ -1,7 +1,7 @@
 'use strict';
 const fs=require('node:fs'),assert=require('node:assert/strict'),{execFileSync}=require('node:child_process');
 const read=p=>fs.readFileSync(p,'utf8'),db=JSON.parse(read('public/wingspan/cards.json')),src=read('tests/wingspan/strategy-v5.cjs'),base='1dfe06a7c3351b7bc60166b2c64946ce16d2ad0d';
-const mock=new Function(src.slice(src.indexOf('function mock'),src.indexOf('const assert=')).replace('return {state:()=>S','return {actionAlternatives:typeof actionAlternatives==="function"?actionAlternatives:null,compareActionAlternatives:typeof compareActionAlternatives==="function"?compareActionAlternatives:null,renderStrategy,valueStateKey,state:()=>S')+'\nreturn mock')();
+const mock=new Function(src.slice(src.indexOf('function mock'),src.indexOf('const assert=')).replace('return {state:()=>S',"return {actionAlternatives:typeof actionAlternatives==='function'?actionAlternatives:null,compareActionAlternatives:typeof compareActionAlternatives==='function'?compareActionAlternatives:null,renderStrategy,valueStateKey,state:()=>S")+'\nreturn mock')();
 const old=mock(execFileSync('git',['show',base+':public/wingspan/index.html'],{encoding:'utf8',maxBuffer:4e6}),db).ui,{ui,map}=mock(read('public/wingspan/index.html'),db);
 function setup(u,r,t,birds,stock={},feeder=['worm','seed']){
  u.reset();const s=u.state();Object.assign(s,{r,t,first:r%2,roundKnown:true,stockKnown:true,ledgerKnown:true,selectedGoals:[],roundGoals:[2000,2001,2008,2020],stock:{worm:0,seed:0,fruit:0,fish:0,rodent:0,nectar:0,eggs:0,...stock},birds:birds.map(([name,loc],i)=>({...db.birds.find(x=>x.name===name),id:'b'+i,loc,eggsOn:0,cachedOn:0,tuckedOn:0})),feeder});return s;
