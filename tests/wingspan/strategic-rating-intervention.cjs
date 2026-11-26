@@ -64,10 +64,26 @@ function summarize(positions){
  }
  return result;
 }
-if(typeof module!=='undefined')module.exports={interventionFactory,summarize,selectors};
+// Paired policy differences do not require selecting a noisy in-sample oracle.
+// Bootstrap whole game prefixes, not individual card decisions or futures.
+function pairedPolicyCI(positions,candidate,baseline='deep',iterations=1000,seed=76493){
+ const pick=(p,model)=>p.cards.slice().sort((a,b)=>selectors[model](a)-selectors[model](b)||a.id-b.id)[0];
+ const groups=new Map();
+ for(const p of positions){
+   const a=pick(p,candidate),b=pick(p,baseline),key=p.oceania+':'+p.seed;
+   if(!groups.has(key))groups.set(key,[]);
+   groups.get(key).push({score:mean(a.scores.map((x,i)=>x-b.scores[i])),margin:mean(a.margins.map((x,i)=>x-b.margins[i])),win:mean(a.wins.map((x,i)=>x-b.wins[i]))});
+ }
+ const clusters=[...groups.values()],keys=['score','margin','win'],samples=Object.fromEntries(keys.map(k=>[k,[]]));
+ if(!clusters.length)return {clusters:0,iterations,intervals:{}};
+ let z=seed>>>0;const random=()=>{z=(Math.imul(z,1664525)+1013904223)>>>0;return z/4294967296};
+ for(let i=0;i<iterations;i++){const rows=[];for(let j=0;j<clusters.length;j++)rows.push(...clusters[Math.floor(random()*clusters.length)]);for(const k of keys)samples[k].push(mean(rows.map(x=>x[k])))}
+ return {clusters:clusters.length,iterations,intervals:Object.fromEntries(keys.map(k=>{const a=samples[k].sort((x,y)=>x-y);return [k,{mean:mean(clusters.flat().map(x=>x[k])),low:a[Math.floor((a.length-1)*.025)],high:a[Math.ceil((a.length-1)*.975)]}]}))};
+}
+if(typeof module!=='undefined')module.exports={interventionFactory,summarize,selectors,pairedPolicyCI};
 if(typeof require!=='undefined'&&require.main===module){
  const fs=require('node:fs'),read=p=>fs.readFileSync(p,'utf8'),[start='354400',count='4',mode='base',rep='4',out='']=process.argv.slice(2);
  const run=interventionFactory(read('public/wingspan/index.html'),JSON.parse(read('public/wingspan/cards.json')),read('tests/wingspan/strategy-v5.cjs'),read('tests/wingspan/competitive-v12.cjs'),JSON.parse(read('tests/wingspan/v11-expansions-fixture.json')),mode==='oceania');
  const positions=Array.from({length:Number(count)},(_,i)=>run(Number(start)+i,Number(rep))).flat();
- if(out)fs.writeFileSync(out,JSON.stringify(positions));console.log(JSON.stringify(summarize(positions)));
+ if(out)fs.writeFileSync(out,JSON.stringify(positions));console.log(JSON.stringify({...summarize(positions),pairedLegal:pairedPolicyCI(positions,'legal'),pairedBlend:pairedPolicyCI(positions,'blend')}));
 }
