@@ -423,7 +423,7 @@ function liveFacts(b){
 }
 function liveStrategy(b){
  const panel=ornEl('div','live-strategy'),tags=chosenGoals().filter(n=>qualifiesFor(b,n));
- const reason=tags.length?'Подходит: '+tags.join(', '):H[b.loc]?('В заповеднике · '+H[b.loc]):birdReason[fitReason(b)]||fitReason(b);
+ const reason=tags.length?'Подходит: '+tags.join(', '):fitReason(b)==='no free habitat'&&H[b.loc]?rowEstimate(b.loc):birdReason[fitReason(b)]||fitReason(b);
  panel.append(ornEl('span','live-strategy-mark','✦'),ornEl('span','',reason));return panel
 }
 function liveDetail(b){
@@ -450,7 +450,7 @@ function liveOpenOwned(id){
    for(const [key,o] of rows){const known=x.v8TokensKnown||S.ledgerKnown||session.confirmed.has(key);const val=Number.isInteger(x[key])?x[key]:0;
      o.input.value=known?String(val):'';o.input.placeholder=known?'0':Number.isInteger(x[key])?'≈'+val:'?';
      o.input.setAttribute('aria-label',o.label+(known?'':' — неизвестно; указать фактическое число'));
-     o.minus.disabled=!!S.wizard||!known||val<=0;o.plus.disabled=!!S.wizard||val>=maxFor(key,x)||(!known&&maxFor(key,x)<1);
+     o.minus.disabled=!!S.wizard||!known||val<=0;o.plus.disabled=!!S.wizard||(known?val>=maxFor(key,x):maxFor(key,x)<1);o.plus.title=known?'Увеличить на 1':'Указать 1, если на птице один жетон';
      o.input.disabled=!!S.wizard;o.input.max=String(maxFor(key,x));o.group.classList.toggle('live-unknown',!known);
    }
    status.textContent=(x.v8TokensKnown||S.ledgerKnown)?'Жетоны сохранены · только снимок': 'Неизвестные значения: укажи фактическое число. Итог сверяется после всех птиц.';
@@ -487,13 +487,13 @@ function liveOpenOwned(id){
      if(H[x.loc]){const row=rowBirds(x.loc),i=row.indexOf(x);for(const [d,label] of [[-1,'← Левее'],[1,'Правее →']])if(row[i+d])menu.append(makeButton(label,()=>{if(S.wizard)return;v8Checkpoint();[row[i],row[i+d]]=[row[i+d],row[i]];row.forEach((z,j)=>z.slotOrder=j);renderGuide();save();liveOpenOwned(id)},'outline-btn'))}
      if(!menu.children.length)menu.append(ornEl('small','','Нет доступных мест'));
    }else{
-     if(H[x.loc])menu.append(makeButton('Сверить все жетоны',()=>{for(const o of rows.values())if(!o.input.value)o.input.focus();menu.hidden=true},'outline-btn'));
+     if(H[x.loc])menu.append(makeButton('Сверить все жетоны',()=>{menu.hidden=true;const next=[...rows.values()].find(o=>o.input.value==='');if(next)next.input.focus();else rows.values().next().value?.input.focus()},'outline-btn'));
      if(x.loc!=='discard')menu.append(makeButton('Убрать из текущего набора',()=>{if(confirm('Убрать птицу из текущего набора?'))moveBird(id,'discard')},'danger-btn'));
    }
    requestAnimationFrame(()=>menu.scrollIntoView({block:'nearest',behavior:'auto'}))
  }
  bar.append(move,more,extra);if(H[b.loc])bar.append(undo);actions.append(bar,menu);
- if(!liveDialog.open)liveDialog.showModal();liveForm.scrollTop=0;
+ if(!liveDialog.open){liveDialog.showModal();liveClose.focus({preventScroll:true})}liveForm.scrollTop=0;
 }
 showBird=liveOpenOwned;
 liveDialog.addEventListener('close',()=>{liveSession=null});
