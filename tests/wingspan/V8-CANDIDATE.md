@@ -92,3 +92,13 @@ Full printed power text attached by pinned source identity. Snapshot migration, 
 ## Cycle 5
 
 Independent competitive fixture with 134 cards selected by printed rule text, shared deck/feeder, hidden hands, green round goals, independent costs/scoring, fixed opponent and randomized starting seat. Smoke test one common seed passed. Full comparison pending parallel CI. Optional board upgrades and unsupported expansion rules excluded.
+
+## Acceptance results
+
+- Candidate application commit: bb4d606e969c21275453bb478849adf0d77ceeb0
+- CI: https://github.com/onomastika/mini-apps/actions/runs/45727234654 — all ten benchmark shards, aggregate and browser passed.
+- Browser: Chromium, widths 320, 390, 1280; direct placement without payment, arbitrary personal clock, token editing, reload, legacy in-flight migration, no guided action buttons, catalog and forecast.
+- Independent 134-card core/Europe fixture: 100 matched seeds per version, 300 two-player games, 7800 advisor decisions. Hidden hands, shared feeder and deck, independent rules, bonus and green goal scoring. Fixed opponent policy; optional board action upgrades are not chosen. No claim of full Wingspan rules or external win rate.
+- V6: 72.62 mean, 72.5% win credit; V7: 73.48, 74%; V8: 78.18, 82%. Win credit = win 1, tie after food tiebreak 0.5. See JSON for metrics. Runtime measured on GitHub runners including starter decision time, not physical iPhone.
+- Coverage: 495 guided, 25 deterministic, 93 projection-specific models (some conditional or expected-value approximations), 88 manual, 6 no power. The 90% fully faithful modeling target has not been demonstrated. Some retained guided rules lack complete projection; some opponent rules require optional state unavailable in normal snapshot. Special placements, typed cached food, hummingbirds and several expansion effects remain. No inflated claim of 613 fully verified powers.
+- Reproduce: node tests/wingspan/strategy-v8.cjs; node tests/wingspan/competitive-v8.cjs SHARD 10 (shards 0–9), or run the referenced acceptance workflow. Browser: playwright-core 1.55.0, CHROME_PATH, local server at 8765; node tests/wingspan/browser-v8.cjs.

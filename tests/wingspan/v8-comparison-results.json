@@ -1,0 +1,41 @@
+[
+  {
+    "version": 6,
+    "games": 100,
+    "mean": 72.62,
+    "opponentMean": 64.95,
+    "winRate": 0.725,
+    "msPerDecision": 12.913076923076924,
+    "initialAffordable": 3.42,
+    "board": 7.16,
+    "combo": 8.97,
+    "fallbacks": 0,
+    "turns": 2600
+  },
+  {
+    "version": 7,
+    "games": 100,
+    "mean": 73.48,
+    "opponentMean": 65.71,
+    "winRate": 0.74,
+    "msPerDecision": 22.495,
+    "initialAffordable": 3.41,
+    "board": 7.2,
+    "combo": 10.33,
+    "fallbacks": 0,
+    "turns": 2600
+  },
+  {
+    "version": 8,
+    "games": 100,
+    "mean": 78.18,
+    "opponentMean": 66.59,
+    "winRate": 0.82,
+    "msPerDecision": 28.853461538461538,
+    "initialAffordable": 3.4,
+    "board": 7.29,
+    "combo": 13.18,
+    "fallbacks": 0,
+    "turns": 2600
+  }
+]
