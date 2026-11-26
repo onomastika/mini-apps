@@ -203,7 +203,7 @@ function refineAdvice(){
  }
  const action=el.querySelector(':scope > button.wide');
  if(action&&action.textContent.includes('Изменить текущее состояние')){
-   action.textContent='Обновить состояние';action.onclick=()=>{setTab('guide');const batch=quick.querySelector(':scope > .outline-btn');if(!v10Batch)batch?.click();res.scrollIntoView({block:'nearest',behavior:'instant'})};
+   action.textContent='Сверить состояние';action.onclick=()=>{setTab('guide');const batch=quick.querySelector(':scope > .outline-btn');if(!v10Batch)batch?.click();res.scrollIntoView({block:'nearest',behavior:'instant'})};
  }
 }
 watch('advice',refineAdvice);refineAdvice();
