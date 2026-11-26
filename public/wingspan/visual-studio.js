@@ -403,4 +403,31 @@ function ornOwned(){
 watch('dbList',ornCatalog);watch('hand',ornHand);watch('tray',ornTray);watch('board',ornBoard);watch('birdInfo',ornOwned);
 ornCatalog();ornHand();ornTray();ornBoard();
 
+// iOS Safari can scroll the document behind a top-layer dialog.
+// Keep the document at its original position, without intercepting card gestures.
+const cardDialogs=[by('birdDialog'),ornPreview];
+let cardScrollLock=null;
+function syncCardScrollLock(){
+ const open=cardDialogs.some(d=>d.open);
+ if(open&&!cardScrollLock){
+   const body=document.body, props=['position','top','left','width'];
+   cardScrollLock={x:window.scrollX,y:window.scrollY,styles:props.map(k=>[k,body.style.getPropertyValue(k),body.style.getPropertyPriority(k)])};
+   body.style.setProperty('position','fixed');
+   body.style.setProperty('top',-cardScrollLock.y+'px');
+   body.style.setProperty('left',-cardScrollLock.x+'px');
+   body.style.setProperty('width','100%');
+   root.classList.add('orn-scroll-locked');
+ }else if(!open&&cardScrollLock){
+   const snapshot=cardScrollLock;cardScrollLock=null;
+   for(const [k,v,p] of snapshot.styles){if(v)document.body.style.setProperty(k,v,p);else document.body.style.removeProperty(k)}
+   root.classList.remove('orn-scroll-locked');
+   window.scrollTo({left:snapshot.x,top:snapshot.y,behavior:'instant'});
+ }
+}
+for(const d of cardDialogs){
+ new MutationObserver(records=>{if(d.open&&records.some(r=>r.oldValue===null))d.scrollTop=0;syncCardScrollLock()}).observe(d,{attributes:true,attributeFilter:['open'],attributeOldValue:true});
+ d.addEventListener('close',syncCardScrollLock);
+}
+syncCardScrollLock();
+
 })();
