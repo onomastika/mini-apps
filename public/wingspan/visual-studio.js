@@ -321,7 +321,7 @@ function ornPower(b){
 }
 function ornStrategy(b){
  const panel=ornEl('div','orn-strategy');const reason=fitReason(b);
- const headline=ornEl('b','',birdReason[reason]||reason);panel.append(headline);
+ const headline=ornEl('b','',birdReason[reason]||reason);panel.append(valueDetail(b),headline);
  const tags=chosenGoals().filter(n=>qualifiesFor(b,n));
  if(tags.length)panel.append(ornEl('small','','Бонусы: '+tags.join(', ')));
  if(H[b.loc])panel.append(ornEl('small','','В заповеднике · '+H[b.loc]));
@@ -361,7 +361,7 @@ function ornCatalog(){
    const chips=info.querySelector('.chips');if(chips)chips.replaceChildren(ornFood(b),ornFacts(b,cards));
    const power=info.querySelector('.card-power');if(power){const label=ornEl('small','orn-power-label',birdTiming[b.color]||'Способность');power.before(label)}
    // Preserve the engine's original rating and power text; add a compact Russian explanation.
-   const rating=info.querySelector('.fit-rating');if(rating){rating.title=rating.textContent;rating.classList.add('orn-engine-rating');rating.after(ornEl('small','orn-reason',birdReason[fitReason(b)]||fitReason(b)))}
+   const rating=info.querySelector('.fit-rating');if(rating){rating.classList.add('orn-engine-rating');rating.replaceChildren(valueMini(b,'acquire'));rating.after(ornEl('small','orn-reason',birdReason[fitReason(b)]||fitReason(b)))}
    const actions=ornEl('div','orn-actions');for(const ctl of [...row.querySelectorAll(':scope > button,:scope > select')]){if(ctl.tagName==='BUTTON')ctl.textContent=ctl.disabled?'Уже добавлена':trayPick!==null?'Выбрать':'+ В руку';actions.append(ctl)}
    row.append(actions);
  }
@@ -372,7 +372,7 @@ function ornHand(){
    const info=row.querySelector('.grow'),name=info?.querySelector('b');if(name)name.textContent=b.name;
    if(info&&b.scientific)name.after(ornEl('i','orn-scientific',b.scientific));
    const chips=info?.querySelector('.chips');if(chips)chips.replaceChildren(ornFood(b),ornFacts(b));
-   info?.append(ornEl('small','orn-reason',birdReason[fitReason(b)]||fitReason(b)));
+   if(info){row.dataset.valueBird=b.id;info.append(valueMini(b,'keep'),ornEl('small','orn-reason',birdReason[fitReason(b)]||fitReason(b)))}
  });
 }
 function ornTray(){
@@ -380,7 +380,7 @@ function ornTray(){
    const b=birds[i];if(!b||row.classList.contains('orn-card'))return;ornStyle(row,b);
    const art=ornArt(b);const info=row.querySelector('.grow'),name=info?.querySelector('b');row.prepend(art);
    if(name){const open=makeButton(b.name,()=>ornOpen(b),'orn-title-button');name.replaceChildren(open)}
-   if(info){if(b.scientific)name.after(ornEl('i','orn-scientific',b.scientific));info.append(ornFood(b),ornFacts(b))}
+   if(info){if(b.scientific)name.after(ornEl('i','orn-scientific',b.scientific));const old=info.querySelector('small');if(old)old.remove();info.append(valueMini(b,'acquire'),ornFood(b),ornFacts(b))}
    const actions=ornEl('div','orn-actions');for(const ctl of [...row.querySelectorAll(':scope > button')])actions.append(ctl);row.append(actions)
  })
 }
@@ -401,7 +401,57 @@ function ornOwned(){
  info.replaceChildren(ornDetail(b),ornEl('small','orn-snapshot-note','Изменения — только снимок состояния, без оплаты или активации.'));
 }
 watch('dbList',ornCatalog);watch('hand',ornHand);watch('tray',ornTray);watch('board',ornBoard);watch('birdInfo',ornOwned);
-ornCatalog();ornHand();ornTray();ornBoard();
+
+/* Rating is an additive child of the existing strategy panel and miniature info. */
+function valueTone(n){return n>=7?'high':n>=5?'mid':n>=3?'low':'weak'}
+function valueNumber(r){return r.unavailable?'—':r.rating.toFixed(1).replace('.',',')+'/10'}
+function valueMini(b,mode=valueMode(b)){
+ const el=ornEl('span','orn-value-mini');el.dataset.valueId=String(b.id);el.dataset.valueMode=mode;el.dataset.valueName=b.name;valuePaint(el,strategicValue(b,mode));return el
+}
+function valuePaint(el,r){
+ const text=(r.preliminary&&!r.unavailable?'≈ ':'')+valueNumber(r);
+ if(el.textContent!==text)el.textContent=text;
+ el.dataset.tone=valueTone(r.rating);el.title=r.label+' · '+r.reason+(r.preliminary?' Предварительно.':'');el.setAttribute('aria-label',el.title+', '+text)
+}
+function valueDetail(b){
+ const mode=valueMode(b),box=ornEl('div','orn-value-detail'),top=ornEl('div','orn-value-top'),number=ornEl('strong','orn-value-number'),copy=ornEl('div','orn-value-copy'),label=ornEl('strong',''),reason=ornEl('small',''),track=ornEl('div','orn-value-track'),marker=ornEl('i',''),more=ornEl('details','orn-value-more'),summary=ornEl('summary','','Обоснование оценки'),body=ornEl('div','orn-value-explanation');
+ track.append(marker);track.setAttribute('aria-hidden','true');copy.append(label,reason);top.append(number,copy);more.append(summary,body);box.append(top,track,more);
+ function paint(r){number.textContent=valueNumber(r);box.dataset.tone=valueTone(r.rating);marker.style.left=(r.rating*10)+'%';label.textContent=r.label+(r.preliminary&&!r.unavailable?' · предварительно':'');reason.textContent=r.reason;body.replaceChildren(ornEl('small','',mode==='keep'?'Ценность сохранения, а не доступность оплаты.':mode==='board'?'Вклад уже размещённой птицы, не совет убрать её.':'Ценность дополнительного варианта получения карты.'));
+ if(Number.isFinite(r.delta))body.append(ornEl('small','','С картой: '+r.withValue.toFixed(1)+'; без неё: '+r.withoutValue.toFixed(1)+'; разница: '+(r.delta>=0?'+':'')+r.delta.toFixed(1)+' условных очк.'),ornEl('small','','Горизонт: '+r.turns+' ходов. Ограниченный поиск; прогноз не гарантирует итог.'));
+ else body.append(ornEl('small','','Быстрый прогноз по планам советника: '+(r.placement?'подготовка '+r.placement.prep+' ход., '+r.placement.utility.toFixed(1)+' усл. пользы.':'недостаточно данных для точного сравнения.')));
+ if(!S.roundKnown||!S.stockKnown)body.append(ornEl('small','','Уточни раунд и запас для сравнения сценариев.'));
+ }
+ paint(strategicValue(b,mode));
+ more.addEventListener('toggle',()=>{if(!more.open)return;const key=valueStateKey();body.append(ornEl('small','','Сравнение сценариев…'));setTimeout(()=>{if(!box.isConnected||!more.open||key!==valueStateKey())return;try{paint(strategicValue(b,mode,true));refreshValues()}catch(e){paint(valuePreview(b,mode));body.append(ornEl('small','','Углублённый прогноз недоступен.'))}},30)});
+ return box
+}
+let valueSort=false,valueJob=0,valueQueueKey='';
+const valueSortButton=makeButton('По ценности',()=>{valueSort=!valueSort;valueSortButton.setAttribute('aria-pressed',String(valueSort));sortValueHand()},'plain orn-value-sort');
+valueSortButton.setAttribute('aria-pressed','false');handPanel.querySelector('h3')?.after(valueSortButton);
+function sortValueHand(){
+ const hand=by('hand'),rows=[...hand.querySelectorAll('.handrow[data-value-bird]')];if(!rows.length)return;
+ let order=new Map(held().map((b,i)=>[String(b.id),i]));
+ if(valueSort)rows.sort((a,b)=>{let x=held().find(z=>String(z.id)===a.dataset.valueBird),y=held().find(z=>String(z.id)===b.dataset.valueBird);return strategicValue(y).rating-strategicValue(x).rating||valuePreview(y).rating-valuePreview(x).rating||order.get(a.dataset.valueBird)-order.get(b.dataset.valueBird)});
+ else rows.sort((a,b)=>order.get(a.dataset.valueBird)-order.get(b.dataset.valueBird));
+ if(rows.some((row,i)=>row!==hand.children[i]))rows.forEach(row=>hand.append(row))
+}
+function refreshValues(){
+ for(let el of document.querySelectorAll('.orn-value-mini')){
+  let mode=el.dataset.valueMode,b=mode==='keep'?held().find(x=>String(x.id)===el.dataset.valueId):DB?.birds.find(x=>String(x.id)===el.dataset.valueId);
+  if(b)valuePaint(el,strategicValue(b,mode))
+ }
+ sortValueHand();
+}
+function queueValues(){
+ refreshValues();if(by('birds').hidden||!S.roundKnown||!S.stockKnown||S.phase!=='play'||S.setupMode||S.wizard)return;
+ const key=valueStateKey();if(key===valueQueueKey)return;valueQueueKey=key;const job=++valueJob,queue=held().slice();
+ function next(){if(job!==valueJob||key!==valueStateKey()||by('birds').hidden){if(job===valueJob)valueQueueKey='';return}let b=queue.shift();if(!b)return;try{strategicValue(b,'keep',true)}catch(e){}refreshValues();setTimeout(next,75)}
+ setTimeout(next,75)
+}
+watch('advice',queueValues);watch('hand',queueValues);watch('dbList',refreshValues);watch('tray',refreshValues);
+new MutationObserver(queueValues).observe(by('birds'),{attributes:true,attributeFilter:['hidden']});
+
+ornCatalog();ornHand();ornTray();ornBoard();queueValues();
 
 // iOS Safari can scroll the document behind a top-layer dialog.
 // Keep the document at its original position, without intercepting card gestures.
