@@ -119,5 +119,5 @@ const fixture=JSON.parse(fs.readFileSync('tests/wingspan/v11-fixture.json','utf8
 const ref='846d40cc21ca8bfcc74aeee6b568e2ed3b9f5582',old={version:10,html:execFileSync('git',['show',ref+':public/wingspan/index.html'],{encoding:'utf8'}),db:JSON.parse(execFileSync('git',['show',ref+':public/wingspan/cards.json'],{encoding:'utf8'}))},html=fs.readFileSync('public/wingspan/index.html','utf8'),db=JSON.parse(fs.readFileSync('public/wingspan/cards.json','utf8'));
 const shard=Number(process.argv[2]||0),count=Number(process.argv[3]||10),suite=process.argv[4]||'standard',stage=process.argv[5]||'training',variant=Number(process.argv[6]||2);
 const variants=stage==='training'?[1,2,3]:[variant],versions=[old,...variants.map(v=>({version:stage==='training'?110+v:11,html:html.replace(/var V11_VARIANT=\d+;/,'var V11_VARIANT='+v+';'),db}))];
-const start=stage==='training'?(suite==='strong'?20271101:20271001):(suite==='strong'?19370701:19260401),seeds=Array.from({length:count},(_,i)=>start+shard*count+i);
+const start=stage==='training'?(suite==='strong'?20280101:20271201):(suite==='strong'?19370701:19260401),seeds=Array.from({length:count},(_,i)=>start+shard*count+i);
 console.log(JSON.stringify(competitive(versions,mock,fixture,seeds,suite==='strong'?old:null),null,2));
