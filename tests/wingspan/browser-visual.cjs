@@ -2,7 +2,7 @@ const {chromium}=require('playwright-core'),assert=require('node:assert/strict')
 const url='http://127.0.0.1:8765/wingspan/';
 (async()=>{fs.mkdirSync('evidence',{recursive:true});const browser=await chromium.launch({executablePath:process.env.CHROME_PATH,headless:true,args:['--no-sandbox']});
 try{for(let width of [320,390,1280]){let baseline=null;for(let visual of [false,true]){let p=await browser.newPage({viewport:{width,height:844},isMobile:width<500,hasTouch:width<500});let errors=[];p.on('pageerror',e=>errors.push(e.message));p.setDefaultTimeout(15000);if(!visual)await p.route(/visual-studio\.(css|js)$/,r=>r.fulfill({status:200,contentType:r.request().url().endsWith('.js')?'application/javascript':'text/css',body:''}));
-await p.goto(url,{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>DB?.birds.length===707);if(visual)await p.waitForSelector('#vsMotion',{state:'attached'});
+await p.goto(url,{waitUntil:'domcontentloaded'});await p.waitForFunction(()=>DB?.birds.length===707);await p.evaluate(()=>{Date.now=()=>1700000000000});if(visual)await p.waitForSelector('#vsMotion',{state:'attached'});
 await p.locator('#turnSummary').click();await p.locator('#snapshotRound').selectOption('2');await p.locator('#snapshotTurn').selectOption('3');await p.locator('#snapshotApply').click();
 await p.locator('.nav [data-tab="birds"]').click();await p.getByRole('button',{name:/Изменить Зерно/}).click();await p.getByRole('spinbutton',{name:'Количество Зерно'}).fill('4');await p.getByRole('spinbutton',{name:'Количество Зерно'}).press('Tab');await p.locator('#openCatalog').click();
 await p.locator('#dbQuery').fill('Carolina Chickadee');await p.waitForFunction(()=>document.querySelectorAll('#dbList .dbrow').length===1);await p.getByRole('combobox',{name:'Добавить в заповедник Carolina Chickadee'}).selectOption('forest');
@@ -11,7 +11,7 @@ await p.locator('#birdActions input[type=number]').nth(0).fill('2');await p.getB
 let tag=(visual?'after':'before')+'-'+width;for(let tab of ['guide','birds','catalog','game','score','rules']){if(tab==='rules')await p.locator('.icon-help').click();else await p.locator('.nav [data-tab="'+tab+'"]').click();await p.waitForTimeout(250);
 if(tab==='guide'){await p.locator('#forecastPanel summary').click();await p.waitForFunction(()=>document.querySelectorAll('#forecast li').length>0);if(visual)await p.waitForSelector('.vs-forecast-metrics');}
 if(tab==='catalog'){await p.locator('[data-view="cards"]').click();await p.waitForSelector('.atlas-card')}
-if(tab==='birds'&&visual){assert.equal(await p.locator('#board .vs-land-motion').count(),3);assert.equal(await p.evaluate(()=>document.documentElement.classList.contains('vs-paused')),false)}
+if(tab==='birds'&&visual){assert.equal(await p.locator('#board .vs-land-motion').count(),3);assert.equal(await p.locator('#board .vs-hab-meter .filled').count(),1);assert.equal(await p.evaluate(()=>document.documentElement.classList.contains('vs-paused')),false)}
 assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,tag+' '+tab+' overflow');
 await p.screenshot({path:'evidence/'+tag+'-'+tab+'.png',fullPage:true,animations:'disabled'});if(width===390&&['guide','birds','catalog'].includes(tab)){if(tab==='birds')await p.locator('#board').scrollIntoViewIfNeeded();let jpg=await p.screenshot({type:'jpeg',quality:40,animations:'disabled'});console.log('VISUAL_IMAGE '+tag+'-'+tab+' '+jpg.toString('base64'))}
 }

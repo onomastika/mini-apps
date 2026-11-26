@@ -98,3 +98,16 @@ dialog[open]{animation:vs-enter 190ms var(--vs-ease) both}
 }
 html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{animation-play-state:paused!important}
 @media(prefers-reduced-motion:reduce){.vs-land-motion{display:none!important}.vs-enter,dialog[open]{animation:none!important}}
+
+/* Contextual visual cues — factual occupancy, no synthetic scores. */
+.vs-hab-meter{position:relative;z-index:2;display:flex;gap:4px;width:105px;height:5px;margin:7px 0 2px}
+.vs-hab-meter span{flex:1;background:#fffaf0b8;border-radius:999px;border:1px solid var(--hab-line)}.vs-hab-meter .filled{background:var(--hab-accent);border-color:var(--hab-accent)}
+#sanctuaryAnalysis .analysis-row,#comboResults .analysis-row{background:#f0efdf;border:0;border-left:3px solid #82966d;border-radius:4px 12px 12px 4px;padding:10px 12px;margin:7px 0}
+#comboResults .analysis-row b{font-family:var(--serif);font-size:18px;color:#315b45}
+#comboResults .analysis-row small{line-height:1.5;margin:4px 0}
+#tray .tray-slot{border-color:#e1d7bf;gap:8px}#tray .tray-slot button{background:#e8eddf;border:1px solid #d7dfcb}
+#dbMessage:not(:empty){background:#e6ecdc;border-radius:10px;padding:8px 10px;font-size:13px}
+#rules .action{border:0;padding:12px;background:#e9eddf}#rules .action:nth-child(2){background:#f3e9cc}#rules .action:nth-child(3){background:#e1ebe5}#rules .action:nth-child(4){background:#ece7d6}
+#rules details{border-color:#e2d8bf}#rules details summary{min-height:44px;padding:9px 0}
+#game .goal-choice select{background:#fffaf0}
+@media (prefers-reduced-motion:no-preference){.goalbar i,.vs-hab-meter span{transition:background-color 180ms ease,width 180ms ease}}
