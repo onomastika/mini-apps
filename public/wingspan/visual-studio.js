@@ -78,7 +78,25 @@ function openSlot(kind){
  choices.forEach(b=>list.append(makeButton(b.name,()=>{slotDialog.close();moveBird(b.id,kind)})));
  if(!choices.length)list.textContent='Нет подходящих птиц в руке.';
  const find=makeButton('Найти в атласе',()=>{slotDialog.close();openSearch();by('dbHab').value=kind;if(DB)dbRender();},'primary wide');
- slotDialog.replaceChildren(title,p,list,find,makeButton('Отмена',()=>slotDialog.close(),'wide outline-btn'));slotDialog.showModal();
+ const direct=document.createElement('div');direct.className='cf-direct-slot';
+ if(DB){
+   const query=document.createElement('input');query.type='search';query.className='cf-batch-query';query.placeholder='Название птицы из атласа';query.setAttribute('aria-label','Поиск птицы для '+H[kind]);
+   const results=document.createElement('div');results.className='cf-slot-choices cf-direct-results';
+   query.oninput=()=>{
+     const q=dbNorm(query.value);
+     if(!q){results.replaceChildren();return}
+     const matches=DB.birds.filter(b=>setAllowed(b)&&b.hab.includes(kind)&&dbNorm(b.name+' '+(b.scientific||'')).includes(q)&&!S.birds.some(x=>dbNorm(x.name)===dbNorm(b.name)&&x.loc!=='discard')).slice(0,12);
+     results.replaceChildren(...matches.map(b=>makeButton(b.name,()=>{
+       if(S.wizard||rowBirds(kind).length>=5)return;
+       const before=trayIds().slice(),count=S.birds.length;
+       slotDialog.close();dbAdd(b,kind);
+       if(S.birds.length>count&&S.birdHistory?.length){S.birdHistory.at(-1).cfTray=before;save()}
+     })));
+     if(!matches.length)results.textContent='Подходящих карт не найдено.';
+   };
+   direct.append(query,results);
+ }
+ slotDialog.replaceChildren(title,p,list,direct,find,makeButton('Отмена',()=>slotDialog.close(),'wide outline-btn'));slotDialog.showModal();
 }
 const guide=by('guide'), sanctuary=by('birds'), atlas=by('catalog'), nav=document.querySelector('.nav');
 const navNames={guide:'Советник',birds:'Заповедник',catalog:'Атлас'};
