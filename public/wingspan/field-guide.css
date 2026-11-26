@@ -119,3 +119,11 @@ dialog{background:linear-gradient(#fcf5e6ef,#f7ead0ef),url('./art/paper.svg');bo
 
 /* Final visual balance. */
 #advice .advice-hero.painted-coot{min-height:132px;padding-top:3px;padding-bottom:8px;display:flex;align-items:center}.advice-hero.painted-coot .advice-content{max-width:55%;text-shadow:none}.advice-hero.painted-coot .advice-bird{right:0;bottom:8px;width:43%;max-width:270px;mask-image:linear-gradient(90deg,transparent 0%,#000 12%);border-radius:12px}.advice-hero.painted-coot h2{overflow-wrap:normal}.field-goal{grid-template-columns:36px minmax(0,1fr) auto}.goal-emblem img{width:35px;height:35px;object-fit:contain}.nav button svg{stroke-width:1.65}@media(min-width:540px){#advice .advice-hero.painted-coot{min-height:160px}.advice-hero.painted-coot .advice-content{max-width:58%}}
+
+/* V10 stock editor: full-width entry and bounded mobile layout. */
+#quickStock>.outline-btn{grid-column:1/-1;min-height:44px;padding:8px 12px;white-space:normal;font-size:13px}
+#quickResourceEditor:not([hidden]):has(label){grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#quickResourceEditor label{display:grid;grid-template-columns:minmax(0,1fr);gap:3px;min-width:0;font-size:12px}
+#quickResourceEditor label input{width:100%;min-width:0;box-sizing:border-box;font-size:16px;min-height:40px}
+#quickResourceEditor:has(label)>button{grid-column:1/-1;min-height:44px;font-size:14px;padding:8px}
+.nav{z-index:100}
