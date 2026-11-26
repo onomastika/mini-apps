@@ -278,4 +278,120 @@ watch('quickStock',refineResources);refineResources();
 function tabChrome(){const current=document.querySelector('.tab:not([hidden])')?.id;header.classList.toggle('cf-compact',current!=='rules');document.body.dataset.cfTab=current||'guide';}
 document.querySelectorAll('.tab').forEach(t=>new MutationObserver(tabChrome).observe(t,{attributes:true,attributeFilter:['hidden']}));tabChrome();
 enhanceBoard();progress();forecast();
+
+// Ornithology card system. Presentation only: existing renderers retain state ownership.
+const birdTiming={brown:'При активации',white:'При размещении',pink:'Между ходами',teal:'В конце раунда',yellow:'В конце партии',none:'Без способности'};
+const birdNests={bowl:'Чаша',cavity:'Дупло',ground:'На земле',platform:'Платформа',star:'Любое',wild:'Любое'};
+const birdReason={'no free habitat':'Нет свободного места','food engine':'Развитие добычи корма','card/tuck synergy':'Комбинация карт и подкладок','bonus synergy':'Подходит к бонусной цели','endgame value':'Ценность в конце партии','habitat and cost':'Среда и стоимость'};
+const birdFood={worm:'Червь',seed:'Зерно',fruit:'Ягода',fish:'Рыба',rodent:'Грызун',nectar:'Нектар',any:'Любой корм'};
+function ornEl(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function ornStyle(el,b){el.classList.add('orn-card');el.dataset.habitat=(b.hab||[]).length>1?'multi':b.hab?.[0]||'multi';el.dataset.power=b.color||traits(b).color||'none'}
+function ornIcon(k){const img=ornEl('img','orn-food-icon');img.src='./art/res-'+k+'.svg';img.alt=birdFood[k]||k;img.loading='lazy';return img}
+function ornFood(b){
+ const row=ornEl('span','orn-food');row.setAttribute('aria-label','Корм: '+englishCost(b));
+ (b.cost||[]).forEach((opt,i)=>{if(i)row.append(ornEl('span','orn-food-separator','/'));if(!opt.length)row.append(ornEl('span','','0'));opt.forEach(k=>row.append(k==='any'?ornEl('span','orn-any','✳'):ornIcon(k)))});
+ if(b.manualCost)row.append(ornEl('small','','Особая стоимость'));return row
+}
+function ornFacts(b,full=false){
+ const facts=ornEl('div','orn-facts');
+ const habitats=ornEl('span','orn-habitats',(b.hab||[]).map(h=>H[h]||h).join(' · '));facts.append(habitats);
+ const eggs=ornEl('span','orn-fact');eggs.append(ornIcon('eggs'),ornEl('span','',String(b.capacity??'—')));eggs.title='Вместимость яиц';facts.append(eggs);
+ if(full&&b.nestType)facts.append(ornEl('span','orn-fact','Гнездо: '+(birdNests[b.nestType]||b.nestType)));
+ if(full&&(Number.isFinite(b.span)||b.flightless))facts.append(ornEl('span','orn-fact',b.flightless?'Нелетающая':'↔ '+b.span+' см'));
+ return facts
+}
+function ornArt(b,existing=null){
+ const frame=ornEl('div','orn-art');
+ const img=existing||ornEl('img','');if(!existing){img.src=portraitFor(b)?portraitUrl(b):'./art/ref-'+(b.hab?.[0]||'forest')+'.webp';img.loading='lazy'}img.alt=portraitFor(b)?b.name:'Иллюстрация среды обитания';img.classList.add('orn-portrait');frame.append(img);
+ if(!portraitFor(b))frame.append(ornEl('small','orn-art-caption','Портрет отсутствует'));
+ frame.append(ornEl('span','orn-points',String(b.points??'—')));frame.lastElementChild.setAttribute('aria-label','Очки птицы: '+(b.points??'неизвестны'));return frame
+}
+function ornPower(b){
+ const block=ornEl('div','orn-power');block.append(ornEl('small','orn-power-label',birdTiming[b.color||traits(b).color||'none']||'Способность'));
+ const p=ornEl('p','',englishPower(b));p.lang='en';block.append(p);return block
+}
+function ornStrategy(b){
+ const panel=ornEl('div','orn-strategy');const reason=fitReason(b);
+ const headline=ornEl('b','',birdReason[reason]||reason);panel.append(headline);
+ const tags=chosenGoals().filter(n=>qualifiesFor(b,n));
+ if(tags.length)panel.append(ornEl('small','','Бонусы: '+tags.join(', ')));
+ if(H[b.loc])panel.append(ornEl('small','','В заповеднике · '+H[b.loc]));
+ else{
+   const free=(b.hab||[]).filter(h=>rowBirds(h).length<5);
+   let availability=!free.length?'Нет свободного места':b.manualCost?'Стоимость сверяется вручную':!S.stockKnown?'Корм не подтверждён':!payPlan(b)?'Не хватает корма: '+missingFood(b).labels.join(' + '):Math.min(...free.map(eggPrice))>(S.stock.eggs||0)?'Не хватает яиц':'Известного корма и яиц хватает';
+   panel.append(ornEl('small','',availability));
+ }
+ return panel
+}
+function ornTitle(b){const h=ornEl('div','orn-name');h.append(ornEl('h2','',b.name));if(b.scientific)h.append(ornEl('i','orn-scientific',b.scientific));return h}
+function ornDetail(b){
+ const body=ornEl('div','orn-detail');ornStyle(body,b);
+ body.append(ornArt(b),ornTitle(b),ornFood(b),ornFacts(b,true),ornPower(b),ornStrategy(b));return body
+}
+const ornPreview=document.createElement('dialog');ornPreview.id='ornPreview';ornPreview.setAttribute('aria-label','Карточка птицы');document.body.append(ornPreview);
+function ornOpen(b){
+ if(!b)return;
+ const owned=S.birds.find(x=>x.loc!=='discard'&&(x.id===b.id||x.catalogId===b.id||x.name===b.name));
+ if(owned){showBird(owned.id);return}
+ const detail=ornDetail(b),actions=ornEl('div','orn-actions');
+ const available=()=>!S.wizard&&!S.birds.some(x=>x.name===b.name&&x.loc!=='discard');
+ const add=makeButton(trayPick!==null?'Выбрать открытую карту':'＋ В руку',()=>{if(!available())return;ornPreview.close();if(trayPick!==null)setTray(b);else dbAdd(b)},'primary wide');add.disabled=!available();actions.append(add);
+ if(trayPick===null)for(const h of b.hab||[]){if(rowBirds(h).length>=5)continue;const btn=makeButton('В заповедник · '+H[h],()=>{if(!available()||rowBirds(h).length>=5)return;ornPreview.close();dbAdd(b,h)},'outline-btn wide');btn.disabled=!available();actions.append(btn)}
+ actions.append(makeButton('Закрыть',()=>ornPreview.close(),'wide'));ornPreview.replaceChildren(detail,actions);ornPreview.showModal()
+}
+const ornCatalogIndex=new Map();let ornCatalogSource=null;
+function ornCatalog(){
+ if(!DB||dbKind!=='birds')return;
+ if(ornCatalogSource!==DB){ornCatalogSource=DB;ornCatalogIndex.clear();DB.birds.forEach(b=>ornCatalogIndex.set(b.name,b))}
+ for(const row of by('dbList').querySelectorAll('.dbrow:not(.orn-card)')){
+   const info=row.querySelector('.grow'),name=info?.querySelector('b'),b=ornCatalogIndex.get(name?.textContent);if(!b)continue;
+   ornStyle(row,b);const cards=row.classList.contains('atlas-card');
+   const image=row.querySelector('.catalog-art');const art=ornArt(b,image);row.prepend(art);
+   const open=makeButton(b.name,()=>ornOpen(b),'orn-title-button');open.setAttribute('aria-label','Открыть карточку '+b.name);name.replaceChildren(open);
+   const subtitle=info.querySelector(':scope > small');if(subtitle)subtitle.textContent=b.scientific||dbNames[b.set]||b.set||'';
+   const chips=info.querySelector('.chips');if(chips)chips.replaceChildren(ornFood(b),ornFacts(b,cards));
+   const power=info.querySelector('.card-power');if(power){const label=ornEl('small','orn-power-label',birdTiming[b.color]||'Способность');power.before(label)}
+   // Preserve the engine's original rating and power text; add a compact Russian explanation.
+   const rating=info.querySelector('.fit-rating');if(rating){rating.title=rating.textContent;rating.classList.add('orn-engine-rating');rating.after(ornEl('small','orn-reason',birdReason[fitReason(b)]||fitReason(b)))}
+   const actions=ornEl('div','orn-actions');for(const ctl of [...row.querySelectorAll(':scope > button,:scope > select')]){if(ctl.tagName==='BUTTON')ctl.textContent=ctl.disabled?'Уже добавлена':trayPick!==null?'Выбрать':'+ В руку';actions.append(ctl)}
+   row.append(actions);
+ }
+}
+function ornHand(){
+ const list=held();by('hand').querySelectorAll('.handrow:not(.orn-card)').forEach((row,i)=>{
+   const b=list[i];if(!b)return;ornStyle(row,b);const img=row.querySelector('.bird-thumb');if(img){const art=ornArt(b,img);row.prepend(art)}
+   const info=row.querySelector('.grow'),name=info?.querySelector('b');if(name)name.textContent=b.name;
+   if(info&&b.scientific)name.after(ornEl('i','orn-scientific',b.scientific));
+   const chips=info?.querySelector('.chips');if(chips)chips.replaceChildren(ornFood(b),ornFacts(b));
+   info?.append(ornEl('small','orn-reason',birdReason[fitReason(b)]||fitReason(b)));
+ });
+}
+function ornTray(){
+ const birds=trayBirds();by('tray').querySelectorAll('.tray-slot').forEach((row,i)=>{
+   const b=birds[i];if(!b||row.classList.contains('orn-card'))return;ornStyle(row,b);
+   const art=ornArt(b);const info=row.querySelector('.grow'),name=info?.querySelector('b');row.prepend(art);
+   if(name){const open=makeButton(b.name,()=>ornOpen(b),'orn-title-button');name.replaceChildren(open)}
+   if(info){if(b.scientific)name.after(ornEl('i','orn-scientific',b.scientific));info.append(ornFood(b),ornFacts(b))}
+   const actions=ornEl('div','orn-actions');for(const ctl of [...row.querySelectorAll(':scope > button')])actions.append(ctl);row.append(actions)
+ })
+}
+function ornBoard(){
+ by('board').querySelectorAll('.hab').forEach(row=>{
+   const h=['forest','grass','water'].find(k=>row.classList.contains(k));if(!h)return;
+   const birds=rowBirds(h);
+   row.querySelectorAll('.slot:not(.cf-empty)').forEach((slot,i)=>{
+     const b=birds[i];if(!b||slot.classList.contains('orn-card'))return;ornStyle(slot,b);
+     const points=ornEl('small','orn-mini-points',String(b.points??'—'));points.title='Очки птицы';slot.prepend(points);
+     const img=slot.querySelector('img');if(img&&!portraitFor(b))img.title='Условная иллюстрация; портрет отсутствует';
+   })
+ })
+}
+function ornOwned(){
+ const info=by('birdInfo');if(info.querySelector('.orn-detail'))return;
+ const name=info.querySelector('h2')?.textContent,b=S.birds.find(x=>x.name===name&&x.loc!=='discard')||S.birds.find(x=>x.name===name);if(!b)return;
+ info.replaceChildren(ornDetail(b),ornEl('small','orn-snapshot-note','Изменения — только снимок состояния, без оплаты или активации.'));
+}
+watch('dbList',ornCatalog);watch('hand',ornHand);watch('tray',ornTray);watch('board',ornBoard);watch('birdInfo',ornOwned);
+ornCatalog();ornHand();ornTray();ornBoard();
+
 })();
