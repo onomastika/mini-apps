@@ -1,0 +1,43 @@
+name: Wingspan Clean & Fluid browser acceptance
+on:
+  pull_request:
+    paths: ['public/wingspan/visual-studio.*', 'tests/wingspan/browser-clean-fluid.cjs', '.github/workflows/wingspan-clean-fluid.yml']
+  push:
+    branches: [wingspan/clean-fluid-ux]
+permissions:
+  contents: read
+concurrency:
+  group: wingspan-clean-fluid-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check public/wingspan/visual-studio.js
+      - run: npm install --no-save playwright-core@1.55.0
+      - name: Capture baseline and run browser acceptance
+        run: |
+          export CHROME_PATH="$(command -v google-chrome || command -v chromium)"
+          test -n "$CHROME_PATH"
+          mkdir -p evidence /tmp/clean-fluid-before
+          git archive 71729f97a2b84ed1bf4064f0fc5931e89edeb3a8 public/wingspan | tar -x -C /tmp/clean-fluid-before
+          python3 -m http.server 8764 --directory /tmp/clean-fluid-before/public >/tmp/before.log 2>&1 &
+          python3 -m http.server 8765 --directory public >/tmp/after.log 2>&1 &
+          node - <<'JS'
+          const {chromium}=require('playwright-core');
+          (async()=>{const b=await chromium.launch({executablePath:process.env.CHROME_PATH,args:['--no-sandbox']});try{for(const w of [320,390,768,1280]){const p=await b.newPage({viewport:{width:w,height:844},isMobile:w<500,hasTouch:w<500});await p.goto('http://127.0.0.1:8764/wingspan/');await p.waitForFunction(()=>DB?.version>=12);await p.screenshot({path:'evidence/before-advisor-'+w+'.png'});await p.locator('.nav [data-tab="birds"]').click();await p.screenshot({path:'evidence/before-board-'+w+'.png'});await p.close()}}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+          JS
+          timeout 360s node tests/wingspan/browser-clean-fluid.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wingspan-clean-fluid-comparison
+          path: evidence/
+          retention-days: 7

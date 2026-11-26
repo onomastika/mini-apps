@@ -120,3 +120,181 @@ html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{anim
 .vs-land-motion .vs-drift{animation:vs-drift 13s ease-in-out infinite alternate}
 @keyframes vs-drift{from{transform:translateX(-7px);opacity:.28}to{transform:translateX(9px);opacity:.6}}
 @media(prefers-reduced-motion:reduce){.vs-land-motion .vs-drift{animation:none!important}}
+
+
+/* Clean & Fluid: compact play surfaces; original artwork and game state stay intact. */
+.nav button[hidden]{display:none!important}
+.nav{max-width:580px;margin-inline:auto}
+.nav button{max-width:200px;min-height:54px}
+.nav button span{font-size:12px}
+.atlas-header.cf-compact{height:64px;margin:0 0 6px;border-radius:0 0 16px 16px}
+.atlas-header.cf-compact .atlas-title{padding-top:0}
+.atlas-header.cf-compact .atlas-title h1{font-size:31px;line-height:1.05;letter-spacing:-.05em}
+.atlas-header.cf-compact .title-feather{display:none}
+.atlas-header.cf-compact .atlas-subtitle{font-size:10px;padding:0 5px}
+.atlas-header.cf-compact .header-tools{top:5px}
+.atlas-header.cf-compact .header-tools .home-link{display:none}
+.atlas-header.cf-compact .header-tools .icon-help{font-size:24px}
+.cf-topline{display:grid;grid-template-columns:minmax(0,1fr) 76px;align-items:stretch;gap:8px;margin-bottom:8px}
+.cf-topline #turnSummary{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 8px;text-align:left;min-height:60px;padding:8px 10px;background:#e9eddf;border-radius:13px;color:#31543f}
+.cf-topline #turnLabel{font-size:14px;font-weight:700}
+.cf-topline #turnSummary>span:nth-child(2){font-size:22px;grid-column:2;grid-row:1/3}
+.cf-topline #vsProgress{grid-column:1;display:block;padding:0;margin:0;background:none;border:0}
+.cf-topline #vsProgress small{font-size:11px;font-weight:500;display:block}
+.cf-topline .vs-progress-track{height:5px;margin-top:5px}
+.cf-topline .vs-progress-track span{overflow:hidden}
+.cf-topline .vs-progress-track i{height:100%;display:block;background:#315b45;border-radius:5px}
+.cf-score{display:grid;place-content:center;gap:0;background:#e9eddf;color:#31543f;padding:4px 6px;font-variant-numeric:tabular-nums}
+.cf-score b{font:700 27px/1.05 Georgia,serif}
+.cf-score small{font-size:11px}
+#guide .cf-resources{padding:8px 10px 6px;margin-bottom:9px;border:0;background:#fffaf0a8;box-shadow:none}
+.cf-resources>.row{margin-bottom:4px}
+.cf-resources>.row h3{font-size:14px}
+.cf-resources>.row small{font-size:11px}
+.cf-resources .resource-hint{display:none}
+.cf-resources #quickStock{grid-template-columns:repeat(6,minmax(0,1fr));gap:3px}
+.cf-resources #quickStock:has(.res-tile:nth-child(7)){grid-template-columns:repeat(7,minmax(0,1fr))}
+.cf-resources .res-tile{min-width:0;min-height:52px;display:grid;grid-template-columns:1fr;justify-items:center;gap:1px;padding:4px 1px;border:0;background:#f0eddf}
+.cf-resources .res-tile img{width:23px;height:21px}
+.cf-resources .res-tile b{font-size:19px}
+.cf-resources .res-tile small{display:none}
+.cf-resources .res-tile.selected{background:#dce7cf;box-shadow:inset 0 0 0 2px #6e8b61;padding:4px 1px}
+.cf-resources #quickStock>.outline-btn{min-height:44px;padding:4px 8px;font-size:13px;background:transparent;border:0;text-align:left}
+.cf-resources #quickStock>.cf-update{text-align:center;background:#e5ecdc;margin-top:2px}
+.cf-resources>.setup{min-height:36px;font-size:12px;margin:0}
+.cf-resources>.quiet-details{padding:0;margin:0;border-top:0}
+.cf-resources>.quiet-details summary{font-size:12px;padding:7px 0 7px 17px;min-height:32px}
+.cf-resources>.quiet-details summary:before{top:12px}
+.cf-resources #quickResourceEditor:not([hidden]){margin-top:5px}
+.cf-undo{font-size:12px;width:100%}
+.cf-undo[hidden]{display:none}
+#guide #advice{padding:12px 12px 6px;margin-bottom:8px;border-radius:16px}
+#guide #advice .advice-hero{min-height:80px;margin:4px 0;padding:0;gap:8px}
+#guide #advice .advice-content h2{font-size:clamp(22px,5.9vw,34px);margin:4px 0 6px}
+#guide #advice .advice-bird{max-width:34%;max-height:110px;object-fit:contain}
+#guide #advice .note{font-size:12px;line-height:1.42;padding:7px 9px;margin:6px 0}
+#guide #advice .advice-cost{font-size:12px;padding:3px 6px}
+#guide #advice .advice-location{font-size:12px;margin:3px 0}
+#guide #advice>.wide{min-height:44px;margin:4px 0 0;font-size:13px}
+#guide #advice .quiet-details{margin-top:3px;padding:2px 0 0}
+#guide #advice .quiet-details summary{font-size:14px}
+#guide .turn-shortcuts{margin:6px 0 8px;gap:6px}
+#guide .turn-shortcuts button{min-height:44px;padding:5px 7px;font-size:12px}
+#guide .strategy-details{padding:4px 12px;margin-bottom:6px;box-shadow:none}
+#guide .strategy-details summary{font-size:15px;min-height:44px}
+.cf-forecast-hint{font-weight:400;font-size:11px;white-space:normal}
+.cf-resource-link{margin:0 0 8px}
+#birds .section-heading{margin:4px 0 8px}
+#board{gap:8px;margin-top:8px}
+#board .hab{min-height:0;padding:10px 8px 12px;border-radius:13px}
+#board .hab>b{font-size:19px}
+#board .vs-hab-meter{display:none}
+#board .slots{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+#board .slot{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:0;min-height:70px;padding:4px 2px;gap:2px;text-align:center;border-radius:8px;line-height:1.15}
+#board .slot img{width:100%;max-width:76px;height:40px;object-fit:contain}
+#board .slot>span{font-size:10px;overflow-wrap:anywhere;max-width:100%}
+#board .slots .cf-bird-meta{font-size:9px;line-height:1.3;background:none;padding:0;width:auto;white-space:normal;overflow-wrap:anywhere;margin:0}
+#board .cf-empty{color:#49694d;border:1px dashed #71856a9c;background:#fffaf0a8;box-shadow:none;font-size:22px}
+#board .cf-empty small{width:auto;margin:0;padding:0;background:none;font-size:11px}
+.cf-slot-choices{display:grid;gap:5px}
+.cf-slot-choices button{text-align:left}
+#cfGoals{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.cf-goal{display:grid;align-content:start;gap:3px;min-width:0;padding:9px;border-radius:11px;background:#f1eddf;overflow-wrap:anywhere}
+.cf-goal b{font-size:13px;line-height:1.3}
+.cf-goal small{font-size:11px}
+.cf-goal-current{background:#e4edd9;box-shadow:inset 0 0 0 1px #78966a}
+.cf-batch-query{width:100%;min-height:44px;border:1px solid #d6ccb2;border-radius:10px;padding:8px;font:inherit;background:#fffdf5;color:inherit}
+.cf-batch-list{max-height:42dvh;overflow:auto;overscroll-behavior:contain}
+.cf-batch-list label{display:flex;align-items:center;gap:10px;min-height:44px;border-bottom:1px solid #e4dac4}
+.cf-batch-list input{width:20px;height:20px;accent-color:#315b45;flex:none}
+.cf-offscreen .vs-land-motion *{animation-play-state:paused!important}
+@media(min-width:850px){
+ main{max-width:1120px;padding-inline:24px}
+ .atlas-header.cf-compact{height:72px}
+ .atlas-header.cf-compact .atlas-title h1{font-size:38px}
+ #guide:not([hidden]){display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:10px 20px;align-items:start}
+ #guide>.cf-topline{grid-column:1/-1}
+ #guide>.cf-resources{grid-column:2;grid-row:2}
+ #guide>#advice{grid-column:1;grid-row:2/4}
+ #guide>.turn-shortcuts{grid-column:2;grid-row:3}
+ #guide>#strategyPanel{grid-column:1;grid-row:4}
+ #guide>#forecastPanel{grid-column:2;grid-row:4}
+ #guide>.fine-print{grid-column:1/-1}
+ #guide #advice .advice-hero{min-height:120px}
+ #birds:not([hidden]){display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px 20px;align-items:start}
+ #birds>.section-heading,#birds>.cf-resource-link{grid-column:1/-1}
+ #birds>.panel:has(#board){grid-column:1;grid-row:3/span 3}
+ #birds>.panel:has(#hand){grid-column:2}
+ #birds>.panel{min-width:0}
+ #board .slot{min-height:100px}
+ #board .slot img{height:60px}
+ #board .slot>span{font-size:12px}
+ #board .slots .cf-bird-meta{font-size:10px}
+ #catalog #dbList.catalog-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:360px){.cf-topline{grid-template-columns:minmax(0,1fr) 64px}.cf-topline #turnLabel{font-size:12px}#board .slots{gap:3px}#board .slot>span{font-size:9px}.cf-resources .res-tile img{width:21px}}
+
+
+/* Screenshot review: lead with the board and advice, remove repeated framing. */
+#guide #advice{margin-bottom:8px}
+#guide #advice .note{background:transparent;border-left:2px solid #b49c62;padding:5px 8px;margin:5px 0}
+.cf-full-rationale{font-size:13px;line-height:1.5;color:#526454}
+#guide #advice>.wide{background:#e8eddf;border:0}
+#guide .cf-resources>.quiet-details:not([open]){margin:0;padding:0}
+#guide .cf-resources:has(#quickResourceEditor:not([hidden]))>.quiet-details{display:block}
+#guide .cf-resources>.setup{min-height:44px}
+#guide .cf-resources #quickStock>.outline-btn{min-height:44px}
+#guide .cf-resources .res-tile{min-height:44px}
+#birds .cf-board-panel{padding:10px 8px;background:transparent;box-shadow:none;border:0;margin-bottom:6px}
+#birds .cf-board-panel>.row{padding:0 3px}
+#birds .cf-board-panel h3{font-size:16px}
+#birds .cf-board-panel .fine-print{font-size:11px;margin:6px 4px 0}
+#birds .cf-resource-link{background:#e8eddf;border:0}
+#birds .cf-hand-panel{margin-top:4px}
+#board .hab{padding:8px 7px 9px}
+#board .slot{min-height:76px}
+#board .cf-empty{font-family:system-ui,sans-serif;font-size:25px;font-weight:400}
+#board .slot>span{font-size:10px;word-break:normal;overflow-wrap:anywhere}
+#board .slot .cf-bird-meta{font-size:10px}
+#board .cf-empty small{font-size:11px}
+.cf-menu-home{display:block;padding:12px 6px;text-align:center;color:#315b45}
+#guide #strategyPanel .strategy-details{padding:3px 12px;margin:0 0 5px}
+#guide .turn-shortcuts{margin:5px 0 6px}
+.nav button:not(.active){background:transparent;color:#edf0dd;opacity:1}
+.nav button.active{background:#e8ecd9;color:#294d37;opacity:1}
+.nav button:focus-visible{outline-offset:-2px;outline-color:#f3d998}
+@media(min-width:850px){
+ #birds:not([hidden]){grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);align-items:start;grid-auto-flow:row}
+ #birds>.section-heading{grid-column:1/-1}
+ #birds>.cf-board-panel{grid-column:1;grid-row:2/span 3}
+ #birds>.cf-resource-link{grid-column:2;grid-row:2;margin:0}
+ #birds>.cf-hand-panel{grid-column:2;grid-row:3;margin:0}
+ #birds>.panel:has(#quickGoals){grid-column:2;grid-row:4}
+ #birds>.cf-goals{grid-column:1;grid-row:5}
+ #board .slot{min-height:105px}
+ #board .slot>span{font-size:12px}
+ #board .slot .cf-bird-meta{font-size:11px}
+}
+@media(max-width:390px){
+ #guide .cf-resources>.row{margin-bottom:2px}
+ #guide .cf-resources{padding:6px 8px}
+ #guide .cf-resources .res-tile{min-height:44px}
+ #guide .cf-resources .res-tile b{font-size:17px}
+ #guide .cf-resources .res-tile img{width:20px;height:19px}
+ #guide #advice .advice-hero{min-height:64px}
+ #guide #advice .advice-content h2{font-size:23px}
+ #board .slot{min-height:65px}
+ #board .slot img{height:35px}
+ #board .slot .cf-bird-meta{font-size:9px}
+}
+
+.cf-direct-slot{margin:10px 0 4px}.cf-direct-results{max-height:32dvh;overflow:auto;margin-top:5px}.cf-direct-results button{font-size:14px}.cf-direct-results:empty{display:none}
+
+/* Final screenshot review: preserve uncertainty and align the physical slots. */
+.cf-uncertainty{display:block;font-size:11px;line-height:1.35;color:#735c35;margin:4px 0 6px;overflow-wrap:anywhere}
+#board .slots{align-items:stretch}
+#board .slot{height:100%;justify-content:flex-start}
+#board .cf-empty{justify-content:center}
+#board .slot>span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.15;min-height:2.3em}
+#board .slot .cf-bird-meta{margin-top:auto}
+#board .slot:focus-visible{outline:3px solid #906c37;outline-offset:-2px}
