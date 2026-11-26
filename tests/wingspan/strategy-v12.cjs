@@ -1,6 +1,8 @@
 const fs=require('node:fs'),assert=require('node:assert/strict'),source=fs.readFileSync('tests/wingspan/strategy-v5.cjs','utf8');
-const mock=new Function(source.slice(source.indexOf('function mock'),source.indexOf('const assert=')).replace('return {state:()=>S','return {starterPlan,v12Power,payPlan,state:()=>S')+'\nreturn mock')();
+const mock=new Function(source.slice(source.indexOf('function mock'),source.indexOf('const assert=')).replace('return {state:()=>S','return {starterPlan,v12Power,payPlan,yieldFor,state:()=>S')+'\nreturn mock')();
 const db=JSON.parse(fs.readFileSync('public/wingspan/cards.json','utf8')),ui=mock(fs.readFileSync('public/wingspan/index.html','utf8'),db).ui;
 assert.equal(db.version,12);assert.equal(db.birds.length,707);
 for(let oceania of [false,true]){ui.reset();let s=ui.state();Object.assign(s,{setupMode:true,oceania,birds:db.birds.filter(b=>!b.manualCost&&b.cost.every(c=>!c.includes('nectar'))).slice(0,5).map(b=>({...b,id:'c'+b.id,loc:'hand'})),selectedGoals:['Bird Feeder','Nest Box Builder']});let before=JSON.stringify(s),a=ui.starterPlan();assert(a);assert.equal(a.keep.length+Object.values(a.stock).reduce((n,v)=>n+v,0),oceania?6:5);assert.equal(JSON.stringify(s),before);assert.deepEqual(ui.starterPlan(),a)}
 let b=db.birds.find(b=>b.id===421),x={expected:0,risk:0};let y=ui.v12Power(x,b,'brown');assert(y.expected>0&&y.expected<1);assert.equal(x.expected,0);assert.equal(ui.v12Power(x,b,'white'),null);assert(ui.payPlan({cost:[['nectar']]},{seed:2}));console.log('V12 legal, deterministic and non-mutating setup; projected powers and nectar trade PASS');
+
+ui.state().oceania=true;assert.deepEqual(Array.from({length:6},(_,n)=>ui.yieldFor('grass',n)),[1,2,2,2,3,4]);ui.state().oceania=false;assert.deepEqual(Array.from({length:6},(_,n)=>ui.yieldFor('grass',n)),[2,2,3,3,4,4]);console.log('Printed grassland yields PASS');

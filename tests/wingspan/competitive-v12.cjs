@@ -171,6 +171,6 @@ default:throw Error('unsupported fixture rule '+m.kind)
 
 
 const assert=require('node:assert/strict'),fixture=JSON.parse(fs.readFileSync('tests/wingspan/v11-expansions-fixture.json','utf8')),html=fs.readFileSync('public/wingspan/index.html','utf8'),db=JSON.parse(fs.readFileSync('public/wingspan/cards.json','utf8')),old='3f6d8d4622cad5fd456ca505c28171bcc6baf667',oldHtml=execFileSync('git',['show',old+':public/wingspan/index.html'],{encoding:'utf8',maxBuffer:4e6}),oldDb=JSON.parse(execFileSync('git',['show',old+':public/wingspan/cards.json'],{encoding:'utf8',maxBuffer:4e6}));
-const versions=[{version:11,html:oldHtml,db:oldDb},{version:12,html,db}],mode=process.argv[2]||'base',oceania=mode.startsWith('oceania'),strong=mode.endsWith('strong'),chunk=Number(process.argv[3]||0),seeds=Array.from({length:6},(_,i)=>20321101+(oceania?10000:0)+(strong?1000:0)+chunk*6+i),results=competitive(versions,mock,fixture,seeds,strong?versions[0]:null,oceania);
+const versions=[{version:11,html:oldHtml,db:oldDb},{version:12,html,db}],mode=process.argv[2]||'base',oceania=mode.startsWith('oceania'),strong=mode.endsWith('strong'),chunk=Number(process.argv[3]||0),seeds=Array.from({length:6},(_,i)=>20331101+(oceania?10000:0)+(strong?1000:0)+chunk*6+i),results=competitive(versions,mock,fixture,seeds,strong?versions[0]:null,oceania);
 for(let v of results)for(let c of v.cases){assert.equal(c.turns,26);assert.equal(c.decisions,26);assert(Number.isFinite(c.score));assert.equal(c.fallbacks,0)}
 console.log(JSON.stringify({mode,chunk,results}));

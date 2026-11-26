@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        mode: [base, base-strong, oceania, oceania-strong]
+        mode: ${{ fromJSON(contains(github.event.head_commit.message, 'oceania-only') && '["oceania","oceania-strong"]' || '["base","base-strong","oceania","oceania-strong"]') }}
         chunk: [0, 1, 2]
     steps:
       - uses: actions/checkout@v4
