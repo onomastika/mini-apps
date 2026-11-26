@@ -1,0 +1,10 @@
+# V10 candidate (not yet accepted)
+Baseline V9 production verified: https://github.com/onomastika/mini-apps/actions/runs/45728986954.
+- Forecast ranks anonymous-card acquisition options using the unseen deck population, habitat mask, coarse food budget and hypergeometric probability. This is an intermediate beam heuristic, not a claim that a specific unknown bird is drawn or playable; final points remain grounded in known cards. It does not model a full future stochastic tree.
+- Beam width 24 for fewer than six turns, 36 otherwise. No claimed physical iPhone speedup.
+- Three partial bonus-selection projections for Kea, Shore Plover, Eastern Whip-Poor-Will (last models keep-one option only). Remaining mode counts: 495 guided, 25 deterministic, 103 projected, 78 manual, 6 none. These labels do not establish full power fidelity.
+- Batch editing all food and egg inventory in one submission; invalid values rejected, prior individual editor retained, same storage key.
+- Independent simulator expanded from 172 to 221 cards, adding 49 printed-rule entries, shared eight-card bonus deck, separate retained bonus scoring, bonus conservation checks, movement, theft, adjacent eggs, round conditions. Two-player base board only; incomplete expansions, simplified player decisions and bonus subset; not an external win-rate estimate.
+- Tuning on 12 seeds 20261210–21: V9 85.33; simple option-value candidate 87.83; other candidates 85.08 and 86.25. On 12 seeds 20261222–33: V9 76.33, chosen deck-aware option-value variant 78.58, alternatives 72.58 and 72.58. On expanded fixture seeds 20261240–51: V9 76.50 (12 wins), selected V10 80.75 (9 wins); wider early beam 79.17 (8 wins); doubled opening weight no improvement. Rejected those alternatives. Mixed outcomes; no robust improvement claimed.
+- 3 expanded-fixture smoke games passed, no fallback, 26 turns per game.
+- Final test preregistered: 150 fresh development seeds starting 20270101, 150 untouched holdout seeds starting 19750201, V8/V9/V10 paired. No tuning on either final set. 900 games. Report paired score difference and win credit; do not merge unless evidence supports acceptance.
