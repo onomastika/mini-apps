@@ -1,0 +1,38 @@
+name: Wingspan Visual Studio acceptance
+on:
+  push:
+    branches: [wingspan/visual-studio]
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check public/wingspan/visual-studio.js
+      - run: |
+          git diff --exit-code d83b9a44ec7a610b339d8994f5bd44e576f8754b -- public/wingspan/art public/wingspan/cards.json
+          node - <<'NODE'
+          const fs=require('fs'),cp=require('child_process'),assert=require('assert/strict');
+          const before=cp.execFileSync('git',['show','d83b9a44ec7a610b339d8994f5bd44e576f8754b:public/wingspan/index.html'],{encoding:'utf8'});
+          const after=fs.readFileSync('public/wingspan/index.html','utf8').replace('<link rel="stylesheet" href="./visual-studio.css">','').replace('<script src="./visual-studio.js" defer></script>','');
+          assert.equal(before,after);console.log('ENGINE AND ART UNCHANGED');
+          NODE
+      - run: npm install --no-save playwright-core@1.55.0
+      - run: |
+          export CHROME_PATH="$(command -v google-chrome || command -v chromium)"
+          python3 -m http.server 8765 --directory public >/tmp/server.log 2>&1 &
+          node tests/wingspan/browser-v10.cjs
+          node tests/wingspan/browser-visual.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wingspan-visual-before-after
+          path: evidence/
+          retention-days: 7
