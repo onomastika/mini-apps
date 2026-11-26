@@ -240,7 +240,7 @@ html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{anim
 #guide #advice .note{background:transparent;border-left:2px solid #b49c62;padding:5px 8px;margin:5px 0}
 .cf-full-rationale{font-size:13px;line-height:1.5;color:#526454}
 #guide #advice>.wide{background:#e8eddf;border:0}
-#guide .cf-resources>.quiet-details:not([open]){display:none}
+#guide .cf-resources>.quiet-details:not([open]){margin:0;padding:0}
 #guide .cf-resources:has(#quickResourceEditor:not([hidden]))>.quiet-details{display:block}
 #guide .cf-resources>.setup{min-height:44px}
 #guide .cf-resources #quickStock>.outline-btn{min-height:44px}
@@ -287,3 +287,5 @@ html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{anim
  #board .slot img{height:35px}
  #board .slot .cf-bird-meta{font-size:9px}
 }
+
+.cf-direct-slot{margin:10px 0 4px}.cf-direct-results{max-height:32dvh;overflow:auto;margin-top:5px}.cf-direct-results button{font-size:14px}.cf-direct-results:empty{display:none}
