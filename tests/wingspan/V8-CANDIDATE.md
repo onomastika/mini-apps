@@ -84,3 +84,7 @@ Added 74 projection-specific rules to the catalog (separate `projected` mode). T
 ## Cycle 3
 
 Added 19 further forecast model entries, fixed known-hand tuck activation, extra placement, bonus expectation, copied-power recursion, forecast explanations, direct catalog-to-habitat entry, resource-aware fit. Model entries are not a claim of full rule execution under all expansion contexts.
+
+## Cycle 4
+
+Full printed power text attached by pinned source identity. Snapshot migration, uncertain-input forecast, direct state entry, known-card consumption, observed feeder and conditional opponent model validated. Round double-count implemented for supported bird-count goals. 93 forecast-specific entries separate from the V7 guided count. 11 new focused test groups.
