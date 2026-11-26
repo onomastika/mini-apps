@@ -35,3 +35,26 @@ jobs:
           done
           echo 'Cloudflare assets did not match the merged revision' >&2
           exit 1
+
+  strategic-value:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/wingspan/strategic-value.cjs
+      - run: node --check public/wingspan/visual-studio.js
+      - run: npm install --no-save playwright-core@1.55.0
+      - name: Verify strategic value at mobile and desktop sizes
+        run: |
+          export CHROME_PATH="$(command -v google-chrome || command -v chromium)"
+          python3 -m http.server 8765 --directory public >/tmp/value-server.log 2>&1 &
+          timeout 180s node tests/wingspan/browser-strategic-value.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wingspan-strategic-value
+          path: evidence/
+          retention-days: 7

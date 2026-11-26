@@ -9,3 +9,7 @@ s=setup(3,8,[['Sandhill Crane','hand'],['Ruddy Duck','hand']],{worm:4,seed:4,fis
 let key=ui.valueStateKey();s.selectedGoals=['Bird Feeder'];assert.notEqual(ui.valueStateKey(),key);s.stockKnown=false;assert(ui.strategicValue(s.birds[0],'keep',true).preliminary);
 s=setup(0,0,[['Northern Flicker','hand'],['Ruddy Duck','hand']],{});assert(ui.valuePreview(s.birds[0]).rating>0);assert(ui.valueRating(0)===0&&ui.valueRating(15)>9);
 console.log('Strategic value: late-game opportunity cost, relative discard, early potential, cache invalidation, unknown inputs and non-mutation PASS');
+s=setup(0,0,[['Northern Flicker','hand'],['Ruddy Duck','hand']],{});assert(ui.strategicValue(s.birds[1],'keep',true).rating>=7);
+s=setup(2,0,[['Ruddy Duck','water'],['American Coot','hand']],{seed:2});assert(ui.strategicValue(s.birds[1],'keep',true).rating>=9);
+
+s=setup(3,8,[['American Coot','water'],['Northern Flicker','forest'],['Cerulean Warbler','hand']],{worm:3,seed:3,eggs:1});let no=ui.strategicValue(s.birds[2],'keep',true).rating;s.selectedGoals=['Bird Counter'];assert.notEqual(ui.strategicValue(s.birds[2],'keep',true).rating,no);

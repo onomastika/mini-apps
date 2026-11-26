@@ -152,7 +152,7 @@ function labelCatalog(){
  set('.section-heading h2','Атлас птиц');set('.section-heading [data-tab="birds"]','Моя рука ›');
  for(const [key,label] of Object.entries({birds:'Птицы',bonus:'Бонусы',hummingbirds:'Колибри',goals:'Цели'}))set('[data-kind="'+key+'"]',label);
  by('dbQuery').placeholder='Поиск по названию…';by('dbQuery').setAttribute('aria-label','Поиск карт');set('#dbReset','Сбросить фильтры');set('#dbMore','Показать ещё');set('[data-view="list"]','☰ Список');set('[data-view="cards"]','▦ Карточки');
- const sortLabels={name:'А–Я / A–Z',points:'Очки',fit:'Совместимость',cost:'Стоимость'};
+ const sortLabels={name:'А–Я / A–Z',points:'Очки',fit:'Стратегическая ценность',cost:'Стоимость'};
  for(const opt of by('dbSort').options)if(sortLabels[opt.value])opt.textContent=sortLabels[opt.value];
  for(const [id,label] of Object.entries({dbSet:'Все наборы',dbHab:'Все среды',dbFood:'Любой корм',dbColor:'Все способности'})){by(id).options[0].textContent=label;}
 }
@@ -421,8 +421,12 @@ function valueDetail(b){
  else body.append(ornEl('small','','Быстрый прогноз по планам советника: '+(r.placement?'подготовка '+r.placement.prep+' ход., '+r.placement.utility.toFixed(1)+' усл. пользы.':'недостаточно данных для точного сравнения.')));
  if(!S.roundKnown||!S.stockKnown)body.append(ornEl('small','','Уточни раунд и запас для сравнения сценариев.'));
  }
- paint(strategicValue(b,mode));
- more.addEventListener('toggle',()=>{if(!more.open)return;const key=valueStateKey();body.append(ornEl('small','','Сравнение сценариев…'));setTimeout(()=>{if(!box.isConnected||!more.open||key!==valueStateKey())return;try{paint(strategicValue(b,mode,true));refreshValues()}catch(e){paint(valuePreview(b,mode));body.append(ornEl('small','','Углублённый прогноз недоступен.'))}},30)});
+ let lastKey='',scheduled=false;
+ function refresh(deep=false){const key=valueStateKey();if(key!==lastKey||deep){lastKey=key;paint(strategicValue(b,mode));}
+ if(!deep||scheduled||strategicValue(b,mode).delta!==undefined||!S.roundKnown||!S.stockKnown||S.setupMode||S.wizard||S.phase!=='play')return;
+ scheduled=true;setTimeout(()=>{scheduled=false;if(!box.isConnected||key!==valueStateKey())return;try{paint(strategicValue(b,mode,true));refreshValues()}catch(e){paint(valuePreview(b,mode));body.append(ornEl('small','','Углублённый прогноз недоступен.'))}},40)}
+ box.valueRefresh=refresh;refresh(true);
+ more.addEventListener('toggle',()=>{if(more.open)refresh(true)});
  return box
 }
 let valueSort=false,valueJob=0,valueQueueKey='';
@@ -440,12 +444,13 @@ function refreshValues(){
   let mode=el.dataset.valueMode,b=mode==='keep'?held().find(x=>String(x.id)===el.dataset.valueId):DB?.birds.find(x=>String(x.id)===el.dataset.valueId);
   if(b)valuePaint(el,strategicValue(b,mode))
  }
+ for(const detail of document.querySelectorAll('dialog[open] .orn-value-detail'))detail.valueRefresh?.(false);
  sortValueHand();
 }
 function queueValues(){
  refreshValues();if(by('birds').hidden||!S.roundKnown||!S.stockKnown||S.phase!=='play'||S.setupMode||S.wizard)return;
- const key=valueStateKey();if(key===valueQueueKey)return;valueQueueKey=key;const job=++valueJob,queue=held().slice();
- function next(){if(job!==valueJob||key!==valueStateKey()||by('birds').hidden){if(job===valueJob)valueQueueKey='';return}let b=queue.shift();if(!b)return;try{strategicValue(b,'keep',true)}catch(e){}refreshValues();setTimeout(next,75)}
+ const key=valueStateKey();if(key===valueQueueKey)return;valueQueueKey=key;const job=++valueJob,queue=[...held(),...trayBirds().filter(Boolean)];
+ function next(){if(job!==valueJob||key!==valueStateKey()||by('birds').hidden){if(job===valueJob)valueQueueKey='';return}let b=queue.shift();if(!b)return;try{strategicValue(b,valueMode(b),true)}catch(e){}refreshValues();setTimeout(next,75)}
  setTimeout(next,75)
 }
 watch('advice',queueValues);watch('hand',queueValues);watch('dbList',refreshValues);watch('tray',refreshValues);
