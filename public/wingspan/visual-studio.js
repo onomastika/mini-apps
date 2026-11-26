@@ -410,7 +410,7 @@ const liveGlyphs={
  cards:'<rect x="5" y="2" width="13" height="18" rx="2" transform="rotate(-12 11 11)"/><rect x="8" y="4" width="13" height="18" rx="2" fill="#faf5e7"/><path d="m11 17 6-8m-6 4 4 1"/>',
  unknown:'<path d="M8 7a4 4 0 1 1 5 4c-1 1-1 2-1 3m0 4v1"/>'
 };
-function liveGlyph(k){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');svg.setAttribute('class','live-glyph');svg.setAttribute('fill','none');svg.setAttribute('stroke','currentColor');svg.setAttribute('stroke-width','1.5');svg.setAttribute('stroke-linecap','round');svg.setAttribute('stroke-linejoin','round');svg.innerHTML=liveGlyphs[k]||liveGlyphs.unknown;return svg}
+function liveGlyph(k){if(H[k]){const el=ornEl('span','live-glyph',H[k].split(' ')[0]);el.setAttribute('aria-hidden','true');return el}const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');svg.setAttribute('class','live-glyph');svg.setAttribute('fill','none');svg.setAttribute('stroke','currentColor');svg.setAttribute('stroke-width','1.5');svg.setAttribute('stroke-linecap','round');svg.setAttribute('stroke-linejoin','round');svg.innerHTML=liveGlyphs[k]||liveGlyphs.unknown;return svg}
 function liveFact(label,content){const el=ornEl('span','live-fact');el.title=label;el.setAttribute('aria-label',label);el.append(...content);return el}
 function liveFacts(b){
  const row=ornEl('div','live-facts');const food=ornFood(b);if(!b.cost?.length)food.append(ornEl('span','','—'));
