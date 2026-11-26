@@ -88,3 +88,7 @@ Added 19 further forecast model entries, fixed known-hand tuck activation, extra
 ## Cycle 4
 
 Full printed power text attached by pinned source identity. Snapshot migration, uncertain-input forecast, direct state entry, known-card consumption, observed feeder and conditional opponent model validated. Round double-count implemented for supported bird-count goals. 93 forecast-specific entries separate from the V7 guided count. 11 new focused test groups.
+
+## Cycle 5
+
+Independent competitive fixture with 134 cards selected by printed rule text, shared deck/feeder, hidden hands, green round goals, independent costs/scoring, fixed opponent and randomized starting seat. Smoke test one common seed passed. Full comparison pending parallel CI. Optional board upgrades and unsupported expansion rules excluded.
