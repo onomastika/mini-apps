@@ -1,0 +1,44 @@
+name: Wingspan V12 focused acceptance
+on:
+  push:
+    branches: [wingspan/v12-strategy]
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [base, base-strong, oceania, oceania-strong]
+        chunk: [0, 1, 2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/wingspan/competitive-v12.cjs ${{ matrix.mode }} ${{ matrix.chunk }}
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/wingspan/strategy-v12.cjs
+      - run: npm install --no-save playwright-core@1.55.0
+      - run: |
+          export CHROME_PATH="$(command -v google-chrome || command -v chromium)"
+          test -n "$CHROME_PATH"
+          python3 -m http.server 8765 --directory public >/tmp/server.log 2>&1 &
+          timeout 240s node tests/wingspan/browser-v12.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wingspan-v12-browser
+          path: evidence/
+          retention-days: 3
