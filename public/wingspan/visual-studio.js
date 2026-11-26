@@ -90,7 +90,7 @@ const help=header.querySelector('[data-tab="rules"]');help.textContent='⋯';hel
 const menu=document.createElement('dialog');menu.id='cfMenu';document.body.append(menu);
 const menuTitle=document.createElement('h2');menuTitle.textContent='Меню';
 menu.append(menuTitle,...[['Настройки партии','game'],['Подсчёт очков','score'],['Правила, импорт, экспорт и оформление','rules']].map(([label,tab])=>makeButton(label,()=>{menu.close();setTab(tab)},'wide outline-btn')),makeButton('Закрыть',()=>menu.close(),'wide'));
-help.onclick=()=>menu.showModal();
+const home=document.createElement('a');home.href=header.querySelector('.home-link').href;home.className='cf-menu-home';home.textContent='Каталог приложений';menu.insertBefore(home,menu.lastElementChild);help.onclick=()=>menu.showModal();
 const res=sanctuary.querySelector('.resource-panel');res.classList.add('cf-resources');
 const score=makeButton('',()=>setTab('score'),'cf-score');
 score.id='cfScore';score.setAttribute('aria-label','Открыть подробный подсчёт очков');
@@ -135,7 +135,7 @@ function labelCatalog(){
 labelCatalog();watch('dbSet',()=>{const x=by('dbSet').options[0];if(x&&x.textContent!=='Все наборы')x.textContent='Все наборы'});
 // Batch hand additions are a single explicit snapshot, with one render and one checkpoint.
 const batchDialog=document.createElement('dialog');batchDialog.id='cfBatchDialog';document.body.append(batchDialog);
-const batchButton=makeButton('＋ Несколько птиц',openBatch,'outline-btn wide');atlas.querySelector('.section-heading').after(batchButton);
+const batchButton=makeButton('＋ Несколько птиц',openBatch,'outline-btn wide');atlas.querySelector('.section-heading').after(batchButton);function updateBatchButton(){batchButton.disabled=!DB||!!S.wizard||trayPick!==null||dbKind!=='birds'}watch('dbList',updateBatchButton);updateBatchButton();
 function openBatch(){
  if(!DB||S.wizard)return;
  const picked=new Map(), title=document.createElement('h2');title.textContent='Добавить птиц в руку';
@@ -144,7 +144,7 @@ function openBatch(){
  const available=b=>setAllowed(b)&&!S.birds.some(x=>dbNorm(x.name)===dbNorm(b.name)&&x.loc!=='discard');
  const apply=makeButton('Добавить выбранные',()=>{
    if(S.wizard||!picked.size)return;const birds=[...picked.values()];
-   if(!birds.every(available)){render();return}
+   if(!birds.every(available)){for(const [id,b] of picked)if(!available(b))picked.delete(id);render();return}
    v8Checkpoint();S.lastGuided=null;
    const stamp=Date.now();
    birds.forEach((b,i)=>S.birds.push({...b,id:'db-'+b.id+'-'+stamp+'-'+i,catalogId:b.id,loc:'hand',power:englishPower(b)}));
@@ -162,7 +162,7 @@ function openBatch(){
 // Disable decorative movement for habitat rows outside the visible viewport.
 if('IntersectionObserver' in window){
  const io=new IntersectionObserver(entries=>entries.forEach(e=>e.target.classList.toggle('cf-offscreen',!e.isIntersecting)));
- const observeRows=()=>by('board').querySelectorAll('.hab').forEach(row=>io.observe(row));watch('board',observeRows);observeRows();
+ const observed=new Set();const observeRows=()=>{for(const row of observed){if(!row.isConnected){io.unobserve(row);observed.delete(row)}}by('board').querySelectorAll('.hab').forEach(row=>{if(!observed.has(row)){io.observe(row);observed.add(row)}})};watch('board',observeRows);observeRows();
 }
 // Keep the existing resource controls and undo the explicit resource snapshot, including its clock.
 let undoState=null;
