@@ -289,3 +289,12 @@ html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{anim
 }
 
 .cf-direct-slot{margin:10px 0 4px}.cf-direct-results{max-height:32dvh;overflow:auto;margin-top:5px}.cf-direct-results button{font-size:14px}.cf-direct-results:empty{display:none}
+
+/* Final screenshot review: preserve uncertainty and align the physical slots. */
+.cf-uncertainty{display:block;font-size:11px;line-height:1.35;color:#735c35;margin:4px 0 6px;overflow-wrap:anywhere}
+#board .slots{align-items:stretch}
+#board .slot{height:100%;justify-content:flex-start}
+#board .cf-empty{justify-content:center}
+#board .slot>span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.15;min-height:2.3em}
+#board .slot .cf-bird-meta{margin-top:auto}
+#board .slot:focus-visible{outline:3px solid #906c37;outline-offset:-2px}
