@@ -298,3 +298,42 @@ html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{anim
 #board .slot>span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.15;min-height:2.3em}
 #board .slot .cf-bird-meta{margin-top:auto}
 #board .slot:focus-visible{outline:3px solid #906c37;outline-offset:-2px}
+
+/* Watercolor & tactile counters: retain Clean & Fluid navigation and structure. */
+.atlas-header.cf-compact{height:88px;border-radius:0 0 22px 22px;margin-bottom:9px}
+.atlas-header.cf-compact .atlas-title h1{font-size:clamp(35px,9vw,46px)}
+.atlas-header.cf-compact .atlas-subtitle{font-size:11px}
+#guide #advice{background:linear-gradient(145deg,#fffcf0 0%,#f3efd9 100%);border:1px solid #c8c9a9;border-top:2px solid #65866a;box-shadow:0 5px 18px #5c533014;border-radius:20px}
+#guide #advice .advice-hero{min-height:92px}
+#guide #advice .advice-hero:before{opacity:.68}
+#guide #advice .advice-bird{max-height:126px;max-width:40%}
+#guide #advice .advice-content h2{font-family:var(--serif,Georgia,serif);font-size:clamp(25px,6.3vw,36px)}
+#guide #advice .note{background:#f4ecd8a6;border-left-color:#b49c62;border-radius:3px 10px 10px 3px}
+.cf-topline #turnSummary,.cf-score{background:#e7ebd9;border:1px solid #c9d1b6;box-shadow:0 2px 5px #4c54300b}
+#guide .cf-resources{background:#fffaf0d9;border:1px solid #e4d9bd;border-radius:18px;padding:10px;box-shadow:0 4px 16px #63512b0a}
+.cf-resources>.row h3{font-family:var(--serif,Georgia,serif);font-size:19px;color:#37533e}
+.cf-resources #quickStock,.cf-resources #quickStock:has(.res-tile:nth-child(7)){grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.cf-resource-token{--token-wash:#eee9d4;display:grid;grid-template-columns:minmax(28px,1fr) minmax(40px,1.3fr) minmax(28px,1fr);align-items:center;min-width:0;min-height:83px;isolation:isolate;border-radius:13px;background:radial-gradient(ellipse at 50% 28%,#fffcf2 8%,var(--token-wash) 100%);border:1px solid #c5b79255;box-shadow:inset 0 1px 0 #fffdf6,0 2px 4px #5346240b}
+.cf-resource-token[data-resource=worm]{--token-wash:#ecd9cc}
+.cf-resource-token[data-resource=seed]{--token-wash:#f0e3ba}
+.cf-resource-token[data-resource=fruit]{--token-wash:#ecd7d3}
+.cf-resource-token[data-resource=fish]{--token-wash:#dce9e3}
+.cf-resource-token[data-resource=rodent]{--token-wash:#e5dfce}
+.cf-resource-token[data-resource=nectar]{--token-wash:#f0dfe7}
+.cf-resource-token[data-resource=eggs]{--token-wash:#e4e9d7}
+#guide .cf-resources .cf-resource-token .res-tile{display:grid;grid-template-columns:1fr;justify-items:center;min-width:0;min-height:80px;width:100%;padding:5px 0;background:transparent;border:0;box-shadow:none;gap:0;align-content:center}
+#guide .cf-resources .cf-resource-token .res-tile.selected{background:#fffdf0a0;box-shadow:inset 0 0 0 1px #6e8b61}
+#guide .cf-resources .cf-resource-token .res-tile img{width:45px;height:43px;max-width:100%;object-fit:contain;filter:drop-shadow(0 2px 1px #65543116)}
+#guide .cf-resources .cf-resource-token .res-tile b{font:700 23px/1.08 var(--serif,Georgia,serif);color:#314b36}
+#guide .cf-resources .cf-resource-token .res-tile small{display:block;font-size:9px;line-height:1.1;white-space:nowrap;max-width:100%;text-overflow:ellipsis;overflow:hidden}
+.cf-resource-token .cf-resource-step{display:grid;place-items:center;min-width:0;width:100%;min-height:48px;padding:0;border:0;background:transparent;box-shadow:none;font:500 24px/1 system-ui,sans-serif;color:#48674c;touch-action:manipulation;border-radius:9px}
+.cf-resource-token .cf-resource-step:disabled{opacity:.29}
+.cf-resource-token .cf-resource-step:not(:disabled):active{background:#315b451a}
+.cf-resource-token .cf-resource-step:focus-visible,.cf-resource-token .res-tile:focus-visible{outline-offset:-2px}
+#board .hab{background-image:linear-gradient(90deg,var(--hab-base) 0%,var(--hab-wash) 32%,transparent 100%),var(--hab-art);padding:10px 7px 12px}
+#board .hab>b{font-size:21px}
+#board .vs-land-motion{opacity:.7}
+#board .cf-empty{background:#fffaf07d;border-color:#71856a80}
+#board .cf-occupied{background:#fffaf0dc}
+@media(max-width:350px){.cf-resources #quickStock,.cf-resources #quickStock:has(.res-tile:nth-child(7)){grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:850px){.atlas-header.cf-compact{height:98px}.cf-resource-token{min-height:92px;grid-template-columns:minmax(36px,1fr) minmax(48px,1.3fr) minmax(36px,1fr)}#guide .cf-resources .cf-resource-token .res-tile img{width:52px;height:49px}#guide #advice .advice-hero{min-height:133px}}
