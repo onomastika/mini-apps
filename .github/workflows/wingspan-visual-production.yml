@@ -1,0 +1,29 @@
+name: Wingspan Visual Studio production verification
+on:
+  push:
+    branches: [wingspan-visual-production-20261126]
+permissions:
+  contents: read
+jobs:
+  production:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify exact production files
+        run: |
+          for attempt in $(seq 1 24); do
+            ok=1
+            for file in index.html visual-studio.css visual-studio.js cards.json; do
+              path="$file"
+              if [ "$file" = "index.html" ]; then path=""; fi
+              if ! curl -fsSL --max-time 10 -H 'Cache-Control: no-cache' "https://mini-apps.rossthiof.workers.dev/wingspan/$path?verify=visual-${GITHUB_RUN_ID}-$attempt" -o "/tmp/live-$file" || ! cmp -s "/tmp/live-$file" "public/wingspan/$file"; then ok=0; fi
+            done
+            if [ "$ok" = 1 ]; then
+              echo 'PRODUCTION VISUAL MATCH: HTML, CSS, JS, catalog'
+              for file in index.html visual-studio.css visual-studio.js cards.json; do sha256sum "/tmp/live-$file" "public/wingspan/$file"; done
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
