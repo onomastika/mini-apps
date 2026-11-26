@@ -233,3 +233,57 @@ html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{anim
  #catalog #dbList.catalog-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(max-width:360px){.cf-topline{grid-template-columns:minmax(0,1fr) 64px}.cf-topline #turnLabel{font-size:12px}#board .slots{gap:3px}#board .slot>span{font-size:9px}.cf-resources .res-tile img{width:21px}}
+
+
+/* Screenshot review: lead with the board and advice, remove repeated framing. */
+#guide #advice{margin-bottom:8px}
+#guide #advice .note{background:transparent;border-left:2px solid #b49c62;padding:5px 8px;margin:5px 0}
+.cf-full-rationale{font-size:13px;line-height:1.5;color:#526454}
+#guide #advice>.wide{background:#e8eddf;border:0}
+#guide .cf-resources>.quiet-details:not([open]){display:none}
+#guide .cf-resources:has(#quickResourceEditor:not([hidden]))>.quiet-details{display:block}
+#guide .cf-resources>.setup{min-height:44px}
+#guide .cf-resources #quickStock>.outline-btn{min-height:44px}
+#guide .cf-resources .res-tile{min-height:44px}
+#birds .cf-board-panel{padding:10px 8px;background:transparent;box-shadow:none;border:0;margin-bottom:6px}
+#birds .cf-board-panel>.row{padding:0 3px}
+#birds .cf-board-panel h3{font-size:16px}
+#birds .cf-board-panel .fine-print{font-size:11px;margin:6px 4px 0}
+#birds .cf-resource-link{background:#e8eddf;border:0}
+#birds .cf-hand-panel{margin-top:4px}
+#board .hab{padding:8px 7px 9px}
+#board .slot{min-height:76px}
+#board .cf-empty{font-family:system-ui,sans-serif;font-size:25px;font-weight:400}
+#board .slot>span{font-size:10px;word-break:normal;overflow-wrap:anywhere}
+#board .slot .cf-bird-meta{font-size:10px}
+#board .cf-empty small{font-size:11px}
+.cf-menu-home{display:block;padding:12px 6px;text-align:center;color:#315b45}
+#guide #strategyPanel .strategy-details{padding:3px 12px;margin:0 0 5px}
+#guide .turn-shortcuts{margin:5px 0 6px}
+.nav button:not(.active){background:transparent;color:#edf0dd;opacity:1}
+.nav button.active{background:#e8ecd9;color:#294d37;opacity:1}
+.nav button:focus-visible{outline-offset:-2px;outline-color:#f3d998}
+@media(min-width:850px){
+ #birds:not([hidden]){grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);align-items:start;grid-auto-flow:row}
+ #birds>.section-heading{grid-column:1/-1}
+ #birds>.cf-board-panel{grid-column:1;grid-row:2/span 3}
+ #birds>.cf-resource-link{grid-column:2;grid-row:2;margin:0}
+ #birds>.cf-hand-panel{grid-column:2;grid-row:3;margin:0}
+ #birds>.panel:has(#quickGoals){grid-column:2;grid-row:4}
+ #birds>.cf-goals{grid-column:1;grid-row:5}
+ #board .slot{min-height:105px}
+ #board .slot>span{font-size:12px}
+ #board .slot .cf-bird-meta{font-size:11px}
+}
+@media(max-width:390px){
+ #guide .cf-resources>.row{margin-bottom:2px}
+ #guide .cf-resources{padding:6px 8px}
+ #guide .cf-resources .res-tile{min-height:44px}
+ #guide .cf-resources .res-tile b{font-size:17px}
+ #guide .cf-resources .res-tile img{width:20px;height:19px}
+ #guide #advice .advice-hero{min-height:64px}
+ #guide #advice .advice-content h2{font-size:23px}
+ #board .slot{min-height:65px}
+ #board .slot img{height:35px}
+ #board .slot .cf-bird-meta{font-size:9px}
+}
