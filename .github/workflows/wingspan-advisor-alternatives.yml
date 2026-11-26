@@ -1,0 +1,36 @@
+name: Wingspan advisor alternative actions
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'public/wingspan/**'
+      - 'tests/wingspan/advisor-action-alternatives.cjs'
+      - 'tests/wingspan/browser-advisor-action-alternatives.cjs'
+      - '.github/workflows/wingspan-advisor-alternatives.yml'
+permissions:
+  contents: read
+jobs:
+  alternatives:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check legal alternatives and unchanged original recommendations
+        run: |
+          git fetch --depth=1 origin 1dfe06a7c3351b7bc60166b2c64946ce16d2ad0d
+          node tests/wingspan/advisor-action-alternatives.cjs
+      - run: npm install --no-save playwright-core@1.55.0
+      - name: Check alternative actions in mobile and desktop browser
+        run: |
+          export CHROME_PATH="$(command -v google-chrome || command -v chromium)"
+          python3 -m http.server 8765 --directory public >/tmp/advisor-server.log 2>&1 &
+          timeout 150s node tests/wingspan/browser-advisor-action-alternatives.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: advisor-alternatives-browser
+          path: evidence/
+          retention-days: 7
