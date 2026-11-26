@@ -286,7 +286,16 @@ const birdReason={'no free habitat':'Нет свободного места','fo
 const birdFood={worm:'Червь',seed:'Зерно',fruit:'Ягода',fish:'Рыба',rodent:'Грызун',nectar:'Нектар',any:'Любой корм'};
 function ornEl(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
 function ornStyle(el,b){el.classList.add('orn-card');el.dataset.habitat=(b.hab||[]).length>1?'multi':b.hab?.[0]||'multi';el.dataset.power=b.color||traits(b).color||'none'}
-function ornIcon(k){const img=ornEl('img','orn-food-icon');img.src='./art/res-'+k+'.svg';img.alt=birdFood[k]||k;img.loading='lazy';return img}
+function ornIcon(k){const source=by('quickStock').querySelector('img[src="./art/res-'+k+'.svg"]');const img=source?source.cloneNode(false):ornEl('img','');img.className='orn-food-icon';img.src='./art/res-'+k+'.svg';img.alt=birdFood[k]||(k==='eggs'?'Яйца':k);img.removeAttribute('width');img.removeAttribute('height');img.loading='lazy';return img}
+function sharedResourceIcons(){
+ const map={...Object.fromEntries(Object.entries(F).filter(([k])=>k!=='any').map(([k,v])=>[v,k])),'🥚':'eggs'};
+ for(const el of document.querySelectorAll('#advice .advice-cost,#strategyPanel .alternative small')){
+   if(el.dataset.sharedIcons)return;el.dataset.sharedIcons='1';
+   const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+   for(const node of nodes){const value=node.nodeValue;const parts=value.split(/(🐛|🌾|🍒|🐟|🐭|🌸|🥚)/u);if(parts.length===1)continue;const fragment=document.createDocumentFragment();for(const part of parts){if(map[part]){const img=ornIcon(map[part]);img.style.cssText='width:1.25em;height:1.25em;vertical-align:-.25em;object-fit:contain';fragment.append(img)}else fragment.append(document.createTextNode(part))}node.replaceWith(fragment)}
+ }
+}
+watch('advice',sharedResourceIcons);watch('strategyPanel',sharedResourceIcons);sharedResourceIcons();
 function ornFood(b){
  const row=ornEl('span','orn-food');row.setAttribute('aria-label','Корм: '+englishCost(b));
  (b.cost||[]).forEach((opt,i)=>{if(i)row.append(ornEl('span','orn-food-separator','/'));if(!opt.length)row.append(ornEl('span','','0'));opt.forEach(k=>row.append(k==='any'?ornEl('span','orn-any','✳'):ornIcon(k)))});
