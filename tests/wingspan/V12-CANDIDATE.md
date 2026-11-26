@@ -3,3 +3,5 @@ This branch is separate from the frozen V11 acceptance run. 302 manually mapped 
 Rule reference: https://wingspan.rulepop.com/ .
 
 V12 fixes generic two-standard-food payment for printed nectar cost; no nectar is awarded for that conversion. V12 opening compares diversified legal setups on common sampled decks, with conservative fallback to V11. The scenario search uses approximate conditional continuation and is not a full imperfect-information solver. Three previously manual brown powers have restricted expected-value projections; optional exchange and shared effects are not fully modeled.
+
+Cycle 1: 144 games, 18 paired seeds per mode; V12 minus V11: base -0.11, base-strong -2.50, Oceania +0.94, Oceania-strong -1.78. No fallbacks. Cycle 2 uses a common first action across scenarios, stricter per-scenario fallback, no decline in immediately playable birds, and exact setup memo. Fresh seed block 20321101. No repeated first-cycle comparison.

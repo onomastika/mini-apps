@@ -31,6 +31,16 @@ jobs:
         with:
           node-version: '22'
       - run: node tests/wingspan/strategy-v12.cjs
+      - name: Verify released V11 asset bytes
+        run: |
+          git fetch --depth=1 origin 3f6d8d4622cad5fd456ca505c28171bcc6baf667
+          for file in index.html cards.json; do
+            git show 3f6d8d4622cad5fd456ca505c28171bcc6baf667:public/wingspan/$file > /tmp/expected-$file
+            curl -fsSL --retry 2 "https://mini-apps.rossthiof.workers.dev/wingspan/$file?verify=3f6d8d4" > /tmp/live-$file
+            cmp /tmp/expected-$file /tmp/live-$file
+            sha256sum /tmp/live-$file
+          done
+        continue-on-error: true
       - run: npm install --no-save playwright-core@1.55.0
       - run: |
           export CHROME_PATH="$(command -v google-chrome || command -v chromium)"

@@ -818,10 +818,12 @@ function v11Contingent(start,baseline,keys,pool){
 
 /* V12: stratified legal setup shortlist and common hidden-deck scenarios.
    No sampled identity is written to the physical game's state. */
-var V12_OPENING_MODE=1;
+var V12_OPENING_MODE=1, v12SetupMemo;
 function v12SelectOpening(candidates,hand){
  candidates.sort((a,b)=>b.v-a.v);
  let baseline=candidates[0];if(!baseline||!V12_OPENING_MODE)return baseline||null;
+ let memoKey=JSON.stringify([hand.map(b=>[b.id,b.catalogId,b.cost,b.hab,b.mechanic,b.points,b.capacity]),chosenGoals(),S.oceania,S.enabledSets,S.roundGoals,DB?.version,S.birds.map(b=>[b.id,b.loc]),trayIds()]);
+ if(v12SetupMemo?.key===memoKey)return JSON.parse(v12SetupMemo.value);
  forecastPool=deckPool().filter(b=>!b.manualCost);predatorCache.clear();v6DeckStatsCache=new Map();
  let keys=activeFood(),shortlist=[],seen=new Set(),add=c=>{if(c&&!shortlist.includes(c))shortlist.push(c)};
  add(baseline);for(let c of candidates){let k=c.keep.slice().sort().join('|')+'|'+c.goal;if(!seen.has(k)){seen.add(k);add(c)}if(shortlist.length>=6)break}
@@ -830,13 +832,16 @@ function v12SelectOpening(candidates,hand){
  let samples=Array.from({length:3},(_,i)=>v11Sample(forecastPool,10,(seed+Math.imul(i+1,2654435761))>>>0));
  let evaluate=c=>{
   let start={left:26,rows:[],hand:hand.filter(b=>c.keep.includes(b.id)),stock:{...c.stock},anon:0,tucked:0,cached:0,simKnown:true,activations:0,assumptions:0,expected:0,risk:0,tray:[],v7Seen:[],v7ActionKnown:true,v12Goal:c.goal};
-  return samples.map(sample=>{let steps=v11ScenarioActions(start,keys);return Math.max(...steps.map(step=>v11ScenarioRollout(start,step,keys,sample,4)))})
+  let roots=v11ScenarioActions(start,keys),best=null,bestMean=-Infinity;
+  // One first action must work across all hidden decks. Later actions may adapt to revealed cards.
+  for(let step of roots){let values=samples.map(sample=>v11ScenarioRollout(start,step,keys,sample,4));if(values.some(v=>!Number.isFinite(v)))continue;let mean=values.reduce((n,v)=>n+v,0)/values.length;if(mean>bestMean){best=values;bestMean=mean}}
+  return best||samples.map(()=>-Infinity)
  };
  let reference=evaluate(baseline);if(reference.some(v=>!Number.isFinite(v)))return baseline;
- let best=baseline,bestUtility=0;for(let c of shortlist){if(c===baseline)continue;let values=evaluate(c);if(values.some(v=>!Number.isFinite(v)))continue;let deltas=values.map((v,i)=>v-reference[i]),mean=deltas.reduce((s,v)=>s+v,0)/deltas.length;
-  let utility=mean*.75+(c.v-baseline.v)*.25;
-  if(deltas.filter(v=>v>0).length>=2&&utility>Math.max(.65,bestUtility)){best={...c,openingScenarios:values.length,openingDelta:mean};bestUtility=utility}
- }return best
+ let best=baseline,bestUtility=0;for(let c of shortlist){if(c===baseline||c.playable.length<baseline.playable.length||c.v<baseline.v-2)continue;let values=evaluate(c);if(values.some(v=>!Number.isFinite(v)))continue;let deltas=values.map((v,i)=>v-reference[i]),mean=deltas.reduce((s,v)=>s+v,0)/deltas.length;
+  let utility=mean*.65+(c.v-baseline.v)*.35;
+  if(deltas.every(v=>v>=0)&&utility>Math.max(1,bestUtility)){best={...c,openingScenarios:values.length,openingDelta:mean};bestUtility=utility}
+ }v12SetupMemo={key:memoKey,value:JSON.stringify(best)};return best
 }
 function v12Power(x,b,phase){
  let m=mechanic(b);if(m.kind!=='v12model'||m.timing!==phase)return null;
