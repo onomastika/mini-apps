@@ -1,0 +1,123 @@
+name: Wingspan V11 independent final
+on:
+  push:
+    branches: [wingspan/v11-evaluation]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    outputs:
+      variant: ${{ steps.freeze.outputs.variant }}
+    steps:
+      - name: Wait for the exact previously launched training and browser checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh run watch 45734955787 --exit-status --interval 15
+          test "$(gh run view 45734955787 --json headSha --jq .headSha)" = "88b98fe5cd0ca5a28ec4fea31b4c872362cf4b67"
+          gh run download 45734955787 --name v11-training-selection --dir selection
+      - id: freeze
+        run: |
+          node - <<'NODE'
+          const fs=require('fs'),a=JSON.parse(fs.readFileSync('selection/selection.json'));console.log(JSON.stringify(a));
+          const variant=a.winner?.variant||0;
+          if(![0,1,2,3].includes(variant))throw Error('invalid selection');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,'variant='+variant+'\n');
+          if(!variant)console.log('No candidate met training acceptance; independent holdout preserved.');
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v11-frozen-selection
+          path: selection/
+          retention-days: 5
+  browser:
+    needs: freeze
+    if: needs.freeze.outputs.variant != '0'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          sed -i 's/var V11_VARIANT=[0-9];/var V11_VARIANT=${{ needs.freeze.outputs.variant }};/' public/wingspan/index.html
+          node tests/wingspan/strategy-v11.cjs
+          npm install --no-save playwright-core@1.55.0
+          export CHROME_PATH="$(command -v google-chrome || command -v chromium)"
+          test -n "$CHROME_PATH"
+          python3 -m http.server 8765 --directory public >/tmp/server.log 2>&1 &
+          timeout 300s node tests/wingspan/browser-v11.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v11-final-browser
+          path: evidence/
+          retention-days: 5
+  comparison:
+    needs: freeze
+    if: needs.freeze.outputs.variant != '0'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [standard,strong]
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          mkdir -p results
+          node tests/wingspan/competitive-v11.cjs ${{ matrix.shard }} 10 ${{ matrix.suite }} final ${{ needs.freeze.outputs.variant }} > results/${{ matrix.suite }}-${{ matrix.shard }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v11-final-${{ matrix.suite }}-${{ matrix.shard }}
+          path: results/
+          retention-days: 5
+  aggregate:
+    needs: [freeze,browser,comparison]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: v11-final-standard-*
+          path: results
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: v11-final-strong-*
+          path: results
+          merge-multiple: true
+      - env:
+          FROZEN_VARIANT: ${{ needs.freeze.outputs.variant }}
+        run: |
+          node - <<'NODE'
+          const fs=require('fs'),m={standard:{},strong:{}};
+          for(const f of fs.readdirSync('results'))for(const a of JSON.parse(fs.readFileSync('results/'+f)))(m[f.split('-')[0]][a.version]??=[]).push(...a.cases);
+          const summary={variant:Number(process.env.FROZEN_VARIANT),suites:{}};
+          for(const [suite,v] of Object.entries(m)){
+            for(const version of [10,11]){
+              if(v[version]?.length!==150||new Set(v[version].map(c=>c.seed)).size!==150||v[version].some(c=>c.turns!==26||c.decisions!==26))throw Error('incomplete comparison');
+              let start=suite==='standard'?19260401:19370701;if(v[version].some(c=>c.seed<start||c.seed>=start+150))throw Error('holdout seed mismatch');
+            }
+            const old=new Map(v[10].map(c=>[c.seed,c])),delta=v[11].map(c=>c.score-old.get(c.seed).score),mean=a=>a.reduce((n,c)=>n+c,0)/a.length,avg=(a,k)=>mean(a.map(c=>c[k])),d=mean(delta),se=Math.sqrt(delta.reduce((n,c)=>n+(c-d)**2,0)/149/150);
+            summary.suites[suite]={rows:[10,11].map(version=>({version,games:v[version].length,score:avg(v[version],'score'),opponent:avg(v[version],'opponent'),win:avg(v[version],'win'),msPerDecision:avg(v[version],'ms')/26,fallbacks:v[version].reduce((n,c)=>n+c.fallbacks,0)})),pairedDelta:d,ci95:[d-1.976*se,d+1.976*se]};
+          }
+          summary.accepted=Object.values(summary.suites).every(s=>s.ci95[0]>0&&s.rows[1].fallbacks===0&&s.rows[1].win>=s.rows[0].win-.03);
+          console.log('V11 INDEPENDENT FINAL',JSON.stringify(summary));fs.writeFileSync('summary.json',JSON.stringify(summary,null,2));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v11-final-summary
+          path: summary.json
+          retention-days: 5
+      - run: node -e "if(!require('./summary.json').accepted)process.exit(1)"
