@@ -231,7 +231,49 @@ function refineAdvice(){
  }
 }
 watch('advice',refineAdvice);refineAdvice();
-function refineResources(){const b=quick.querySelector(':scope > .outline-btn');if(b&&b.textContent==='Изменить весь запас'){b.textContent='Обновить состояние';b.classList.add('cf-update')}}
+// Keep the existing snapshot editor on the center of each tile; +/- are separate
+// accessible controls, so no nested buttons or alternative resource ledger.
+function refineResources(){
+ const batch=quick.querySelector(':scope > .outline-btn');
+ if(batch&&batch.textContent==='Изменить весь запас'){batch.textContent='Обновить состояние';batch.classList.add('cf-update')}
+ const keys=foodKeys.filter(k=>k!=='nectar'||S.oceania).concat('eggs');
+ [...quick.querySelectorAll(':scope > .res-tile')].forEach((tile,i)=>{
+   const key=keys[i], label=tile.title;
+   if(!key)return;
+   const group=document.createElement('div');group.className='cf-resource-token';group.dataset.resource=key;
+   group.setAttribute('role','group');group.setAttribute('aria-label',label);
+   const adjust=(delta,button)=>{
+     if(S.wizard||v10Batch)return;
+     const value=S.stock[key]||0;
+     if(value+delta<0||value+delta>999)return;
+     const before=JSON.stringify(S), wasFocused=document.activeElement===button;
+     changeStock(key,delta);
+     const after=stateKey();
+     undoState={before,after};undo.hidden=false;
+     // The engine replaces quickStock on each explicit edit. Reattach immediately
+     // for rapid consecutive taps, rather than waiting for the next frame.
+     refineResources();
+     if(wasFocused){
+       const replacement=quick.querySelector('[data-resource="'+key+'"] .cf-resource-'+(delta<0?'minus':'plus'));
+       if(replacement&&!replacement.disabled)replacement.focus({preventScroll:true});
+     }
+   };
+   const counter=(delta)=>{
+     const direction=delta<0?'minus':'plus';
+     const button=makeButton(delta<0?'−':'+',()=>adjust(delta,button),'cf-resource-step cf-resource-'+direction);
+     button.setAttribute('aria-label',(delta<0?'Уменьшить ':'Увеличить ')+label+' на 1');
+     button.disabled=!!S.wizard||!!v10Batch||(delta<0?(S.stock[key]||0)===0:(S.stock[key]||0)>=999);
+     return button;
+   };
+   const minus=counter(-1),plus=counter(1);
+   tile.before(group);group.append(minus,tile,plus);
+ });
+ // Batch mode is a draft: do not let side buttons accidentally discard it.
+ for(const step of quick.querySelectorAll('.cf-resource-step')){
+   const key=step.closest('[data-resource]').dataset.resource;
+   step.disabled=!!S.wizard||!!v10Batch||(step.classList.contains('cf-resource-minus')?(S.stock[key]||0)===0:(S.stock[key]||0)>=999);
+ }
+}
 watch('quickStock',refineResources);refineResources();
 function tabChrome(){const current=document.querySelector('.tab:not([hidden])')?.id;header.classList.toggle('cf-compact',current!=='rules');document.body.dataset.cfTab=current||'guide';}
 document.querySelectorAll('.tab').forEach(t=>new MutationObserver(tabChrome).observe(t,{attributes:true,attributeFilter:['hidden']}));tabChrome();
