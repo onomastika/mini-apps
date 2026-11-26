@@ -117,7 +117,7 @@ by('advice').after(res);
 const resourceLink=makeButton('Ресурсы и обновление состояния',()=>{setTab('guide');res.scrollIntoView({block:'nearest'});},'outline-btn wide cf-resource-link');
 const boardPanel=by('board').closest('.panel');boardPanel.classList.add('cf-board-panel');sanctuary.querySelector('.section-heading').after(boardPanel);boardPanel.after(resourceLink);boardPanel.querySelector('h3').textContent='Игровой планшет';
 const quick=by('quickStock');
-const updateScore=()=>{let n=totals()[0];score.replaceChildren();let v=document.createElement('b');v.textContent=n;let l=document.createElement('small');l.textContent='Очки ›';score.append(v,l);};
+const updateScore=()=>{let n=totals()[0];if(score.dataset.total===String(n))return;score.dataset.total=String(n);score.replaceChildren();let v=document.createElement('b');v.textContent=n;let l=document.createElement('small');l.textContent='Учтено ›';score.append(v,l);};
 watch('total0',updateScore);watch('advice',updateScore);updateScore();
 const shortcuts=guide.querySelector('.turn-shortcuts');
 shortcuts.querySelector('[data-tab="birds"]').textContent='Заповедник';
@@ -125,13 +125,14 @@ by('quickSearch').textContent='Найти птицу';
 const trayDetails=by('tray').closest('details');sanctuary.append(trayDetails);const handPanel=by('hand').closest('.panel');resourceLink.after(handPanel);handPanel.classList.add('cf-hand-panel');
 const forecastPanel=by('forecastPanel'), summaryForecast=forecastPanel.querySelector('summary');
 const forecastHint=document.createElement('small');forecastHint.className='cf-forecast-hint';summaryForecast.append(forecastHint);
+let forecastSnapshot=null;
 function updateForecastHint(){
- const p=S.roundKnown&&S.phase==='play'&&!S.setupMode&&!S.wizard?forecastMemo.value:null;
+ const p=forecastSnapshot===stateKey()&&S.roundKnown&&S.phase==='play'&&!S.setupMode&&!S.wizard?forecastMemo.value:null;
  const value=p&&p.turns===personalTurns()?p.points:null;
  const text=Number.isFinite(value)?' · '+(value>=0?'+':'')+value+' условных очк.':' · открыть расчёт';
  if(forecastHint.textContent!==text)forecastHint.textContent=text;
 }
-watch('forecast',updateForecastHint);watch('advice',updateForecastHint);forecastPanel.addEventListener('toggle',updateForecastHint);updateForecastHint();
+watch('forecast',()=>{if(forecastPanel.open)forecastSnapshot=stateKey();updateForecastHint()});watch('advice',updateForecastHint);forecastPanel.addEventListener('toggle',updateForecastHint);updateForecastHint();
 const goals=document.createElement('section');goals.className='panel cf-goals';goals.innerHTML='<div class="row between"><h3>Цели раундов</h3></div><div id="cfGoals"></div>';
 goals.querySelector('.row').append(makeButton('Изменить',()=>{setTab('game');let target=by('roundGoalChoices');target.closest('details').open=true;target.scrollIntoView({block:'start'});},'plain'));
 const bonusPanel=by('quickGoals').closest('.panel');bonusPanel.after(goals);
@@ -213,6 +214,11 @@ function refineAdvice(){
  const el=by('advice'),note=el.querySelector('.note'),detail=by('adviceSteps');
  if(!note||!detail||note.dataset.cfCompact)return;
  note.dataset.cfCompact='true';
+ const unknown=[!S.stockKnown&&'Запас не подтверждён',!S.roundKnown&&'Момент партии неизвестен',!S.ledgerKnown&&'Жетоны не сверены'].filter(Boolean);
+ if(unknown.length){
+   const flags=document.createElement('small');flags.className='cf-uncertainty';flags.textContent=unknown.join(' · ');
+   note.after(flags);
+ }
  const text=note.textContent.trim();
  const split=text.match(/^(.*?[.!?])(?=\s|$)/u);
  if(text.length>135&&split&&split[1].length<text.length){
