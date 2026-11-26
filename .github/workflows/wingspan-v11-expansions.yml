@@ -1,0 +1,14 @@
+name: V11 expansion simulator smoke
+on:
+  push:
+    branches: [wingspan/v11-expansions]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/wingspan/competitive-v11-expansions.cjs
