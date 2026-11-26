@@ -1,0 +1,37 @@
+name: Wingspan production verification
+on:
+  push:
+    branches: [main]
+    paths: ['public/wingspan/**', '.github/workflows/wingspan-production.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wingspan-production
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - name: Confirm Cloudflare serves this revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=https://mini-apps.rossthiof.workers.dev/wingspan
+          for attempt in $(seq 1 24); do
+            ok=1
+            for file in index.html cards.json visual-studio.css visual-studio.js; do
+              test -f "public/wingspan/$file"
+              if ! curl -fsSL --max-time 15 "$root/$file?revision=$GITHUB_SHA&attempt=$attempt" -o "/tmp/live-$file" || ! cmp -s "public/wingspan/$file" "/tmp/live-$file"; then ok=0; fi
+            done
+            if [ "$ok" = 1 ]; then
+              sha256sum /tmp/live-{index.html,cards.json,visual-studio.css,visual-studio.js}
+              node -e "const d=require('/tmp/live-cards.json'); console.log('Production catalog version',d.version,'birds',d.birds.length)"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo 'Cloudflare assets did not match the merged revision' >&2
+          exit 1
