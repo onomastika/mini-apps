@@ -1,0 +1,5155 @@
+[
+  {
+    "id": 2,
+    "name": "Acorn Woodpecker",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 5,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 46,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 3
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "feeder",
+      "n": 1,
+      "food": "seed",
+      "cache": true
+    }
+  },
+  {
+    "id": 5,
+    "name": "American Coot",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 3,
+    "capacity": 5,
+    "nestType": "platform",
+    "span": 61,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "any": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckDraw"
+    }
+  },
+  {
+    "id": 6,
+    "name": "American Crow",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "any"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 99,
+    "flightless": false,
+    "printedFoods": {
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "eggFood",
+      "n": 1
+    }
+  },
+  {
+    "id": 7,
+    "name": "American Goldfinch",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "gain",
+      "n": 3,
+      "food": "seed"
+    }
+  },
+  {
+    "id": 8,
+    "name": "American Kestrel",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "rodent"
+      ]
+    ],
+    "points": 5,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 56,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "rodent"
+    }
+  },
+  {
+    "id": 10,
+    "name": "American Redstart",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 20,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "feeder",
+      "n": 1,
+      "food": "any"
+    }
+  },
+  {
+    "id": 11,
+    "name": "American Robin",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 1,
+    "capacity": 4,
+    "nestType": "bowl",
+    "span": 43,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckDraw"
+    }
+  },
+  {
+    "id": 12,
+    "name": "American White Pelican",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "fish"
+      ]
+    ],
+    "points": 5,
+    "capacity": 1,
+    "nestType": "ground",
+    "span": 274,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 2
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "foodTuck",
+      "n": 2,
+      "food": "fish"
+    }
+  },
+  {
+    "id": 13,
+    "name": "American Woodcock",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 9,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 46,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "none",
+    "rule": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": 14,
+    "name": "Anhinga",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "fish"
+      ]
+    ],
+    "points": 6,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 114,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 2
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "fish"
+    }
+  },
+  {
+    "id": 19,
+    "name": "Baird's Sparrow",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "egg",
+      "n": 1,
+      "target": "any"
+    }
+  },
+  {
+    "id": 20,
+    "name": "Bald Eagle",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "fish",
+        "rodent"
+      ]
+    ],
+    "points": 9,
+    "capacity": 1,
+    "nestType": "platform",
+    "span": 203,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 2,
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "feederAll",
+      "food": "fish"
+    }
+  },
+  {
+    "id": 21,
+    "name": "Baltimore Oriole",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fruit",
+        "fruit"
+      ]
+    ],
+    "points": 9,
+    "capacity": 2,
+    "nestType": "wild",
+    "span": 30,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedGain",
+      "n": 1,
+      "food": "fruit"
+    }
+  },
+  {
+    "id": 22,
+    "name": "Barn Owl",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "rodent",
+        "rodent"
+      ]
+    ],
+    "points": 5,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 107,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 2
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "rodent"
+    }
+  },
+  {
+    "id": 23,
+    "name": "Barn Swallow",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ]
+    ],
+    "points": 1,
+    "capacity": 3,
+    "nestType": "wild",
+    "span": 38,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckDraw"
+    }
+  },
+  {
+    "id": 24,
+    "name": "Barred Owl",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "rodent"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "cavity",
+    "span": 107,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "predator",
+      "span": 75
+    }
+  },
+  {
+    "id": 30,
+    "name": "Black Skimmer",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "fish"
+      ]
+    ],
+    "points": 6,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 112,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 2
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "fish"
+    }
+  },
+  {
+    "id": 31,
+    "name": "Black Tern",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fish"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "wild",
+    "span": 61,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "drawDiscard",
+      "n": 1,
+      "cost": 1
+    }
+  },
+  {
+    "id": 33,
+    "name": "Black Woodpecker",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "cavity",
+    "span": 70,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "feederAll",
+      "food": "worm"
+    }
+  },
+  {
+    "id": 34,
+    "name": "Black-Bellied Whistling-Duck",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 2,
+    "capacity": 5,
+    "nestType": "cavity",
+    "span": 76,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "foodTuck",
+      "n": 2,
+      "food": "seed"
+    }
+  },
+  {
+    "id": 36,
+    "name": "Black-Chinned Hummingbird",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "any"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 8,
+    "flightless": false,
+    "printedFoods": {
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedGain",
+      "n": 1,
+      "food": "fruit"
+    }
+  },
+  {
+    "id": 37,
+    "name": "Black-Crowned Night-Heron",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fish",
+        "rodent"
+      ]
+    ],
+    "points": 9,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 112,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1,
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "eggFood",
+      "n": 1
+    }
+  },
+  {
+    "id": 39,
+    "name": "Black-Necked Stilt",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 74,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "draw",
+      "n": 2
+    }
+  },
+  {
+    "id": 43,
+    "name": "Blue Jay",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 41,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "feeder",
+      "n": 1,
+      "food": "seed",
+      "cache": true
+    }
+  },
+  {
+    "id": 44,
+    "name": "Blue-Gray Gnatcatcher",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ]
+    ],
+    "points": 1,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 15,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "gain",
+      "n": 1,
+      "food": "worm"
+    }
+  },
+  {
+    "id": 45,
+    "name": "Blue-Winged Warbler",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm"
+      ]
+    ],
+    "points": 8,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 20,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "none",
+    "rule": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": 50,
+    "name": "Brewer's Blackbird",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 41,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "any": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckEgg"
+    }
+  },
+  {
+    "id": 51,
+    "name": "Broad-Winged Hawk",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "rodent"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 85,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "rodent"
+    }
+  },
+  {
+    "id": 53,
+    "name": "Brown Pelican",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "fish"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 201,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "gain",
+      "n": 3,
+      "food": "fish"
+    }
+  },
+  {
+    "id": 56,
+    "name": "Burrowing Owl",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "rodent"
+      ]
+    ],
+    "points": 5,
+    "capacity": 4,
+    "nestType": "wild",
+    "span": 53,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "rodent"
+    }
+  },
+  {
+    "id": 57,
+    "name": "Bushtit",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 2,
+    "capacity": 5,
+    "nestType": "wild",
+    "span": 15,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckEgg"
+    }
+  },
+  {
+    "id": 59,
+    "name": "California Quail",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 3,
+    "capacity": 6,
+    "nestType": "ground",
+    "span": 36,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "egg",
+      "n": 1,
+      "target": "this"
+    }
+  },
+  {
+    "id": 60,
+    "name": "Canada Goose",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "ground",
+    "span": 132,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "foodTuck",
+      "n": 2,
+      "food": "seed"
+    }
+  },
+  {
+    "id": 61,
+    "name": "Canvasback",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 4,
+    "capacity": 4,
+    "nestType": "wild",
+    "span": 82,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedDraw",
+      "n": 1
+    }
+  },
+  {
+    "id": 62,
+    "name": "Carolina Chickadee",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 20,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "cache",
+      "n": 1
+    }
+  },
+  {
+    "id": 63,
+    "name": "Carolina Wren",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 1,
+    "capacity": 5,
+    "nestType": "cavity",
+    "span": 20,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "draw",
+      "n": 2
+    }
+  },
+  {
+    "id": 66,
+    "name": "Cassin's Sparrow",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 20,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "egg",
+      "n": 1,
+      "target": "any"
+    }
+  },
+  {
+    "id": 67,
+    "name": "Cedar Waxwing",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "fruit",
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 25,
+    "flightless": false,
+    "printedFoods": {
+      "fruit": 2
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckGain",
+      "n": 1,
+      "food": "fruit"
+    }
+  },
+  {
+    "id": 71,
+    "name": "Chihuahuan Raven",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "rodent",
+        "any",
+        "any"
+      ]
+    ],
+    "points": 4,
+    "capacity": 3,
+    "nestType": "platform",
+    "span": 112,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 1,
+      "any": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "eggFood",
+      "n": 2
+    }
+  },
+  {
+    "id": 73,
+    "name": "Chipping Sparrow",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 1,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "egg",
+      "n": 1,
+      "target": "any"
+    }
+  },
+  {
+    "id": 74,
+    "name": "Clark's Grebe",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "wild",
+    "span": 61,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "drawDiscard",
+      "n": 1,
+      "cost": 1
+    }
+  },
+  {
+    "id": 75,
+    "name": "Clark's Nutcracker",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 61,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "feeder",
+      "n": 1,
+      "food": "seed",
+      "cache": true
+    }
+  },
+  {
+    "id": 79,
+    "name": "Common Chaffinch",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "distributedTuck"
+    }
+  },
+  {
+    "id": 80,
+    "name": "Common Chiffchaff",
+    "hab": [
+      "forest",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "ground",
+    "span": 20,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "distributedTuck"
+    }
+  },
+  {
+    "id": 81,
+    "name": "Common Cuckoo",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm"
+      ]
+    ],
+    "points": 4,
+    "capacity": 0,
+    "nestType": "none",
+    "span": 57,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkEgg",
+      "nests": [
+        "bowl",
+        "ground"
+      ]
+    }
+  },
+  {
+    "id": 83,
+    "name": "Common Grackle",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 43,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "any": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckEgg"
+    }
+  },
+  {
+    "id": 87,
+    "name": "Common Merganser",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "any"
+      ]
+    ],
+    "points": 5,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 86,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "fish"
+    }
+  },
+  {
+    "id": 91,
+    "name": "Common Raven",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "rodent",
+        "any",
+        "any"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 135,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 1,
+      "any": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "eggFood",
+      "n": 2
+    }
+  },
+  {
+    "id": 92,
+    "name": "Common Starling",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 38,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "foodTuckMany",
+      "n": 5,
+      "food": "any"
+    }
+  },
+  {
+    "id": 93,
+    "name": "Common Swift",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "cavity",
+    "span": 46,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "foodTuckMany",
+      "n": 5,
+      "food": "worm"
+    }
+  },
+  {
+    "id": 94,
+    "name": "Common Yellowthroat",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ]
+    ],
+    "points": 1,
+    "capacity": 4,
+    "nestType": "bowl",
+    "span": 18,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "drawDiscard",
+      "n": 2,
+      "cost": 1
+    }
+  },
+  {
+    "id": 95,
+    "name": "Cooper's Hawk",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "rodent"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 79,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "predator",
+      "span": 75
+    }
+  },
+  {
+    "id": 97,
+    "name": "Dark-Eyed Junco",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "ground",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckGain",
+      "n": 1,
+      "food": "seed"
+    }
+  },
+  {
+    "id": 98,
+    "name": "Dickcissel",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 4,
+    "capacity": 3,
+    "nestType": "ground",
+    "span": 25,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 2
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckEgg"
+    }
+  },
+  {
+    "id": 99,
+    "name": "Double-Crested Cormorant",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "any"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "platform",
+    "span": 132,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 1,
+      "any": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "foodTuck",
+      "n": 2,
+      "food": "fish"
+    }
+  },
+  {
+    "id": 100,
+    "name": "Downy Woodpecker",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "cavity",
+    "span": 30,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "extraPlace",
+      "hab": "forest"
+    }
+  },
+  {
+    "id": 102,
+    "name": "Eastern Bluebird",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 4,
+    "capacity": 5,
+    "nestType": "cavity",
+    "span": 33,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "extraPlace",
+      "hab": "grass"
+    }
+  },
+  {
+    "id": 105,
+    "name": "Eastern Phoebe",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 4,
+    "nestType": "wild",
+    "span": 28,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedGain",
+      "n": 1,
+      "food": "worm"
+    }
+  },
+  {
+    "id": 106,
+    "name": "Eastern Screech-Owl",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "rodent"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "cavity",
+    "span": 51,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "rodent"
+    }
+  },
+  {
+    "id": 108,
+    "name": "Eurasian Collared-Dove",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "seed",
+        "fruit"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 52,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "foodTuckMany",
+      "n": 5,
+      "food": "any"
+    }
+  },
+  {
+    "id": 119,
+    "name": "European Goldfinch",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed",
+        "fruit"
+      ]
+    ],
+    "points": 6,
+    "capacity": 4,
+    "nestType": "bowl",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2,
+      "fruit": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkTuck"
+    }
+  },
+  {
+    "id": 124,
+    "name": "Ferruginous Hawk",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "rodent",
+        "rodent"
+      ]
+    ],
+    "points": 6,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 142,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 2
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "rodent"
+    }
+  },
+  {
+    "id": 125,
+    "name": "Fish Crow",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "any"
+      ]
+    ],
+    "points": 6,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 91,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "eggFood",
+      "n": 1
+    }
+  },
+  {
+    "id": 126,
+    "name": "Forster's Tern",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fish"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "wild",
+    "span": 79,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "drawDiscard",
+      "n": 1,
+      "cost": 1
+    }
+  },
+  {
+    "id": 127,
+    "name": "Franklin's Gull",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "any"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "wild",
+    "span": 91,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "eggDraw",
+      "n": 2
+    }
+  },
+  {
+    "id": 129,
+    "name": "Golden Eagle",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "rodent",
+        "rodent",
+        "rodent"
+      ]
+    ],
+    "points": 8,
+    "capacity": 1,
+    "nestType": "platform",
+    "span": 201,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 3
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "predator",
+      "span": 100
+    }
+  },
+  {
+    "id": 130,
+    "name": "Grasshopper Sparrow",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 2,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 20,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "egg",
+      "n": 1,
+      "target": "any"
+    }
+  },
+  {
+    "id": 132,
+    "name": "Great Blue Heron",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fish"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 183,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "extraPlace",
+      "hab": "water"
+    }
+  },
+  {
+    "id": 133,
+    "name": "Great Crested Flycatcher",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 5,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 33,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "feeder",
+      "n": 1,
+      "food": "worm",
+      "cache": false
+    }
+  },
+  {
+    "id": 135,
+    "name": "Great Egret",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "fish",
+        "rodent"
+      ]
+    ],
+    "points": 7,
+    "capacity": 3,
+    "nestType": "platform",
+    "span": 130,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 2,
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "extraPlace",
+      "hab": "water"
+    }
+  },
+  {
+    "id": 136,
+    "name": "Great Horned Owl",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "rodent",
+        "rodent",
+        "rodent"
+      ]
+    ],
+    "points": 8,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 112,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 3
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "predator",
+      "span": 100
+    }
+  },
+  {
+    "id": 140,
+    "name": "Greater Roadrunner",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "rodent",
+        "any"
+      ]
+    ],
+    "points": 7,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 56,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "rodent": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "predator",
+      "span": 50
+    }
+  },
+  {
+    "id": 141,
+    "name": "Green Heron",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fish"
+      ]
+    ],
+    "points": 4,
+    "capacity": 3,
+    "nestType": "platform",
+    "span": 66,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "exchange"
+    }
+  },
+  {
+    "id": 149,
+    "name": "Hooded Warbler",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm"
+      ]
+    ],
+    "points": 7,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 18,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "none",
+    "rule": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": 150,
+    "name": "Horned Lark",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 5,
+    "capacity": 4,
+    "nestType": "ground",
+    "span": 30,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkPlay",
+      "hab": "grass"
+    }
+  },
+  {
+    "id": 151,
+    "name": "House Finch",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 6,
+    "nestType": "bowl",
+    "span": 25,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckDraw"
+    }
+  },
+  {
+    "id": 152,
+    "name": "House Sparrow",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "seed",
+        "fruit"
+      ]
+    ],
+    "points": 6,
+    "capacity": 5,
+    "nestType": "cavity",
+    "span": 22,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "foodTuckMany",
+      "n": 5,
+      "food": "seed"
+    }
+  },
+  {
+    "id": 153,
+    "name": "House Wren",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm"
+      ]
+    ],
+    "points": 1,
+    "capacity": 5,
+    "nestType": "cavity",
+    "span": 15,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "extraPlace",
+      "same": true
+    }
+  },
+  {
+    "id": 156,
+    "name": "Juniper Titmouse",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 4,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "cache",
+      "n": 1
+    }
+  },
+  {
+    "id": 157,
+    "name": "Killdeer",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 1,
+    "capacity": 3,
+    "nestType": "ground",
+    "span": 46,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "eggDraw",
+      "n": 2
+    }
+  },
+  {
+    "id": 166,
+    "name": "Mallard",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 0,
+    "capacity": 4,
+    "nestType": "ground",
+    "span": 89,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "draw",
+      "n": 1
+    }
+  },
+  {
+    "id": 167,
+    "name": "Mississippi Kite",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "rodent"
+      ]
+    ],
+    "points": 4,
+    "capacity": 1,
+    "nestType": "platform",
+    "span": 79,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "rodent"
+    }
+  },
+  {
+    "id": 170,
+    "name": "Mountain Bluebird",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 4,
+    "capacity": 5,
+    "nestType": "cavity",
+    "span": 36,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "extraPlace",
+      "hab": "grass"
+    }
+  },
+  {
+    "id": 171,
+    "name": "Mountain Chickadee",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "cache",
+      "n": 1
+    }
+  },
+  {
+    "id": 172,
+    "name": "Mourning Dove",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "seed"
+      ]
+    ],
+    "points": 0,
+    "capacity": 5,
+    "nestType": "platform",
+    "span": 46,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "egg",
+      "n": 1,
+      "target": "this"
+    }
+  },
+  {
+    "id": 174,
+    "name": "Northern Bobwhite",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 5,
+    "capacity": 6,
+    "nestType": "ground",
+    "span": 33,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 3
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "egg",
+      "n": 1,
+      "target": "this"
+    }
+  },
+  {
+    "id": 175,
+    "name": "Northern Cardinal",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "seed",
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 5,
+    "nestType": "bowl",
+    "span": 30,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "gain",
+      "n": 1,
+      "food": "fruit"
+    }
+  },
+  {
+    "id": 176,
+    "name": "Northern Flicker",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 2,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 51,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "feederAll",
+      "food": "worm"
+    }
+  },
+  {
+    "id": 179,
+    "name": "Northern Harrier",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "rodent"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 109,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "predator",
+      "span": 75
+    }
+  },
+  {
+    "id": 181,
+    "name": "Northern Shoveler",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 7,
+    "capacity": 4,
+    "nestType": "ground",
+    "span": 76,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedDraw",
+      "n": 1
+    }
+  },
+  {
+    "id": 182,
+    "name": "Osprey",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 160,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedGain",
+      "n": 1,
+      "food": "fish"
+    }
+  },
+  {
+    "id": 184,
+    "name": "Painted Whitestart",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ]
+    ],
+    "points": 1,
+    "capacity": 3,
+    "nestType": "ground",
+    "span": 22,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "gain",
+      "n": 1,
+      "food": "worm"
+    }
+  },
+  {
+    "id": 186,
+    "name": "Peregrine Falcon",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "rodent",
+        "rodent"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 104,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 2
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "predator",
+      "span": 100
+    }
+  },
+  {
+    "id": 187,
+    "name": "Pied-Billed Grebe",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fish"
+      ]
+    ],
+    "points": 0,
+    "capacity": 4,
+    "nestType": "platform",
+    "span": 41,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "drawDiscard",
+      "n": 2,
+      "cost": 1
+    }
+  },
+  {
+    "id": 189,
+    "name": "Pine Siskin",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckGain",
+      "n": 1,
+      "food": "seed"
+    }
+  },
+  {
+    "id": 190,
+    "name": "Prothonotary Warbler",
+    "hab": [
+      "forest",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 8,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "none",
+    "rule": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": 191,
+    "name": "Purple Gallinule",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "fruit",
+        "any"
+      ]
+    ],
+    "points": 7,
+    "capacity": 4,
+    "nestType": "platform",
+    "span": 56,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "fruit": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedDraw",
+      "n": 1
+    }
+  },
+  {
+    "id": 192,
+    "name": "Purple Martin",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 46,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckDraw"
+    }
+  },
+  {
+    "id": 194,
+    "name": "Red Crossbill",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 6,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 28,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedGain",
+      "n": 1,
+      "food": "seed"
+    }
+  },
+  {
+    "id": 198,
+    "name": "Red-Bellied Woodpecker",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 1,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 41,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "feeder",
+      "n": 1,
+      "food": "seed",
+      "cache": true
+    }
+  },
+  {
+    "id": 199,
+    "name": "Red-Breasted Merganser",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fish"
+      ]
+    ],
+    "points": 3,
+    "capacity": 4,
+    "nestType": "ground",
+    "span": 78,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "drawDiscard",
+      "n": 2,
+      "cost": 1
+    }
+  },
+  {
+    "id": 200,
+    "name": "Red-Breasted Nuthatch",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "cache",
+      "n": 1
+    }
+  },
+  {
+    "id": 202,
+    "name": "Red-Eyed Vireo",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "wild",
+    "span": 25,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "extraPlace",
+      "hab": "forest"
+    }
+  },
+  {
+    "id": 203,
+    "name": "Red-Headed Woodpecker",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 4,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 43,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "feeder",
+      "n": 1,
+      "food": "seed",
+      "cache": true
+    }
+  },
+  {
+    "id": 205,
+    "name": "Red-Shouldered Hawk",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "rodent"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 102,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "predator",
+      "span": 75
+    }
+  },
+  {
+    "id": 206,
+    "name": "Red-Tailed Hawk",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "rodent",
+        "rodent"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 124,
+    "flightless": false,
+    "printedFoods": {
+      "rodent": 2
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "predator",
+      "span": 75
+    }
+  },
+  {
+    "id": 207,
+    "name": "Red-Winged Blackbird",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "seed"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 33,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckEgg"
+    }
+  },
+  {
+    "id": 208,
+    "name": "Ring-Billed Gull",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "any",
+        "any"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 122,
+    "flightless": false,
+    "printedFoods": {
+      "any": 2
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckDraw"
+    }
+  },
+  {
+    "id": 211,
+    "name": "Ruby-Crowned Kinglet",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 20,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "extraPlace",
+      "hab": "forest"
+    }
+  },
+  {
+    "id": 213,
+    "name": "Ruddy Duck",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 0,
+    "capacity": 5,
+    "nestType": "platform",
+    "span": 48,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "drawDiscard",
+      "n": 2,
+      "cost": 1
+    }
+  },
+  {
+    "id": 215,
+    "name": "Sandhill Crane",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 5,
+    "capacity": 1,
+    "nestType": "ground",
+    "span": 196,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2,
+      "any": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "foodTuck",
+      "n": 2,
+      "food": "seed"
+    }
+  },
+  {
+    "id": 216,
+    "name": "Savannah Sparrow",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "ground",
+    "span": 18,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "extraPlace",
+      "hab": "grass"
+    }
+  },
+  {
+    "id": 219,
+    "name": "Scaled Quail",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "seed"
+      ]
+    ],
+    "points": 0,
+    "capacity": 6,
+    "nestType": "ground",
+    "span": 36,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "egg",
+      "n": 1,
+      "target": "this"
+    }
+  },
+  {
+    "id": 220,
+    "name": "Scissor-Tailed Flycatcher",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 8,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 38,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedGain",
+      "n": 1,
+      "food": "worm"
+    }
+  },
+  {
+    "id": 223,
+    "name": "Snowy Egret",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fish"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 104,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "fish"
+    }
+  },
+  {
+    "id": 227,
+    "name": "Spotted Sandpiper",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 38,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedDraw",
+      "n": 1
+    }
+  },
+  {
+    "id": 228,
+    "name": "Spotted Towhee",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 0,
+    "capacity": 4,
+    "nestType": "ground",
+    "span": 28,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "gain",
+      "n": 1,
+      "food": "seed"
+    }
+  },
+  {
+    "id": 231,
+    "name": "Steller's Jay",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 48,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "feeder",
+      "n": 1,
+      "food": "seed",
+      "cache": true
+    }
+  },
+  {
+    "id": 232,
+    "name": "Swainson's Hawk",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "rodent"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 130,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "predator",
+      "span": 75
+    }
+  },
+  {
+    "id": 234,
+    "name": "Tree Swallow",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 38,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckDraw"
+    }
+  },
+  {
+    "id": 235,
+    "name": "Trumpeter Swan",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 9,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 203,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "none",
+    "rule": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": 236,
+    "name": "Tufted Titmouse",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 25,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "extraPlace",
+      "hab": "forest"
+    }
+  },
+  {
+    "id": 238,
+    "name": "Vaux's Swift",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 31,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckGain",
+      "n": 1,
+      "food": "worm"
+    }
+  },
+  {
+    "id": 239,
+    "name": "Violet-Green Swallow",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 36,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckDraw"
+    }
+  },
+  {
+    "id": 244,
+    "name": "White-Backed Woodpecker",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 2,
+    "capacity": 2,
+    "nestType": "cavity",
+    "span": 39,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "feeder",
+      "n": 1,
+      "food": "any"
+    }
+  },
+  {
+    "id": 245,
+    "name": "White-Breasted Nuthatch",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 28,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "cache",
+      "n": 1
+    }
+  },
+  {
+    "id": 247,
+    "name": "White-Faced Ibis",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm",
+        "fish"
+      ]
+    ],
+    "points": 8,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 91,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "fish"
+    }
+  },
+  {
+    "id": 251,
+    "name": "Wild Turkey",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed",
+        "fruit"
+      ]
+    ],
+    "points": 8,
+    "capacity": 5,
+    "nestType": "ground",
+    "span": 135,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "none",
+    "rule": {
+      "kind": "none"
+    }
+  },
+  {
+    "id": 252,
+    "name": "Willet",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fish"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 66,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": true,
+    "color": "brown",
+    "rule": {
+      "kind": "diceCache",
+      "n": 1,
+      "food": "fish"
+    }
+  },
+  {
+    "id": 253,
+    "name": "Wilson's Snipe",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 41,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedDraw",
+      "n": 1
+    }
+  },
+  {
+    "id": 255,
+    "name": "Wood Duck",
+    "hab": [
+      "forest",
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed",
+        "fruit"
+      ]
+    ],
+    "points": 4,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 76,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "drawDiscard",
+      "n": 2,
+      "cost": 1
+    }
+  },
+  {
+    "id": 257,
+    "name": "Yellow-Bellied Sapsucker",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 41,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "gain",
+      "n": 1,
+      "food": "worm"
+    }
+  },
+  {
+    "id": 260,
+    "name": "Yellow-Headed Blackbird",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 4,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 38,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckEgg"
+    }
+  },
+  {
+    "id": 261,
+    "name": "Yellow-Rumped Warbler",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 1,
+    "capacity": 4,
+    "nestType": "bowl",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "tuckDraw"
+    }
+  },
+  {
+    "id": 3,
+    "name": "American Avocet",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 6,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 79,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkEgg9",
+      "other": true,
+      "nest": "ground"
+    }
+  },
+  {
+    "id": 4,
+    "name": "American Bittern",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fish",
+        "rodent"
+      ]
+    ],
+    "points": 7,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 107,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1,
+      "rodent": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "fewestDraw",
+      "hab": "water"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Anna's Hummingbird",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "any"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 13,
+    "flightless": false,
+    "printedFoods": {
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedFeeder"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Ash-Throated Flycatcher",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 4,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 30,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "nestEggAll",
+      "nest": "cavity"
+    }
+  },
+  {
+    "id": 18,
+    "name": "Audouin's Gull",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "any"
+      ]
+    ],
+    "points": 1,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 132,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 1,
+      "any": 1
+    },
+    "flocking": true,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "drawTuck"
+    }
+  },
+  {
+    "id": 25,
+    "name": "Barrow's Goldeneye",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed",
+        "fish"
+      ]
+    ],
+    "points": 5,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 71,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkEgg9",
+      "other": true,
+      "nest": "cavity"
+    }
+  },
+  {
+    "id": 27,
+    "name": "Belted Kingfisher",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "any"
+      ]
+    ],
+    "points": 4,
+    "capacity": 4,
+    "nestType": "wild",
+    "span": 53,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkGain",
+      "hab": "water",
+      "food": "fish"
+    }
+  },
+  {
+    "id": 29,
+    "name": "Black Redstart",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed",
+        "fruit"
+      ]
+    ],
+    "points": 0,
+    "capacity": 4,
+    "nestType": "wild",
+    "span": 24,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "emptyHabEgg"
+    }
+  },
+  {
+    "id": 32,
+    "name": "Black Vulture",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      []
+    ],
+    "points": 2,
+    "capacity": 1,
+    "nestType": "cavity",
+    "span": 150,
+    "flightless": false,
+    "printedFoods": {},
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkPredator"
+    }
+  },
+  {
+    "id": 35,
+    "name": "Black-Billed Magpie",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "any",
+        "any"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "wild",
+    "span": 64,
+    "flightless": false,
+    "printedFoods": {
+      "any": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkPredator"
+    }
+  },
+  {
+    "id": 41,
+    "name": "Black-Throated Diver",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "fish"
+      ]
+    ],
+    "points": 5,
+    "capacity": 1,
+    "nestType": "ground",
+    "span": 120,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "refreshTray"
+    }
+  },
+  {
+    "id": 46,
+    "name": "Bluethroat",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed",
+        "fruit"
+      ]
+    ],
+    "points": 7,
+    "capacity": 5,
+    "nestType": "ground",
+    "span": 22,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "chooseSharedFood"
+    }
+  },
+  {
+    "id": 47,
+    "name": "Bobolink",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 4,
+    "capacity": 3,
+    "nestType": "ground",
+    "span": 30,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "nestEggAll",
+      "nest": "ground"
+    }
+  },
+  {
+    "id": 49,
+    "name": "Brant",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "any"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 114,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "allTray"
+    }
+  },
+  {
+    "id": 52,
+    "name": "Bronzed Cowbird",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 5,
+    "capacity": 0,
+    "nestType": "none",
+    "span": 36,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkEgg9",
+      "other": false,
+      "nest": "bowl"
+    }
+  },
+  {
+    "id": 54,
+    "name": "Brown-Headed Cowbird",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "seed"
+      ]
+    ],
+    "points": 3,
+    "capacity": 0,
+    "nestType": "none",
+    "span": 30,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkEgg9",
+      "other": false,
+      "nest": "bowl"
+    }
+  },
+  {
+    "id": 64,
+    "name": "Carrion Crow",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "any"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 92,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "maxPredator"
+    }
+  },
+  {
+    "id": 69,
+    "name": "Cetti's Warbler",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed"
+      ]
+    ],
+    "points": 4,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 17,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "doubleGoal"
+    }
+  },
+  {
+    "id": 82,
+    "name": "Common Goldeneye",
+    "hab": [
+      "forest",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fish"
+      ]
+    ],
+    "points": 2,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 73,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "nestEggThis",
+      "nest": "cavity"
+    }
+  },
+  {
+    "id": 85,
+    "name": "Common Little Bittern",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fish"
+      ]
+    ],
+    "points": 2,
+    "capacity": 3,
+    "nestType": "platform",
+    "span": 49,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "filterTray",
+      "hab": "grass"
+    }
+  },
+  {
+    "id": 86,
+    "name": "Common Loon",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "fish",
+        "any"
+      ]
+    ],
+    "points": 6,
+    "capacity": 1,
+    "nestType": "ground",
+    "span": 117,
+    "flightless": false,
+    "printedFoods": {
+      "fish": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "fewestDraw",
+      "hab": "water"
+    }
+  },
+  {
+    "id": 90,
+    "name": "Common Nightingale",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "seed"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 3,
+    "capacity": 4,
+    "nestType": "bowl",
+    "span": 23,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "chooseSharedFood"
+    }
+  },
+  {
+    "id": 104,
+    "name": "Eastern Kingbird",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm"
+      ],
+      [
+        "fruit"
+      ]
+    ],
+    "points": 2,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 38,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkGain",
+      "hab": "forest",
+      "food": "worm"
+    }
+  },
+  {
+    "id": 110,
+    "name": "Eurasian Green Woodpecker",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 4,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 48,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "doubleGoal"
+    }
+  },
+  {
+    "id": 118,
+    "name": "European Bee-Eater",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm"
+      ]
+    ],
+    "points": 3,
+    "capacity": 3,
+    "nestType": "cavity",
+    "span": 38,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "resetGain",
+      "food": "worm"
+    }
+  },
+  {
+    "id": 137,
+    "name": "Great Tit",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm",
+        "seed",
+        "fruit"
+      ]
+    ],
+    "points": 4,
+    "capacity": 6,
+    "nestType": "cavity",
+    "span": 24,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "seed": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "resetGain",
+      "food": "any"
+    }
+  },
+  {
+    "id": 143,
+    "name": "Greylag Goose",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 7,
+    "capacity": 2,
+    "nestType": "ground",
+    "span": 164,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 3
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "doubleGoal"
+    }
+  },
+  {
+    "id": 144,
+    "name": "Griffon Vulture",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      []
+    ],
+    "points": 1,
+    "capacity": 1,
+    "nestType": "platform",
+    "span": 252,
+    "flightless": false,
+    "printedFoods": {},
+    "flocking": false,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "maxPredator"
+    }
+  },
+  {
+    "id": 145,
+    "name": "Hawfinch",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 30,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "resetGain",
+      "food": "seed"
+    }
+  },
+  {
+    "id": 154,
+    "name": "Inca Dove",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "seed",
+        "seed"
+      ]
+    ],
+    "points": 2,
+    "capacity": 4,
+    "nestType": "platform",
+    "span": 28,
+    "flightless": false,
+    "printedFoods": {
+      "seed": 2
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "nestEggAll",
+      "nest": "platform"
+    }
+  },
+  {
+    "id": 160,
+    "name": "Lesser Whitethroat",
+    "hab": [
+      "forest",
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fruit"
+      ]
+    ],
+    "points": 0,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 18,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fruit": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "teal",
+    "rule": {
+      "kind": "emptyHabEgg"
+    }
+  },
+  {
+    "id": 212,
+    "name": "Ruby-Throated Hummingbird",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "any"
+      ]
+    ],
+    "points": 4,
+    "capacity": 2,
+    "nestType": "bowl",
+    "span": 10,
+    "flightless": false,
+    "printedFoods": {
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "sharedFeeder"
+    }
+  },
+  {
+    "id": 218,
+    "name": "Say's Phoebe",
+    "hab": [
+      "grass"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm",
+        "worm"
+      ]
+    ],
+    "points": 5,
+    "capacity": 3,
+    "nestType": "bowl",
+    "span": 33,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 3
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "white",
+    "rule": {
+      "kind": "nestEggAll",
+      "nest": "bowl"
+    }
+  },
+  {
+    "id": 230,
+    "name": "Squacco Heron",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fish"
+      ]
+    ],
+    "points": 3,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 86,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "filterTray",
+      "hab": "water"
+    }
+  },
+  {
+    "id": 237,
+    "name": "Turkey Vulture",
+    "hab": [
+      "forest",
+      "grass",
+      "water"
+    ],
+    "cost": [
+      []
+    ],
+    "points": 1,
+    "capacity": 1,
+    "nestType": "cavity",
+    "span": 170,
+    "flightless": false,
+    "printedFoods": {},
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkPredator"
+    }
+  },
+  {
+    "id": 242,
+    "name": "White Stork",
+    "hab": [
+      "grass",
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fish",
+        "any"
+      ]
+    ],
+    "points": 8,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 160,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "refreshTray"
+    }
+  },
+  {
+    "id": 248,
+    "name": "White-Throated Dipper",
+    "hab": [
+      "water"
+    ],
+    "cost": [
+      [
+        "worm",
+        "fish"
+      ]
+    ],
+    "points": 3,
+    "capacity": 4,
+    "nestType": "cavity",
+    "span": 28,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 1,
+      "fish": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "brown",
+    "rule": {
+      "kind": "refreshTray"
+    }
+  },
+  {
+    "id": 258,
+    "name": "Yellow-Billed Cuckoo",
+    "hab": [
+      "forest"
+    ],
+    "cost": [
+      [
+        "worm",
+        "worm",
+        "any"
+      ]
+    ],
+    "points": 5,
+    "capacity": 2,
+    "nestType": "platform",
+    "span": 46,
+    "flightless": false,
+    "printedFoods": {
+      "worm": 2,
+      "any": 1
+    },
+    "flocking": false,
+    "predator": false,
+    "color": "pink",
+    "rule": {
+      "kind": "pinkEgg9",
+      "other": false,
+      "nest": "bowl"
+    }
+  }
+]
