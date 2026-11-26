@@ -17,9 +17,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          gh run watch 45734955787 --exit-status --interval 15
-          test "$(gh run view 45734955787 --json headSha --jq .headSha)" = "88b98fe5cd0ca5a28ec4fea31b4c872362cf4b67"
-          gh run download 45734955787 --name v11-training-selection --dir selection
+          gh run watch 45735331403 --exit-status --interval 15
+          test "$(gh run view 45735331403 --json headSha --jq .headSha)" = "38ef333d0fa8b76a9835ce028a7e6f9798458218"
+          gh run download 45735331403 --name v11-training-selection --dir selection
       - id: freeze
         run: |
           node - <<'NODE'
