@@ -412,3 +412,14 @@ html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{anim
 @media(max-width:360px){#dbList.catalog-cards .orn-card>.orn-art{min-height:108px}#dbList.catalog-cards .orn-card{padding:7px!important}#board .slot.orn-card img{height:38px}}
 @media(min-width:850px){#dbList.catalog-cards .orn-card>.orn-art{min-height:175px}#board .slot.orn-card img{height:65px}#hand .orn-card>.orn-art,#tray .orn-card>.orn-art{height:110px}}
 @media(prefers-reduced-motion:no-preference){.orn-title-button,.orn-actions>button{transition:background-color 130ms ease,color 130ms ease}.orn-card .orn-points{transition:box-shadow 150ms ease}}
+
+/* Bird card scroll containment */
+#birdDialog[open],#ornPreview[open]{
+ position:fixed;inset:0;margin:auto;box-sizing:border-box;
+ max-height:calc(100vh - 24px);
+ max-height:calc(100dvh - 24px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));
+ overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;
+ -webkit-overflow-scrolling:touch;touch-action:pan-y;
+}
+html.orn-scroll-locked{overflow:hidden;overscroll-behavior:none}
+html.orn-scroll-locked body{overscroll-behavior:none}
