@@ -337,3 +337,78 @@ html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{anim
 #board .cf-occupied{background:#fffaf0dc}
 @media(max-width:350px){.cf-resources #quickStock,.cf-resources #quickStock:has(.res-tile:nth-child(7)){grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:850px){.atlas-header.cf-compact{height:98px}.cf-resource-token{min-height:92px;grid-template-columns:minmax(36px,1fr) minmax(48px,1.3fr) minmax(36px,1fr)}#guide .cf-resources .cf-resource-token .res-tile img{width:52px;height:49px}#guide #advice .advice-hero{min-height:133px}}
+
+/* Ornithology studio: a single paper, habitat and power language across all sizes. */
+.orn-card{--orn-ink:#294c3b;--orn-wash:#e5ead7;--orn-edge:#c9d1b7;--orn-power:#b8a385;--orn-land:url('./art/forest.svg')}
+.orn-card[data-habitat=grass]{--orn-ink:#6d572b;--orn-wash:#f0e5c9;--orn-edge:#d6c595;--orn-land:url('./art/grass.svg')}
+.orn-card[data-habitat=water]{--orn-ink:#376363;--orn-wash:#dce9e2;--orn-edge:#b7cec6;--orn-land:url('./art/water.svg')}
+.orn-card[data-habitat=multi]{--orn-ink:#59613d;--orn-wash:#e9e6d0;--orn-edge:#d1c9a9}
+.orn-card[data-power=brown]{--orn-power:#a67c54}
+.orn-card[data-power=white]{--orn-power:#b7bdac}
+.orn-card[data-power=pink]{--orn-power:#c18a95}
+.orn-card[data-power=teal]{--orn-power:#6f9995}
+.orn-card[data-power=yellow]{--orn-power:#c0a04d}
+.orn-art{position:relative;isolation:isolate;overflow:hidden;min-width:0;border-radius:12px;background:var(--orn-wash);display:grid;place-items:center}
+.orn-art:before{content:"";position:absolute;z-index:-1;inset:0;background-image:linear-gradient(135deg,#fffcf1a0,transparent 80%),var(--orn-land);background-size:cover;background-position:center;opacity:.62;pointer-events:none}
+.orn-art .orn-portrait{display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;background:transparent;border-radius:0;filter:none;position:relative}
+.orn-art-caption{position:absolute;bottom:4px;left:5px;right:5px;text-align:center;font-size:9px;line-height:1.2;background:#fffaf0df;border-radius:4px;padding:2px;color:#4d5d4c;pointer-events:none}
+.orn-points{position:absolute;top:7px;right:7px;width:31px;height:31px;display:grid;place-items:center;background:#fffaf0;border:1px solid var(--orn-edge);border-radius:50%;font:700 19px/1 Georgia,serif;color:var(--orn-ink);box-shadow:0 2px 5px #3d4a3220}
+.orn-scientific,.orn-card .grow>small:first-of-type{display:block;color:#6c735d;font:italic 12px/1.35 Georgia,serif;overflow-wrap:anywhere}
+.orn-title-button{display:block;text-align:left;background:none!important;border:0!important;box-shadow:none;padding:2px 0!important;min-height:44px;max-width:100%;font:700 19px/1.13 Georgia,serif;color:var(--orn-ink)!important;overflow-wrap:anywhere}
+.orn-title-button:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.orn-food,.orn-facts{display:flex;align-items:center;flex-wrap:wrap;gap:3px 6px;line-height:1.25}
+.orn-food{min-height:26px}
+.orn-food-icon{width:25px!important;height:24px!important;object-fit:contain;flex:none;background:transparent!important;border:0!important}
+.orn-food-separator{font-size:12px;color:#7e826d}
+.orn-any{font-size:21px;color:#728258}
+.orn-facts{font-size:11px;color:var(--orn-ink);margin:3px 0}
+.orn-habitats{font-weight:650}
+.orn-fact{display:inline-flex;align-items:center;gap:2px}
+.orn-fact .orn-food-icon{width:18px!important;height:17px!important}
+.orn-power-label{display:block;color:#3c4e3d;font:700 10px/1.3 system-ui,sans-serif;letter-spacing:.055em;text-transform:uppercase;border-left:3px solid var(--orn-power);padding:3px 6px;margin-top:6px}
+.orn-card .card-power{border:0;background:none;margin:3px 0 6px;font:13px/1.43 system-ui,sans-serif;overflow-wrap:anywhere}
+.orn-engine-rating{display:block;font-size:11px!important;color:#526650!important;line-height:1.35}
+.orn-reason{display:block;font-size:11px;color:var(--orn-ink);margin-top:4px}
+.orn-actions{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;min-width:0}
+.orn-actions>button,.orn-actions>select{min-height:44px;flex:1 1 auto;min-width:0;max-width:100%;font-size:12px}
+#dbList .orn-card{background:linear-gradient(160deg,#fffdf3,#f7f1e2);border:1px solid var(--orn-edge)!important;border-radius:15px;box-shadow:0 3px 10px #41381f0c;padding:10px!important;min-width:0;margin:0 0 8px}
+#dbList .orn-card .grow{min-width:0}
+#dbList.catalog-list .orn-card{display:grid;grid-template-columns:minmax(65px,26%) minmax(0,1fr);gap:8px}
+#dbList.catalog-list .orn-card>.orn-art{height:100px;align-self:start}
+#dbList.catalog-list .orn-card>.orn-actions{grid-column:1/-1}
+#dbList.catalog-cards .orn-card{display:flex;flex-direction:column;gap:6px;margin:0}
+#dbList.catalog-cards .orn-card>.orn-art{aspect-ratio:1.2;min-height:126px;width:100%}
+#dbList.catalog-cards .orn-card .orn-actions{margin-top:auto}
+#dbList.catalog-cards .orn-card .orn-title-button{font-size:clamp(17px,4.3vw,22px)}
+#dbList.catalog-cards .orn-card .card-power{font-size:12px}
+#dbList.catalog-cards .orn-card .orn-food-icon{width:23px!important;height:22px!important}
+#hand .orn-card,#tray .orn-card{display:grid;grid-template-columns:minmax(70px,27%) minmax(0,1fr);gap:8px;background:linear-gradient(135deg,#fffdf2,#f5efdf);border:1px solid var(--orn-edge);border-radius:13px;margin:6px 0;padding:8px;align-items:start}
+#hand .orn-card>.orn-art,#tray .orn-card>.orn-art{height:92px}
+#hand .orn-card>.grow,#tray .orn-card>.grow{min-width:0}
+#hand .orn-card>.grow>b{font:700 18px/1.16 Georgia,serif;color:var(--orn-ink)}
+#hand .orn-card>button,#tray .orn-card>.orn-actions{grid-column:1/-1}
+#hand .orn-card>button{justify-self:end;width:100%}
+#tray .orn-card .orn-title-button{font-size:17px}
+#board .slot.orn-card{position:relative;background:linear-gradient(145deg,#fffdf1,#f6f0e0);border:1px solid var(--orn-edge);box-shadow:0 2px 5px #3d4a3218;border-bottom:2px solid var(--orn-power)}
+#board .slot.orn-card .orn-mini-points{position:absolute;top:2px;right:2px;background:#fffaf0eb;border-radius:50%;width:17px;height:17px;display:grid;place-items:center;font:700 11px/1 Georgia,serif;padding:0;color:var(--orn-ink);z-index:1}
+#board .slot.orn-card img{height:46px;max-height:none;max-width:100%;object-fit:contain}
+#board .slot.orn-card>span{font-family:Georgia,serif;font-weight:700;color:var(--orn-ink)}
+#board .slot.orn-card .cf-bird-meta{font-size:9px}
+#ornPreview,#birdDialog{width:min(92vw,480px);max-width:100%;padding:12px;background:#faf5e7}
+.orn-detail{display:grid;gap:8px;min-width:0}
+.orn-detail .orn-art{height:clamp(145px,35dvh,250px);border:1px solid var(--orn-edge)}
+.orn-detail .orn-points{width:44px;height:44px;font-size:27px}
+.orn-name h2{font:700 clamp(25px,7vw,35px)/1.08 Georgia,serif;color:var(--orn-ink);margin:0;overflow-wrap:anywhere}
+.orn-name .orn-scientific{font-size:15px;margin-top:4px}
+.orn-detail .orn-facts{font-size:13px;gap:8px}
+.orn-detail .orn-power{border-top:1px solid var(--orn-edge);padding:3px 0}
+.orn-detail .orn-power p{font-size:14px;line-height:1.45;margin:4px 0}
+.orn-strategy{display:grid;gap:4px;padding:10px 12px;background:var(--orn-wash);border-radius:10px;overflow-wrap:anywhere}
+.orn-strategy b{font:700 17px/1.2 Georgia,serif;color:var(--orn-ink)}
+.orn-strategy small{font-size:12px;line-height:1.4}
+.orn-snapshot-note{display:block;margin:8px 0;font-size:11px}
+#ornPreview>.orn-actions{margin-top:12px}
+#ornPreview>.orn-actions>button{flex-basis:100%}
+@media(max-width:360px){#dbList.catalog-cards .orn-card>.orn-art{min-height:108px}#dbList.catalog-cards .orn-card{padding:7px!important}#board .slot.orn-card img{height:38px}}
+@media(min-width:850px){#dbList.catalog-cards .orn-card>.orn-art{min-height:175px}#board .slot.orn-card img{height:65px}#hand .orn-card>.orn-art,#tray .orn-card>.orn-art{height:110px}}
+@media(prefers-reduced-motion:no-preference){.orn-title-button,.orn-actions>button{transition:background-color 130ms ease,color 130ms ease}.orn-card .orn-points{transition:box-shadow 150ms ease}}
