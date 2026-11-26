@@ -290,7 +290,7 @@ function ornIcon(k){const source=by('quickStock').querySelector('img[src="./art/
 function sharedResourceIcons(){
  const map={...Object.fromEntries(Object.entries(F).filter(([k])=>k!=='any').map(([k,v])=>[v,k])),'🥚':'eggs'};
  for(const el of document.querySelectorAll('#advice .advice-cost,#strategyPanel .alternative small')){
-   if(el.dataset.sharedIcons)return;el.dataset.sharedIcons='1';
+   if(el.dataset.sharedIcons)continue;el.dataset.sharedIcons='1';
    const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
    for(const node of nodes){const value=node.nodeValue;const parts=value.split(/(🐛|🌾|🍒|🐟|🐭|🌸|🥚)/u);if(parts.length===1)continue;const fragment=document.createDocumentFragment();for(const part of parts){if(map[part]){const img=ornIcon(map[part]);img.style.cssText='width:1.25em;height:1.25em;vertical-align:-.25em;object-fit:contain';fragment.append(img)}else fragment.append(document.createTextNode(part))}node.replaceWith(fragment)}
  }
