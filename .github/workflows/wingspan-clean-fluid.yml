@@ -33,9 +33,12 @@ jobs:
           mkdir -p /tmp/ornithology-before
           git archive 335a0684de7bde04fdeaf09217ac4e4ad51e0abd public/wingspan | tar -x -C /tmp/ornithology-before
           python3 -m http.server 8766 --directory /tmp/ornithology-before/public >/tmp/orn-before.log 2>&1 &
+          mkdir -p /tmp/living-before
+          git archive 4bfc429aa4eed5b9d9cfd76849b771f09cd2bd2f public/wingspan | tar -x -C /tmp/living-before
+          python3 -m http.server 8767 --directory /tmp/living-before/public >/tmp/living-before.log 2>&1 &
           node - <<'JS'
           const {chromium}=require('playwright-core');
-          (async()=>{const b=await chromium.launch({executablePath:process.env.CHROME_PATH,args:['--no-sandbox']});try{for(const w of [320,390,768,1280]){const p=await b.newPage({viewport:{width:w,height:844},isMobile:w<500,hasTouch:w<500});await p.goto('http://127.0.0.1:8764/wingspan/');await p.waitForFunction(()=>DB?.version>=12);await p.screenshot({path:'evidence/before-advisor-'+w+'.png'});await p.locator('.nav [data-tab="birds"]').click();await p.screenshot({path:'evidence/before-board-'+w+'.png'});await p.close()}}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+          (async()=>{const b=await chromium.launch({executablePath:process.env.CHROME_PATH,args:['--no-sandbox']});try{for(const w of [320,375,390,768,1280]){const p=await b.newPage({viewport:{width:w,height:844},isMobile:w<500,hasTouch:w<500});await p.goto('http://127.0.0.1:8764/wingspan/');await p.waitForFunction(()=>DB?.version>=12);await p.screenshot({path:'evidence/before-advisor-'+w+'.png'});await p.locator('.nav [data-tab="birds"]').click();await p.screenshot({path:'evidence/before-board-'+w+'.png'});await p.close()}}finally{await b.close()}})().catch(e=>{console.error(e);process.exitCode=1});
           JS
           timeout 360s node tests/wingspan/browser-clean-fluid.cjs
       - uses: actions/upload-artifact@v4

@@ -394,4 +394,108 @@ function ornOwned(){
 watch('dbList',ornCatalog);watch('hand',ornHand);watch('tray',ornTray);watch('board',ornBoard);watch('birdInfo',ornOwned);
 ornCatalog();ornHand();ornTray();ornBoard();
 
+
+// Living card: keep the original snapshot operations and DOM stable across rapid edits.
+const liveKeys=[['eggsOn','Яйца','eggs'],['cachedOn','Запасённый корм','seed'],['tuckedOn','Подложенные карты','cards']];
+const liveGlyphs={
+ forest:'<path d="M12 2 4 15h5l-4 5h14l-4-5h5L12 2ZM12 20v3"/>',
+ grass:'<path d="M4 22Q5 10 2 7M11 22Q10 11 16 3M17 22Q18 13 22 10M8 22Q8 16 4 13M14 22Q14 14 10 9"/>',
+ water:'<path d="M2 8q5-5 10 0t10 0M2 14q5-5 10 0t10 0M2 20q5-5 10 0t10 0"/>',
+ bowl:'<path d="M2 9q10 16 20 0M2 9q10-5 20 0M5 13l14 1M7 16l9 1"/>',
+ cavity:'<path d="M5 22V2h14v20M8 22V3M16 22V3"/><ellipse cx="12" cy="12" rx="4" ry="5" fill="currentColor"/>',
+ ground:'<path d="M2 19h20M4 17l3-6 4 6m2 0 3-8 4 8M5 20l3 2m8-2-3 2"/>',
+ platform:'<path d="M2 8h20M4 11h16M8 11l4 10 4-10M6 5l12 1"/>',
+ star:'<path d="m12 2 3 7 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z"/>',
+ wings:'<path d="M12 14C8 4 3 4 1 5c2 7 5 11 11 12 6-1 9-5 11-12-2-1-7-1-11 9ZM12 14v7"/>',
+ cards:'<rect x="5" y="2" width="13" height="18" rx="2" transform="rotate(-12 11 11)"/><rect x="8" y="4" width="13" height="18" rx="2" fill="#faf5e7"/><path d="m11 17 6-8m-6 4 4 1"/>',
+ unknown:'<path d="M8 7a4 4 0 1 1 5 4c-1 1-1 2-1 3m0 4v1"/>'
+};
+function liveGlyph(k){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');svg.setAttribute('class','live-glyph');svg.setAttribute('fill','none');svg.setAttribute('stroke','currentColor');svg.setAttribute('stroke-width','1.5');svg.setAttribute('stroke-linecap','round');svg.setAttribute('stroke-linejoin','round');svg.innerHTML=liveGlyphs[k]||liveGlyphs.unknown;return svg}
+function liveFact(label,content){const el=ornEl('span','live-fact');el.title=label;el.setAttribute('aria-label',label);el.append(...content);return el}
+function liveFacts(b){
+ const row=ornEl('div','live-facts');const food=ornFood(b);if(!b.cost?.length)food.append(ornEl('span','','—'));
+ row.append(liveFact('Корм: '+englishCost(b),[food]));
+ const habitats=(b.hab||[]);row.append(liveFact(habitats.map(h=>H[h]||h).join(', ')||'Среда неизвестна',habitats.length?habitats.map(liveGlyph):[liveGlyph('unknown')]));
+ row.append(liveFact('Гнездо: '+(birdNests[b.nestType]||b.nestType||'неизвестно'),[liveGlyph(b.nestType==='wild'?'star':b.nestType)]));
+ row.append(liveFact('Вместимость яиц: '+(b.capacity??'неизвестна'),[ornIcon('eggs'),ornEl('span','',String(b.capacity??'—'))]));
+ row.append(liveFact(b.flightless?'Нелетающая':'Размах крыльев: '+(Number.isFinite(b.span)?b.span+' см':'неизвестен'),[liveGlyph('wings'),ornEl('span','',b.flightless?'—':Number.isFinite(b.span)?b.span+' см':'—')]));
+ return row
+}
+function liveStrategy(b){
+ const panel=ornEl('div','live-strategy'),tags=chosenGoals().filter(n=>qualifiesFor(b,n));
+ const reason=tags.length?'Подходит: '+tags.join(', '):fitReason(b)==='no free habitat'&&H[b.loc]?rowEstimate(b.loc):birdReason[fitReason(b)]||fitReason(b);
+ panel.append(ornEl('span','live-strategy-mark','✦'),ornEl('span','',reason));return panel
+}
+function liveDetail(b){
+ const el=ornEl('div','orn-detail live-detail');ornStyle(el,b);
+ el.append(ornArt(b),ornTitle(b),liveFacts(b),ornPower(b),liveStrategy(b));
+ const details=ornEl('div','live-collection');details.hidden=true;
+ details.append(ornFacts(b,true),ornStrategy(b),ornEl('p','live-explanation',v8FitDescription(b)));
+ el.append(details);return el
+}
+const liveDialog=by('birdDialog'),liveForm=liveDialog.querySelector('form'),liveClose=makeButton('×',()=>liveDialog.close(),'live-close');
+liveClose.setAttribute('aria-label','Закрыть карточку');liveDialog.append(liveClose);
+liveForm.querySelector('button[value=close]').hidden=true;
+let liveSession=null;
+function liveOpenOwned(id){
+ const bird=()=>S.birds.find(x=>x.id===id);let b=bird();if(!b)return;
+ liveSession={id,confirmed:new Set(),undo:null};const session=liveSession;
+ liveDialog.classList.add('live-bird-dialog');liveDialog.dataset.mode='play';
+ const detail=liveDetail(b),info=by('birdInfo'),actions=by('birdActions');info.replaceChildren(detail);actions.replaceChildren();
+ const status=ornEl('small','live-token-status');status.setAttribute('aria-live','polite');
+ const controls=ornEl('div','live-tokens');const rows=new Map();
+ const undo=makeButton('↶',()=>{if(session.undo&&S.birdHistory?.at(-1)===session.undo.checkpoint){const prev=session.undo;by('undoBird').click();session.confirmed=prev.confirmed;session.undo=null;sync()}},'live-undo');undo.setAttribute('aria-label','Отменить последнее изменение жетона');
+ function maxFor(key,x){return key==='eggsOn'?(Number.isInteger(x.capacity)&&x.capacity>=0?Math.min(999,x.capacity):0):999}
+ function sync(){const x=bird();if(!x)return;
+   for(const [key,o] of rows){const known=x.v8TokensKnown||S.ledgerKnown||session.confirmed.has(key);const val=Number.isInteger(x[key])?x[key]:0;
+     o.input.value=known?String(val):'';o.input.placeholder=known?'0':Number.isInteger(x[key])?'≈'+val:'?';
+     o.input.setAttribute('aria-label',o.label+(known?'':' — неизвестно; указать фактическое число'));
+     o.minus.disabled=!!S.wizard||!known||val<=0;o.plus.disabled=!!S.wizard||(known?val>=maxFor(key,x):maxFor(key,x)<1);o.plus.title=known?'Увеличить на 1':'Указать 1, если на птице один жетон';
+     o.input.disabled=!!S.wizard;o.input.max=String(maxFor(key,x));o.group.classList.toggle('live-unknown',!known);
+   }
+   status.textContent=(x.v8TokensKnown||S.ledgerKnown)?'Жетоны сохранены · только снимок': 'Неизвестные значения: укажи фактическое число. Итог сверяется после всех птиц.';
+   undo.disabled=!session.undo||S.birdHistory?.at(-1)!==session.undo.checkpoint;
+ }
+ function edit(key,value){const x=bird();if(!x||!H[x.loc]||S.wizard||!Number.isInteger(value)||value<0||value>maxFor(key,x)){sync();return}
+   const known=x.v8TokensKnown||S.ledgerKnown||session.confirmed.has(key);
+   if(known&&value===(x[key]||0)){sync();return}
+   const previous=new Set(session.confirmed);v8Checkpoint();session.undo={checkpoint:S.birdHistory.at(-1),confirmed:previous};S.lastGuided=null;
+   x[key]=value;session.confirmed.add(key);
+   if(S.ledgerKnown||x.v8TokensKnown||liveKeys.every(([k])=>session.confirmed.has(k)))x.v8TokensKnown=true;
+   if(S.ledgerKnown||played().every(z=>z.v8TokensKnown)){S.ledgerKnown=true;v8SyncLedger()}
+   save();sync();renderGuide();renderResources();renderScores();save();
+ }
+ if(H[b.loc]){
+   for(const [key,label,icon] of liveKeys){
+     const group=ornEl('div','live-token'),head=ornEl('div','live-token-head');head.append(icon==='cards'?liveGlyph('cards'):ornIcon(icon),ornEl('span','',label));
+     const steps=ornEl('div','live-token-steps');
+     const input=ornEl('input','live-token-value');input.type='number';input.min='0';input.step='1';input.inputMode='numeric';input.addEventListener('change',()=>{if(input.value.trim()!=='')edit(key,Number(input.value));else sync()});input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();input.blur()}});
+     const minus=makeButton('−',()=>{const x=bird();if(x)edit(key,(x[key]||0)-1)},'live-step');minus.setAttribute('aria-label','Уменьшить '+label);
+     const plus=makeButton('+',()=>{const x=bird();if(x){const known=x.v8TokensKnown||S.ledgerKnown||session.confirmed.has(key);edit(key,known?(x[key]||0)+1:1)}},'live-step');plus.setAttribute('aria-label','Увеличить '+label);
+     steps.append(minus,input,plus);group.append(head,steps);controls.append(group);rows.set(key,{group,input,minus,plus,label});
+   }
+   actions.append(controls,status);sync()
+ }
+ const bar=ornEl('div','live-actions'),menu=ornEl('div','live-menu');menu.hidden=true;
+ const move=makeButton('Переместить',()=>toggleMenu('move'),'live-action');
+ const more=makeButton('Подробнее',()=>{const collected=liveDialog.dataset.mode==='collection';liveDialog.dataset.mode=collected?'play':'collection';detail.querySelector('.live-collection').hidden=collected;more.textContent=collected?'Подробнее':'К игре';more.setAttribute('aria-pressed',String(!collected));menu.hidden=true;liveForm.scrollTop=0},'live-action');more.setAttribute('aria-pressed','false');
+ const extra=makeButton('…',()=>toggleMenu('extra'),'live-action');extra.setAttribute('aria-label','Дополнительные действия');
+ function toggleMenu(kind){if(!menu.hidden&&menu.dataset.kind===kind){menu.hidden=true;return}menu.dataset.kind=kind;menu.hidden=false;menu.replaceChildren();const x=bird();if(!x)return;
+   if(kind==='move'){
+     for(const h of x.hab||[])if(h!==x.loc&&rowBirds(h).length<5)menu.append(makeButton(H[h]||h,()=>moveBird(id,h),'outline-btn'));
+     if(x.loc!=='hand')menu.append(makeButton('В руку',()=>moveBird(id,'hand'),'outline-btn'));
+     if(H[x.loc]){const row=rowBirds(x.loc),i=row.indexOf(x);for(const [d,label] of [[-1,'← Левее'],[1,'Правее →']])if(row[i+d])menu.append(makeButton(label,()=>{if(S.wizard)return;v8Checkpoint();[row[i],row[i+d]]=[row[i+d],row[i]];row.forEach((z,j)=>z.slotOrder=j);renderGuide();save();liveOpenOwned(id)},'outline-btn'))}
+     if(!menu.children.length)menu.append(ornEl('small','','Нет доступных мест'));
+   }else{
+     if(H[x.loc])menu.append(makeButton('Сверить все жетоны',()=>{menu.hidden=true;const next=[...rows.values()].find(o=>o.input.value==='');if(next)next.input.focus();else rows.values().next().value?.input.focus()},'outline-btn'));
+     if(x.loc!=='discard')menu.append(makeButton('Убрать из текущего набора',()=>{if(confirm('Убрать птицу из текущего набора?'))moveBird(id,'discard')},'danger-btn'));
+   }
+   requestAnimationFrame(()=>menu.scrollIntoView({block:'nearest',behavior:'auto'}))
+ }
+ bar.append(move,more,extra);if(H[b.loc])bar.append(undo);actions.append(bar,menu);
+ if(!liveDialog.open){liveDialog.showModal();liveClose.focus({preventScroll:true})}liveForm.scrollTop=0;
+}
+showBird=liveOpenOwned;
+liveDialog.addEventListener('close',()=>{liveSession=null});
+
 })();

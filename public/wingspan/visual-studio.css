@@ -412,3 +412,50 @@ html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{anim
 @media(max-width:360px){#dbList.catalog-cards .orn-card>.orn-art{min-height:108px}#dbList.catalog-cards .orn-card{padding:7px!important}#board .slot.orn-card img{height:38px}}
 @media(min-width:850px){#dbList.catalog-cards .orn-card>.orn-art{min-height:175px}#board .slot.orn-card img{height:65px}#hand .orn-card>.orn-art,#tray .orn-card>.orn-art{height:110px}}
 @media(prefers-reduced-motion:no-preference){.orn-title-button,.orn-actions>button{transition:background-color 130ms ease,color 130ms ease}.orn-card .orn-points{transition:box-shadow 150ms ease}}
+
+
+/* Living card: single continuous paper surface, independent close and compact controls. */
+#birdDialog.live-bird-dialog{box-sizing:border-box;width:min(calc(100vw - 16px),460px);max-width:none;max-height:calc(100dvh - 18px - env(safe-area-inset-top) - env(safe-area-inset-bottom));padding:0;overflow:visible;border:1px solid #d3c9ae;border-radius:20px;background:#faf5e7;box-shadow:0 16px 60px #233d3440}
+#birdDialog.live-bird-dialog form{margin:0;box-sizing:border-box;max-height:calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow:auto;overscroll-behavior:contain;padding:9px 10px 10px;border-radius:inherit;scrollbar-width:thin}
+#birdDialog .live-close{position:absolute;z-index:5;right:13px;top:12px;min-width:44px;min-height:44px;width:44px;height:44px;display:grid;place-items:center;padding:0;border-radius:50%;background:#fffaf1f5;color:#314b3d;border:1px solid #c6c5a9;box-shadow:0 2px 9px #314b3d22;font:400 29px/1 system-ui;touch-action:manipulation}
+#birdDialog .live-detail{gap:5px}
+#birdDialog .live-detail .orn-art{height:clamp(112px,26dvh,187px);border-radius:13px}
+#birdDialog .live-detail .orn-points{left:9px;right:auto;top:9px;width:43px;height:43px}
+#birdDialog .live-detail .orn-name{padding:0 3px}
+#birdDialog .live-detail .orn-name h2{font:700 clamp(20px,5.6vw,25px)/1.06 Georgia,serif;margin:2px 0;color:var(--orn-ink);letter-spacing:-.4px}
+#birdDialog .live-detail .orn-scientific{font-size:13px;line-height:1.25}
+#birdDialog .live-facts{display:flex;align-items:center;justify-content:space-between;gap:3px 8px;flex-wrap:wrap;padding:5px 3px;border-block:1px solid var(--orn-edge);color:var(--orn-ink)}
+.live-fact{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;font:600 12px/1.2 system-ui}
+.live-fact .orn-food{gap:1px;min-height:0}
+.live-fact .orn-food-icon{width:21px!important;height:21px!important}
+.live-glyph{width:21px;height:21px;flex:none;vertical-align:middle;color:inherit}
+#birdDialog .live-detail .orn-power{border-top:none;border-left:3px solid var(--orn-power);padding:5px 7px 5px 9px;background:color-mix(in srgb,var(--orn-power) 10%,#fffaf1);border-radius:0 8px 8px 0}
+#birdDialog .live-detail .orn-power-label{font-size:10px;letter-spacing:.075em}
+#birdDialog .live-detail .orn-power p{font-size:14px;line-height:1.35;margin:3px 0 0}
+.live-strategy{display:flex;align-items:baseline;gap:6px;color:var(--orn-ink);font-size:13px;line-height:1.3;padding:4px 3px;overflow-wrap:anywhere}
+.live-strategy-mark{color:#a48345;font-size:16px}
+#birdDialog .live-tokens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:5px 0 2px}
+.live-token{min-width:0;background:#fffaf0;border:1px solid #ded6be;border-radius:11px;padding:5px 2px 2px;color:#435c46}
+.live-token-head{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:47px;text-align:center;font:600 10px/1.1 system-ui}
+.live-token-head .orn-food-icon,.live-token-head .live-glyph{height:25px!important;width:27px!important}
+.live-token-steps{display:grid;grid-template-columns:minmax(0,1fr) minmax(25px,1fr) minmax(0,1fr);align-items:center;gap:0}
+#birdDialog .live-step{width:100%;min-width:0;min-height:44px;padding:0;border:0;box-shadow:none;border-radius:8px;background:#e9eadb;color:#365643;font:500 22px/1 system-ui;touch-action:manipulation}
+#birdDialog .live-step:active:not(:disabled){background:#ceddc6;transform:scale(.94)}
+#birdDialog .live-token-value{box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:0;border:0;background:transparent;color:#304c39;text-align:center;font:700 16px/1 system-ui;font-variant-numeric:tabular-nums;appearance:textfield;-moz-appearance:textfield}
+#birdDialog .live-token-value::-webkit-inner-spin-button,#birdDialog .live-token-value::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+#birdDialog .live-token-value::placeholder{color:#77765d;font-weight:500;opacity:1}
+.live-token.live-unknown{border-style:dashed}
+.live-token-status{display:block;min-height:14px;font-size:11px;line-height:1.25;padding:2px 2px 4px;color:#666b55}
+#birdDialog .live-actions{display:flex;gap:5px;align-items:stretch;border-top:1px solid #e2dac5;padding-top:5px}
+#birdDialog .live-action,#birdDialog .live-undo{min-height:44px;min-width:44px;padding:5px 6px;white-space:nowrap;border:1px solid #d9d2bd;border-radius:9px;background:#fffaf0;color:#345440;font-size:12px;touch-action:manipulation}
+#birdDialog .live-action:nth-child(-n+2){flex:1}
+#birdDialog .live-undo{font-size:21px;line-height:1}
+#birdDialog .live-menu{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+#birdDialog .live-menu button{flex:1;min-height:44px;font-size:13px}
+#birdDialog .live-collection{border-top:1px solid var(--orn-edge);padding:5px 2px}
+#birdDialog .live-explanation{font-size:13px;line-height:1.35;color:var(--orn-ink);margin:5px 0}
+#birdDialog[data-mode=collection] .live-detail .orn-art{height:clamp(185px,42dvh,300px)}
+#birdDialog .live-collection[hidden],#birdDialog .live-menu[hidden],#birdDialog form>button[value=close]{display:none!important}
+@media(max-width:350px){#birdDialog.live-bird-dialog form{padding:7px 7px 8px}#birdDialog .live-facts{gap:3px 5px}#birdDialog .live-fact{font-size:11px}#birdDialog .live-fact .live-glyph,#birdDialog .live-fact .orn-food-icon{width:18px!important;height:18px!important}#birdDialog .live-token-head{font-size:10px}#birdDialog .live-action{padding:4px;font-size:11px}}
+@media(max-height:680px){#birdDialog .live-detail .orn-art{height:clamp(100px,23dvh,150px)}#birdDialog .live-detail{gap:4px}#birdDialog .live-token-head{min-height:40px}}
+@media(prefers-reduced-motion:reduce){#birdDialog .live-step:active{transform:none}}
