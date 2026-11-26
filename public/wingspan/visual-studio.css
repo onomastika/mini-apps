@@ -111,3 +111,12 @@ html.vs-still .vs-land-motion{display:none}html.vs-paused .vs-land-motion *{anim
 #rules details{border-color:#e2d8bf}#rules details summary{min-height:44px;padding:9px 0}
 #game .goal-choice select{background:#fffaf0}
 @media (prefers-reduced-motion:no-preference){.goalbar i,.vs-hab-meter span{transition:background-color 180ms ease,width 180ms ease}}
+
+/* Review of actual 390px screenshots: no crowded labels or nested forecast scrolling. */
+#catalog #dbTypes button{overflow-wrap:anywhere;white-space:normal;line-height:1.2;padding:7px 4px}
+@media(max-width:500px){#catalog #dbTypes{grid-template-columns:repeat(2,minmax(0,1fr))}#catalog #dbTypes button{font-size:13px;min-height:44px}.atlas-subtitle{background:#fffaf0d9;border-radius:999px;padding:2px 8px;color:#435643;display:inline-block}}
+.forecast-list{max-height:none;overflow:visible}
+#forecast .vs-metric b{white-space:nowrap}
+.vs-land-motion .vs-drift{animation:vs-drift 13s ease-in-out infinite alternate}
+@keyframes vs-drift{from{transform:translateX(-7px);opacity:.28}to{transform:translateX(9px);opacity:.6}}
+@media(prefers-reduced-motion:reduce){.vs-land-motion .vs-drift{animation:none!important}}
